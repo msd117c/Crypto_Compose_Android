@@ -1,14 +1,28 @@
 package com.msd117.cryptocompose.presentation.main.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.msd117.cryptocompose.R
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import com.msd117.cryptocompose.presentation.main.presenter.MainViewModel
+import com.msd117.cryptocompose.theme.setUi
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    private val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        setUi {
+            MainView(mainStateFlow = viewModel.getState()) { menuItem ->
+                when(menuItem) {
+                    MenuItem.COINS -> TODO()
+                    MenuItem.HISTORY -> TODO()
+                    MenuItem.MARKETS -> TODO()
+                }
+            }
+        }
     }
 }

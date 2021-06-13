@@ -3,4 +3,10 @@
 
     <!-- Splash screen -->
     <string name="splash_image_content_description">Splash screen icon</string>
+
+    <!-- Main screen -->
+    <string name="menu_item_coins">Coins</string>
+    <string name="menu_item_history">History</string>
+    <string name="menu_item_markets">Markets</string>
+
 </resources>
