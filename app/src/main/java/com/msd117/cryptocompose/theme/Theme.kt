@@ -15,11 +15,11 @@ import androidx.compose.ui.graphics.toArgb
 fun CryptoComposeTheme(content: @Composable () -> Unit) {
     val darkColors = Colors(
         primary = Color.DarkGray,
-        primaryVariant = Color.Black,
+        primaryVariant = Color.DarkGray,
         secondary = Color.DarkGray,
-        secondaryVariant = Color.Black,
-        background = Color.DarkGray,
-        surface = Color.Black,
+        secondaryVariant = Color.DarkGray,
+        background = Color.Black,
+        surface = Color.DarkGray,
         error = Color.Red,
         onPrimary = Color.White,
         onSecondary = Color.LightGray,
@@ -30,17 +30,17 @@ fun CryptoComposeTheme(content: @Composable () -> Unit) {
     )
 
     val lightColors = Colors(
-        primary = Color.LightGray,
+        primary = Color.White,
         primaryVariant = Color.White,
-        secondary = Color.LightGray,
+        secondary = Color.White,
         secondaryVariant = Color.White,
-        background = Color.LightGray,
+        background = Color.White,
         surface = Color.White,
         error = Color.Red,
-        onPrimary = Color.Black,
-        onSecondary = Color.DarkGray,
-        onBackground = Color.Black,
-        onSurface = Color.Black,
+        onPrimary = Color.DarkGray,
+        onSecondary = Color.LightGray,
+        onBackground = Color.DarkGray,
+        onSurface = Color.LightGray,
         onError = Color.Black,
         isLight = true
     )
