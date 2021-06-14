@@ -20,12 +20,12 @@ fun CryptoComposeTheme(content: @Composable () -> Unit) {
         secondaryVariant = Color.DarkGray,
         background = Color.Black,
         surface = Color.DarkGray,
-        error = Color.Red,
+        error = Color(169, 66, 66),
         onPrimary = Color.White,
         onSecondary = Color.LightGray,
         onBackground = Color.White,
         onSurface = Color.White,
-        onError = Color.White,
+        onError = Color.LightGray,
         isLight = false
     )
 
@@ -36,12 +36,12 @@ fun CryptoComposeTheme(content: @Composable () -> Unit) {
         secondaryVariant = Color.White,
         background = Color.White,
         surface = Color.White,
-        error = Color.Red,
+        error = Color(251, 101, 101),
         onPrimary = Color.DarkGray,
         onSecondary = Color.LightGray,
         onBackground = Color.DarkGray,
         onSurface = Color.LightGray,
-        onError = Color.Black,
+        onError = Color.White,
         isLight = true
     )
 
