@@ -17,12 +17,17 @@ class MainActivity : AppCompatActivity() {
 
         setUi {
             MainView(mainStateFlow = viewModel.getState()) { menuItem ->
-                when(menuItem) {
-                    MenuItem.COINS -> TODO()
-                    MenuItem.HISTORY -> TODO()
-                    MenuItem.MARKETS -> TODO()
+                when (menuItem) {
+                    MenuItem.COINS -> {
+                    }
+                    MenuItem.HISTORY -> {
+                    }
+                    MenuItem.MARKETS -> {
+                    }
                 }
             }
         }
+
+        viewModel.initialize()
     }
 }
