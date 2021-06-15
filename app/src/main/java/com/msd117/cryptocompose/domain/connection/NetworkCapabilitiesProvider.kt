@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
-class ConnectivityInformation @Inject constructor(@ApplicationContext private val context: Context) {
+class NetworkCapabilitiesProvider @Inject constructor(@ApplicationContext private val context: Context) {
 
     private val connectedState = MutableStateFlow(false)
     fun getConnectedState(): Flow<Boolean> = connectedState
