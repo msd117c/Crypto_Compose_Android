@@ -1,6 +1,6 @@
-package com.msd117.cryptocompose.presentation.main.domain
+package com.msd117.cryptocompose.domain.usecase.connection
 
-import com.msd117.cryptocompose.domain.connection.NetworkCapabilitiesProvider
+import com.msd117.cryptocompose.domain.provider.connection.NetworkCapabilitiesProvider
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

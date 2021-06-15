@@ -1,4 +1,4 @@
-package com.msd117.cryptocompose.domain.connection
+package com.msd117.cryptocompose.domain.provider.connection
 
 import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
