@@ -1,7 +1,7 @@
 package com.msd117.cryptocompose.presentation.main.presenter
 
 import androidx.lifecycle.ViewModel
-import com.msd117.cryptocompose.presentation.main.domain.IsConnectionAvailableUseCase
+import com.msd117.cryptocompose.domain.usecase.connection.IsConnectionAvailableUseCase
 import com.msd117.cryptocompose.utils.getViewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
