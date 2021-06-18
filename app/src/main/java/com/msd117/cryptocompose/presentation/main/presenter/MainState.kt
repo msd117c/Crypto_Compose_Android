@@ -4,4 +4,4 @@ data class MainState(
     val isConnected: Boolean
 )
 
-val initialState = MainState(isConnected = false)
+val initialState = MainState(isConnected = true)
