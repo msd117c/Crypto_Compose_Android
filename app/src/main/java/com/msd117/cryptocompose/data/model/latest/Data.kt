@@ -12,11 +12,11 @@ data class Data(
     @Json(name = "num_market_pairs")
     val numMarketPairs: Int? = null,
     @Json(name = "circulating_supply")
-    val circulatingSupply: Int? = null,
+    val circulatingSupply: Double? = null,
     @Json(name = "total_supply")
-    val totalSupply: Int? = null,
+    val totalSupply: Double? = null,
     @Json(name = "max_supply")
-    val maxSupply: Int? = null,
+    val maxSupply: Double? = null,
     @Json(name = "last_updated")
     val lastUpdated: String? = null,
     @Json(name = "date_added")

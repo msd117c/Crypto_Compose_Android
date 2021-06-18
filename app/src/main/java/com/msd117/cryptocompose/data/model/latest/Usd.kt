@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 data class Usd(
     val price: Double? = null,
     @Json(name = "volume_24h")
-    val volume24h: Long? = null,
+    val volume24h: Double? = null,
     @Json(name = "percent_change_1h")
     val percentChange1h: Double? = null,
     @Json(name = "percent_change_24h")
@@ -13,7 +13,7 @@ data class Usd(
     @Json(name = "percent_change_7d")
     val percentChange7d: Double? = null,
     @Json(name = "market_cap")
-    val marketCap: Long? = null,
+    val marketCap: Double? = null,
     @Json(name = "last_updated")
     val lastUpdated: String? = null
 )
