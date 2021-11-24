@@ -4,6 +4,10 @@ data class LatestCoin(
     val id: Int? = null,
     val name: String,
     val symbol: String,
+    val summary: String,
+    val growth: Growth,
+    val price: String,
+    val icon: String,
     val slug: String? = null,
     val cmcRank: Int? = null,
     val numMarketPairs: Int? = null,
@@ -18,6 +22,12 @@ data class LatestCoin(
     val eth: Eth? = null,
     val usd: Usd? = null
 )
+
+enum class Growth {
+    POSITIVE,
+    NEGATIVE,
+    NONE
+}
 
 data class Btc(
     val price: Double? = null,
