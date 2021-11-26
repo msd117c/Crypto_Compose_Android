@@ -22,7 +22,7 @@ import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-fun LatestCoinLoadedView(latestCoins: List<LatestCoin>, onClick: (LatestCoin) -> Unit) {
+fun LatestCoinLoadedView(latestCoins: List<LatestCoin>, onClick: (String) -> Unit) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         latestCoins.forEach { latestCoin ->
             item { LatestCoinItemView(latestCoin = latestCoin, onClick = onClick) }
@@ -31,7 +31,7 @@ fun LatestCoinLoadedView(latestCoins: List<LatestCoin>, onClick: (LatestCoin) ->
 }
 
 @Composable
-fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (LatestCoin) -> Unit) {
+fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String) -> Unit) {
     val growthColor = when (latestCoin.growth) {
         Growth.POSITIVE -> Color.Green
         Growth.NEGATIVE -> Color.Red
@@ -44,7 +44,7 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (LatestCoin) -> Unit) {
             .padding(8.dp, 4.dp)
             .shadow(4.dp)
     ) {
-        Button(onClick = { onClick(latestCoin) }) {
+        Button(onClick = { onClick(latestCoin.symbol) }) {
             Box(modifier = Modifier.fillMaxWidth()) {
                 Row {
                     GlideImage(
@@ -64,12 +64,12 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (LatestCoin) -> Unit) {
                     Column {
                         Text(
                             text = latestCoin.name,
-                            modifier = Modifier.padding(8.dp, 4.dp),
+                            modifier = Modifier.padding(8.dp, 2.dp),
                             color = Color.Black
                         )
                         Text(
                             text = latestCoin.symbol,
-                            modifier = Modifier.padding(8.dp, 4.dp)
+                            modifier = Modifier.padding(8.dp, 2.dp)
                         )
                     }
                 }
@@ -77,7 +77,7 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (LatestCoin) -> Unit) {
                     Text(
                         text = latestCoin.price,
                         modifier = Modifier
-                            .padding(8.dp, 4.dp)
+                            .padding(8.dp, 2.dp)
                             .fillMaxWidth(),
                         color = Color.Black,
                         textAlign = TextAlign.End
@@ -85,7 +85,7 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (LatestCoin) -> Unit) {
                     Text(
                         text = latestCoin.summary,
                         modifier = Modifier
-                            .padding(8.dp, 4.dp)
+                            .padding(8.dp, 2.dp)
                             .fillMaxWidth(),
                         color = growthColor,
                         textAlign = TextAlign.End

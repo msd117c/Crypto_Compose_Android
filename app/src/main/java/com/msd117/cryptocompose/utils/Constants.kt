@@ -7,4 +7,7 @@ object ApiConstants {
     const val baseUrl = "https://pro-api.coinmarketcap.com/$version/$cryptocurrency"
 
     const val latestEndpoint = "listings/latest"
+    const val infoEndpoint = "info"
+
+    const val QUERY_PARAMETER_SYMBOL = "symbol"
 }

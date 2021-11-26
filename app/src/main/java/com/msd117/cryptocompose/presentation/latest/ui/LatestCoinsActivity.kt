@@ -1,8 +1,11 @@
 package com.msd117.cryptocompose.presentation.latest.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.msd117.cryptocompose.presentation.detail.ui.COIN_SYMBOL_PARAMETER
+import com.msd117.cryptocompose.presentation.detail.ui.CoinDetailActivity
 import com.msd117.cryptocompose.presentation.latest.presenter.LatestCoinsViewModel
 import com.msd117.cryptocompose.presentation.latest.ui.view.LatestCoinsView
 import com.msd117.cryptocompose.theme.setUi
@@ -16,10 +19,16 @@ class LatestCoinsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setUi {
-            LatestCoinsView(stateFlow = viewModel.getState())
-        }
+        setUi { LatestCoinsView(stateFlow = viewModel.getState(), ::openCoinDetail) }
 
         viewModel.fetchLatestCoins()
+    }
+
+    private fun openCoinDetail(symbol: String) {
+        val intent = Intent(this, CoinDetailActivity::class.java).apply {
+            putExtra(COIN_SYMBOL_PARAMETER, symbol)
+        }
+
+        startActivity(intent)
     }
 }

@@ -17,6 +17,7 @@ class LatestCoinsViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val scope = getViewModelScope(coroutineScope)
+
     private val state: MutableStateFlow<LatestCoinsState> = MutableStateFlow(initialState)
     fun getState(): Flow<LatestCoinsState> = state
 

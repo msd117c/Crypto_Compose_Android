@@ -26,6 +26,8 @@
         <activity android:name=".presentation.main.ui.MainActivity" />
 
         <activity android:name=".presentation.latest.ui.LatestCoinsActivity" />
+
+        <activity android:name=".presentation.detail.ui.CoinDetailActivity" />
     </application>
 
 </manifest>
