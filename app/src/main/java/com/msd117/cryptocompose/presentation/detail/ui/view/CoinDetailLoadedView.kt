@@ -2,9 +2,7 @@ package com.msd117.cryptocompose.presentation.detail.ui.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,6 +20,7 @@ import com.msd117.cryptocompose.theme.CryptoComposeTheme
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 
+@ExperimentalMaterialApi
 @Composable
 fun CoinDetailLoadedView(coinDetail: CoinDetail) {
     Column(modifier = Modifier.fillMaxWidth()) {
@@ -63,6 +62,25 @@ fun CoinDetailLoadedView(coinDetail: CoinDetail) {
         )
         Column(modifier = Modifier.padding(16.dp, 24.dp)) {
             Text(text = coinDetail.description)
+            Card(
+                onClick = { },
+                modifier = Modifier.padding(0.dp, 8.dp)
+            ) {
+                Row(modifier = Modifier.padding(16.dp)) {
+                    GlideImage(
+                        imageModel = R.drawable.ic_source_code,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .requiredSize(38.dp)
+                    )
+                    Text(
+                        text = "Source code",
+                        modifier = Modifier
+                            .padding(8.dp, 0.dp)
+                            .align(Alignment.CenterVertically)
+                    )
+                }
+            }
             Row(
                 modifier = Modifier
                     .padding(0.dp, 32.dp)
@@ -70,19 +88,37 @@ fun CoinDetailLoadedView(coinDetail: CoinDetail) {
                 horizontalArrangement = Arrangement.spacedBy(24.dp)
             ) {
                 GlideImage(
-                    imageModel = "https://logodownload.org/wp-content/uploads/2014/09/twitter-logo-1-1.png",
+                    imageModel = R.drawable.ic_twitter,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .requiredSize(38.dp)
                 )
                 GlideImage(
-                    imageModel = "https://logodownload.org/wp-content/uploads/2018/02/reddit-logo-16.png",
+                    imageModel = R.drawable.ic_reddit,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .requiredSize(38.dp)
                 )
                 GlideImage(
-                    imageModel = "https://www.clipartmax.com/png/middle/288-2882355_how-to-set-use-world-grey-svg-vector-world-globe-black-and.png",
+                    imageModel = R.drawable.ic_browser,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .requiredSize(38.dp)
+                )
+                GlideImage(
+                    imageModel = R.drawable.ic_documentation,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .requiredSize(38.dp)
+                )
+                GlideImage(
+                    imageModel = R.drawable.ic_chat,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .requiredSize(38.dp)
+                )
+                GlideImage(
+                    imageModel = R.drawable.ic_announcement,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .requiredSize(38.dp)
@@ -92,6 +128,7 @@ fun CoinDetailLoadedView(coinDetail: CoinDetail) {
     }
 }
 
+@ExperimentalMaterialApi
 @Preview
 @Composable
 fun CoinDetailLoadedPreview() {
