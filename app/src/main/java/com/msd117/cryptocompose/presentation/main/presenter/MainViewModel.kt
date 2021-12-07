@@ -2,6 +2,7 @@ package com.msd117.cryptocompose.presentation.main.presenter
 
 import androidx.lifecycle.ViewModel
 import com.msd117.cryptocompose.domain.usecase.connection.IsConnectionAvailableUseCase
+import com.msd117.cryptocompose.presentation.main.ui.MenuItem
 import com.msd117.cryptocompose.utils.getViewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -25,5 +26,9 @@ class MainViewModel @Inject constructor(
         isConnectionAvailableUseCase().onEach { isConnected ->
             state.emit(state.value.copy(isConnected = isConnected))
         }.launchIn(scope)
+    }
+
+    fun onMenuItemClicked(menuItem: MenuItem) {
+        state.tryEmit(state.value.copy(menuItem = menuItem))
     }
 }

@@ -8,6 +8,7 @@ import com.msd117.cryptocompose.presentation.latest.ui.LatestCoinsActivity
 import com.msd117.cryptocompose.presentation.main.presenter.MainViewModel
 import com.msd117.cryptocompose.theme.setUi
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -17,14 +18,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setUi {
-            MainView(mainStateFlow = viewModel.getState()) { menuItem ->
+        with(viewModel.getState()) {
+            setUi { MainView(mainStateFlow = this, onClicked = viewModel::onMenuItemClicked) }
+            onEach { (_, menuItem) ->
                 when (menuItem) {
-                    MenuItem.COINS -> startActivity(Intent(this, LatestCoinsActivity::class.java))
-                    MenuItem.HISTORY -> {
-                    }
-                    MenuItem.MARKETS -> {
-                    }
+                    MenuItem.COINS -> startActivity(
+                        Intent(this@MainActivity, LatestCoinsActivity::class.java)
+                    )
+                    MenuItem.HISTORY -> {}
+                    MenuItem.MARKETS -> {}
                 }
             }
         }

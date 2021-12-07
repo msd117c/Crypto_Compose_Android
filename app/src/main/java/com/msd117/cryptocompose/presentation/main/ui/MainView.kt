@@ -92,6 +92,6 @@ fun MainMenuItem(
 @Composable
 fun MainViewPreview() {
     BaseView {
-        MainView(flowOf(MainState(true))) {}
+        MainView(flowOf(MainState(true, MenuItem.COINS))) {}
     }
 }
