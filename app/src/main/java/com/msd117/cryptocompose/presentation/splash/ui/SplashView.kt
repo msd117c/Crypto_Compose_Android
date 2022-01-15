@@ -5,17 +5,31 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.msd117.cryptocompose.R
 import com.msd117.cryptocompose.theme.BaseView
+import com.msd117.cryptocompose.utils.NavigationConstants
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 
 @Composable
-fun SplashView() {
+fun SplashView(navController: NavController) {
+    LaunchedEffect("navigation") {
+        withContext(Dispatchers.Main) {
+            delay(3000)
+            navController.navigate(NavigationConstants.MainRoute) {
+                popUpTo(NavigationConstants.SplashRoute) { inclusive = true }
+            }
+        }
+    }
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.ic_coinmarket_logo),
@@ -30,6 +44,6 @@ fun SplashView() {
 @Composable
 fun SplashViewPreview() {
     BaseView {
-        SplashView()
+        //SplashView()
     }
 }

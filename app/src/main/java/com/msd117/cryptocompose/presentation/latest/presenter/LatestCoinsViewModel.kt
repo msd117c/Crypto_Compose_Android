@@ -21,7 +21,7 @@ class LatestCoinsViewModel @Inject constructor(
     private val state: MutableStateFlow<LatestCoinsState> = MutableStateFlow(initialState)
     fun getState(): Flow<LatestCoinsState> = state
 
-    fun fetchLatestCoins() {
+    init {
         scope.launch {
             state.value = LatestCoinsState.Loading
             val latestCoins = fetchLatestModelsHelper()

@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CryptoCompose">
         <activity
-            android:name=".presentation.splash.ui.SplashActivity"
+            android:name=".presentation.main.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,12 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".presentation.main.ui.MainActivity" />
-
-        <activity android:name=".presentation.latest.ui.LatestCoinsActivity" />
-
-        <activity android:name=".presentation.detail.ui.CoinDetailActivity" />
     </application>
 
 </manifest>

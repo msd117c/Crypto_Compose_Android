@@ -6,14 +6,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.msd117.cryptocompose.presentation.latest.presenter.LatestCoinsState
+import com.msd117.cryptocompose.presentation.latest.presenter.LatestCoinsViewModel
 import com.msd117.cryptocompose.presentation.latest.presenter.initialState
 import com.msd117.cryptocompose.theme.BaseView
-import kotlinx.coroutines.flow.Flow
+import com.msd117.cryptocompose.utils.NavigationConstants
 
 @Composable
-fun LatestCoinsView(stateFlow: Flow<LatestCoinsState>, onCoinClicked: (String) -> Unit) {
-    val currentState by stateFlow.collectAsState(initial = initialState)
+fun LatestCoinsView(viewModel: LatestCoinsViewModel, navController: NavController) {
+    val currentState by viewModel.getState().collectAsState(initial = initialState)
 
     Crossfade(targetState = currentState, animationSpec = tween(1000)) { state ->
         when (state) {
@@ -21,7 +23,7 @@ fun LatestCoinsView(stateFlow: Flow<LatestCoinsState>, onCoinClicked: (String) -
             is LatestCoinsState.Error -> LatestCoinErrorView()
             is LatestCoinsState.Loaded -> LatestCoinLoadedView(
                 latestCoins = state.latestCoins,
-                onClick = onCoinClicked
+                onClick = { navController.navigate(NavigationConstants.CoinDetailsRoute) }
             )
         }
     }

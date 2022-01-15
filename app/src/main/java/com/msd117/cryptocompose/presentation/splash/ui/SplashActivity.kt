@@ -15,7 +15,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setUi {
-            SplashView()
+            //SplashView()
         }
 
         CoroutineScope(Job()).launch {

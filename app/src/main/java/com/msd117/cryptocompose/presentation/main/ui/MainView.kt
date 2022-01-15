@@ -14,12 +14,12 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.msd117.cryptocompose.R
-import com.msd117.cryptocompose.presentation.main.presenter.MainState
+import com.msd117.cryptocompose.presentation.main.presenter.MainViewModel
 import com.msd117.cryptocompose.presentation.main.presenter.initialState
 import com.msd117.cryptocompose.theme.BaseView
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import com.msd117.cryptocompose.utils.NavigationConstants
 
 enum class MenuItem(@StringRes val label: Int) {
     COINS(R.string.menu_item_coins),
@@ -28,24 +28,24 @@ enum class MenuItem(@StringRes val label: Int) {
 }
 
 @Composable
-fun MainView(mainStateFlow: Flow<MainState>, onClicked: (menuItem: MenuItem) -> Unit) {
-    val mainState = mainStateFlow.collectAsState(initial = initialState)
+fun MainView(mainViewModel: MainViewModel, navController: NavController) {
+    val mainState = mainViewModel.getState().collectAsState(initial = initialState)
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
             MainMenuItem(
                 menuItem = MenuItem.COINS,
                 isConnected = mainState.value.isConnected,
-                onClicked = onClicked
+                onClicked = { navController.navigate(NavigationConstants.LatestCoinsRoute) }
             )
             MainMenuItem(
                 menuItem = MenuItem.HISTORY,
                 isConnected = mainState.value.isConnected,
-                onClicked = onClicked
+                onClicked = mainViewModel::onMenuItemClicked
             )
             MainMenuItem(
                 menuItem = MenuItem.MARKETS,
                 isConnected = mainState.value.isConnected,
-                onClicked = onClicked
+                onClicked = mainViewModel::onMenuItemClicked
             )
         }
         if (!mainState.value.isConnected) {
@@ -92,6 +92,6 @@ fun MainMenuItem(
 @Composable
 fun MainViewPreview() {
     BaseView {
-        MainView(flowOf(MainState(true, MenuItem.COINS))) {}
+        // MainView(flowOf(MainState(true, MenuItem.COINS))) {}
     }
 }

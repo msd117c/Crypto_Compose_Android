@@ -1,23 +1,39 @@
 package com.msd117.cryptocompose.presentation.main.ui
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.msd117.cryptocompose.presentation.main.presenter.MainViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.msd117.cryptocompose.presentation.latest.ui.view.LatestCoinsView
+import com.msd117.cryptocompose.presentation.splash.ui.SplashView
 import com.msd117.cryptocompose.theme.setUi
+import com.msd117.cryptocompose.utils.NavigationConstants
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel: MainViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        with(viewModel) {
-            setUi { MainView(mainStateFlow = getState(), onClicked = ::onMenuItemClicked) }
-            initialize()
+        setUi {
+            val navController = rememberNavController()
+            NavHost(
+                navController = navController,
+                startDestination = NavigationConstants.SplashRoute
+            ) {
+                composable(NavigationConstants.SplashRoute) {
+                    SplashView(navController = navController)
+                }
+                composable(NavigationConstants.MainRoute) {
+                    MainView(mainViewModel = hiltViewModel(), navController = navController)
+                }
+                composable(NavigationConstants.LatestCoinsRoute) {
+                    LatestCoinsView(viewModel = hiltViewModel(), navController = navController)
+                }
+            }
         }
     }
 }

@@ -16,14 +16,14 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     coroutineScope: CoroutineScope?,
-    private val isConnectionAvailableUseCase: IsConnectionAvailableUseCase
+    isConnectionAvailableUseCase: IsConnectionAvailableUseCase
 ) : ViewModel() {
 
     private val scope = getViewModelScope(coroutineScope)
     private val state: MutableStateFlow<MainState> = MutableStateFlow(initialState)
     fun getState(): Flow<MainState> = state
 
-    fun initialize() {
+    init {
         isConnectionAvailableUseCase().onEach { isConnected ->
             state.emit(state.value.copy(isConnected = isConnected))
         }.launchIn(scope)
