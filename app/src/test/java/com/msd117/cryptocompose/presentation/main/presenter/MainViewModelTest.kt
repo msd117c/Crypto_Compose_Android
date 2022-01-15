@@ -1,6 +1,7 @@
 package com.msd117.cryptocompose.presentation.main.presenter
 
 import com.msd117.cryptocompose.domain.usecase.connection.IsConnectionAvailableUseCase
+import com.msd117.cryptocompose.presentation.main.ui.MenuItem
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
@@ -35,6 +36,17 @@ class MainViewModelTest {
         val expectedState = runBlocking { viewModel.getState().first().copy(isConnected = false) }
 
         viewModel.initialize()
+
+        val state = runBlocking { viewModel.getState().first() }
+        assert(state == expectedState)
+    }
+
+    @Test
+    fun `when menu item clicked should emit the state with the expected menu item`() {
+        val menuItem: MenuItem = mock()
+        val expectedState = runBlocking { viewModel.getState().first().copy(menuItem = menuItem) }
+
+        viewModel.onMenuItemClicked(menuItem)
 
         val state = runBlocking { viewModel.getState().first() }
         assert(state == expectedState)

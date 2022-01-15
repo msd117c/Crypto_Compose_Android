@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,6 +30,6 @@ class MainViewModel @Inject constructor(
     }
 
     fun onMenuItemClicked(menuItem: MenuItem) {
-        state.tryEmit(state.value.copy(menuItem = menuItem))
+        scope.launch { state.emit(state.value.copy(menuItem = menuItem)) }
     }
 }
