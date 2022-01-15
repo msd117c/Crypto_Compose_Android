@@ -23,7 +23,13 @@ fun LatestCoinsView(viewModel: LatestCoinsViewModel, navController: NavControlle
             is LatestCoinsState.Error -> LatestCoinErrorView()
             is LatestCoinsState.Loaded -> LatestCoinLoadedView(
                 latestCoins = state.latestCoins,
-                onClick = { navController.navigate(NavigationConstants.CoinDetailsRoute) }
+                onClick = { symbol ->
+                    val route = NavigationConstants.CoinDetailsRoute.replace(
+                        NavigationConstants.CoinDetailsRouteSymbolArgToReplace,
+                        symbol
+                    )
+                    navController.navigate(route)
+                }
             )
         }
     }

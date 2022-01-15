@@ -23,8 +23,5 @@ class CoinDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setUi { CoinDetailView(stateFlow = viewModel.getState()) }
-
-        viewModel.fetchCoinDetail(symbol)
     }
 }

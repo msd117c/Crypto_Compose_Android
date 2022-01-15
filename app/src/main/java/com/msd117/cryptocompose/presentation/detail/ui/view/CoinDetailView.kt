@@ -7,13 +7,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.msd117.cryptocompose.presentation.detail.presenter.CoinDetailState
+import com.msd117.cryptocompose.presentation.detail.presenter.CoinDetailViewModel
 import com.msd117.cryptocompose.presentation.latest.presenter.initialState
-import kotlinx.coroutines.flow.Flow
 
 @ExperimentalMaterialApi
 @Composable
-fun CoinDetailView(stateFlow: Flow<CoinDetailState>) {
-    val currentState by stateFlow.collectAsState(initial = initialState)
+fun CoinDetailView(viewModel: CoinDetailViewModel, symbol: String) {
+    viewModel.fetchCoinDetails(symbol)
+    val currentState by viewModel.getState().collectAsState(initial = initialState)
 
     Crossfade(targetState = currentState, animationSpec = tween(1000)) { state ->
         when (state) {

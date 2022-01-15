@@ -21,7 +21,7 @@ class CoinDetailViewModel @Inject constructor(
     private val state: MutableStateFlow<CoinDetailState> = MutableStateFlow(initialState)
     fun getState(): Flow<CoinDetailState> = state
 
-    fun fetchCoinDetail(symbol: String) {
+    fun fetchCoinDetails(symbol: String) {
         scope.launch {
             state.value = CoinDetailState.Loading
             try {
