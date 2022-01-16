@@ -9,16 +9,27 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.msd117.cryptocompose.presentation.detail.presenter.CoinDetailViewModel
 import com.msd117.cryptocompose.presentation.detail.ui.view.CoinDetailView
-import com.msd117.cryptocompose.presentation.latest.ui.view.LatestCoinsView
+import com.msd117.cryptocompose.presentation.detail.ui.view.coinDetailViewModel
+import com.msd117.cryptocompose.presentation.latest.ui.LatestCoinsView
 import com.msd117.cryptocompose.presentation.splash.ui.SplashView
 import com.msd117.cryptocompose.theme.setUi
 import com.msd117.cryptocompose.utils.NavigationConstants
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.components.ActivityComponent
 
 @ExperimentalMaterialApi
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    @EntryPoint
+    @InstallIn(ActivityComponent::class)
+    interface ViewModelFactoryProvider {
+        fun coinDetailViewModelFactory(): CoinDetailViewModel.Factory
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                     SplashView(navController = navController)
                 }
                 composable(NavigationConstants.MainRoute) {
-                    MainView(mainViewModel = hiltViewModel(), navController = navController)
+                    MainView(viewModel = hiltViewModel(), navController = navController)
                 }
                 composable(NavigationConstants.LatestCoinsRoute) {
                     LatestCoinsView(viewModel = hiltViewModel(), navController = navController)
@@ -44,11 +55,11 @@ class MainActivity : AppCompatActivity() {
                         type = NavType.StringType
                     })
                 ) { backStackEntry ->
-                    CoinDetailView(
-                        viewModel = hiltViewModel(),
-                        symbol = backStackEntry.arguments?.getString(NavigationConstants.CoinDetailsRouteSymbolArg)
-                            .orEmpty()
-                    )
+                    val symbol = backStackEntry.arguments?.getString(
+                        NavigationConstants.CoinDetailsRouteSymbolArg
+                    ).orEmpty()
+                    val viewModel = coinDetailViewModel(symbol = symbol)
+                    CoinDetailView(viewModel = viewModel)
                 }
             }
         }

@@ -1,10 +1,9 @@
 package com.msd117.cryptocompose.presentation.main.presenter
 
-import com.msd117.cryptocompose.presentation.main.ui.MenuItem
+sealed class MainState {
 
-data class MainState(
-    val isConnected: Boolean,
-    val menuItem: MenuItem?
-)
+    object Uninitialized : MainState()
+    data class Loaded(val isConnected: Boolean) : MainState()
+}
 
-val initialState = MainState(isConnected = true, menuItem = null)
+val initialState = MainState.Uninitialized

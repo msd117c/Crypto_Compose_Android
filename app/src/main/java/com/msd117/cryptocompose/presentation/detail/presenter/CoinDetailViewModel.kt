@@ -1,19 +1,23 @@
 package com.msd117.cryptocompose.presentation.detail.presenter
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.msd117.cryptocompose.presentation.detail.helper.FetchCoinDetailInfoHelper
+import com.msd117.cryptocompose.utils.NavigationConstants
 import com.msd117.cryptocompose.utils.getViewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import javax.inject.Named
 
-@HiltViewModel
-class CoinDetailViewModel @Inject constructor(
+class CoinDetailViewModel @AssistedInject constructor(
     coroutineScope: CoroutineScope?,
-    private val fetchCoinDetailInfoHelper: FetchCoinDetailInfoHelper
+    private val fetchCoinDetailInfoHelper: FetchCoinDetailInfoHelper,
+    @Assisted private val symbol: String
 ) : ViewModel() {
 
     private val scope = getViewModelScope(coroutineScope)
@@ -21,7 +25,7 @@ class CoinDetailViewModel @Inject constructor(
     private val state: MutableStateFlow<CoinDetailState> = MutableStateFlow(initialState)
     fun getState(): Flow<CoinDetailState> = state
 
-    fun fetchCoinDetails(symbol: String) {
+    init {
         scope.launch {
             state.value = CoinDetailState.Loading
             try {
@@ -29,6 +33,25 @@ class CoinDetailViewModel @Inject constructor(
                 state.value = CoinDetailState.Loaded(coinDetail)
             } catch (exception: Exception) {
                 state.value = CoinDetailState.Error
+            }
+        }
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(
+            @Named(NavigationConstants.CoinDetailsRouteSymbolArg) symbol: String
+        ): CoinDetailViewModel
+    }
+
+    companion object {
+        fun provideFactory(
+            assistedFactory: Factory,
+            symbol: String
+        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return assistedFactory.create(symbol) as T
             }
         }
     }

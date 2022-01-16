@@ -1,4 +1,4 @@
-package com.msd117.cryptocompose.presentation.latest.ui.view
+package com.msd117.cryptocompose.presentation.latest.ui
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
@@ -10,12 +10,16 @@ import androidx.navigation.NavController
 import com.msd117.cryptocompose.presentation.latest.presenter.LatestCoinsState
 import com.msd117.cryptocompose.presentation.latest.presenter.LatestCoinsViewModel
 import com.msd117.cryptocompose.presentation.latest.presenter.initialState
+import com.msd117.cryptocompose.presentation.latest.ui.view.LatestCoinErrorView
+import com.msd117.cryptocompose.presentation.latest.ui.view.LatestCoinLoadedView
+import com.msd117.cryptocompose.presentation.latest.ui.view.LatestCoinLoadingView
 import com.msd117.cryptocompose.theme.BaseView
 import com.msd117.cryptocompose.utils.NavigationConstants
 
 @Composable
 fun LatestCoinsView(viewModel: LatestCoinsViewModel, navController: NavController) {
     val currentState by viewModel.getState().collectAsState(initial = initialState)
+    viewModel.initialize()
 
     Crossfade(targetState = currentState, animationSpec = tween(1000)) { state ->
         when (state) {
@@ -31,6 +35,7 @@ fun LatestCoinsView(viewModel: LatestCoinsViewModel, navController: NavControlle
                     navController.navigate(route)
                 }
             )
+            is LatestCoinsState.Uninitialized -> Unit
         }
     }
 }
