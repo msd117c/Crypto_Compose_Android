@@ -1,4 +1,4 @@
-package com.msd117.cryptocompose.presentation.latest.ui.view
+package com.msd117.cryptocompose.presentation.latest.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

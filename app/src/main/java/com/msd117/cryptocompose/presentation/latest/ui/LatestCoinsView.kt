@@ -10,9 +10,6 @@ import androidx.navigation.NavController
 import com.msd117.cryptocompose.presentation.latest.presenter.LatestCoinsState
 import com.msd117.cryptocompose.presentation.latest.presenter.LatestCoinsViewModel
 import com.msd117.cryptocompose.presentation.latest.presenter.initialState
-import com.msd117.cryptocompose.presentation.latest.ui.view.LatestCoinErrorView
-import com.msd117.cryptocompose.presentation.latest.ui.view.LatestCoinLoadedView
-import com.msd117.cryptocompose.presentation.latest.ui.view.LatestCoinLoadingView
 import com.msd117.cryptocompose.theme.BaseView
 import com.msd117.cryptocompose.utils.NavigationConstants
 

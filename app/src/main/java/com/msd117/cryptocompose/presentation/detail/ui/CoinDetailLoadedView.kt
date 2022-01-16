@@ -1,4 +1,4 @@
-package com.msd117.cryptocompose.presentation.detail.ui.view
+package com.msd117.cryptocompose.presentation.detail.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
