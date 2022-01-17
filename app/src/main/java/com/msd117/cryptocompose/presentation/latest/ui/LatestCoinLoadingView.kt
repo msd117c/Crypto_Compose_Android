@@ -34,9 +34,9 @@ fun LoadingItemView() {
         Box(modifier = Modifier.fillMaxWidth()) {
             Row {
                 LoadingCircle(
-                    size = 52.dp,
+                    size = 48.dp,
                     modifier = Modifier
-                        .padding(12.dp, 4.dp, 0.dp, 4.dp)
+                        .padding(14.dp, 6.dp, 0.dp, 6.dp)
                         .align(Alignment.CenterVertically)
                 )
                 Column(modifier = Modifier.align(Alignment.CenterVertically)) {

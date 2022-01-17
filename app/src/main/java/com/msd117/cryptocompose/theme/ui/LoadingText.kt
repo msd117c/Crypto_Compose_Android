@@ -1,9 +1,7 @@
 package com.msd117.cryptocompose.theme.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,10 +18,21 @@ enum class Height(val dp: Dp) {
 }
 
 @Composable
-fun LoadingText(width: Dp, height: Height, modifier: Modifier) {
+fun LoadingText(width: Dp, height: Height, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .size(width = width, height = height.dp)
+            .shimmer()
+            .background(color = Color.Gray)
+    )
+}
+
+@Composable
+fun LoadingText(height: Height, modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(height = height.dp)
             .shimmer()
             .background(color = Color.Gray)
     )

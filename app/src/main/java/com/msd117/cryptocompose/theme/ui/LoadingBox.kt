@@ -36,7 +36,7 @@ fun LoadingBox(size: Dp, modifier: Modifier) {
 }
 
 @Composable
-fun LoadingCircle(size: Dp, modifier: Modifier) {
+fun LoadingCircle(size: Dp, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .size(size = size)
