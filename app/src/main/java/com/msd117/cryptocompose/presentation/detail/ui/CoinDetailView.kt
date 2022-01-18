@@ -1,4 +1,4 @@
-package com.msd117.cryptocompose.presentation.detail.ui.view
+package com.msd117.cryptocompose.presentation.detail.ui
 
 import android.app.Activity
 import androidx.compose.animation.Crossfade
@@ -11,9 +11,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.msd117.cryptocompose.presentation.detail.presenter.CoinDetailState
 import com.msd117.cryptocompose.presentation.detail.presenter.CoinDetailViewModel
-import com.msd117.cryptocompose.presentation.detail.ui.CoinDetailErrorView
-import com.msd117.cryptocompose.presentation.detail.ui.CoinDetailLoadedView
-import com.msd117.cryptocompose.presentation.detail.ui.CoinDetailLoadingView
 import com.msd117.cryptocompose.presentation.latest.presenter.initialState
 import com.msd117.cryptocompose.presentation.main.ui.MainActivity
 import dagger.hilt.android.EntryPointAccessors

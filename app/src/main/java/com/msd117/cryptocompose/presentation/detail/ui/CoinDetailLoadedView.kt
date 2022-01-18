@@ -2,14 +2,21 @@ package com.msd117.cryptocompose.presentation.detail.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.msd117.cryptocompose.R
@@ -60,69 +67,56 @@ fun CoinDetailLoadedView(coinDetail: CoinDetail) {
                 )
             }
         )
-        Column(modifier = Modifier.padding(16.dp, 24.dp)) {
+        Column(modifier = Modifier.padding(16.dp)) {
             Text(text = coinDetail.description)
-            Card(
-                onClick = { },
-                modifier = Modifier.padding(0.dp, 8.dp)
+            LazyRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(0.dp, 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Row(modifier = Modifier.padding(16.dp)) {
-                    GlideImage(
-                        imageModel = R.drawable.ic_source_code,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .requiredSize(38.dp)
-                    )
-                    Text(
-                        text = "Source code",
-                        modifier = Modifier
-                            .padding(8.dp, 0.dp)
-                            .align(Alignment.CenterVertically)
-                    )
+                coinDetail.technicalButtons.forEach { technicalButton ->
+                    item {
+                        Card(
+                            onClick = { },
+                            modifier = Modifier
+                                .padding(4.dp)
+                                .shadow(4.dp)
+                        ) {
+                            Row(modifier = Modifier.padding(8.dp)) {
+                                GlideImage(
+                                    imageModel = technicalButton.icon,
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier.requiredSize(40.dp)
+                                )
+                                Text(
+                                    text = LocalContext.current.getString(technicalButton.label),
+                                    modifier = Modifier
+                                        .padding(8.dp, 0.dp)
+                                        .align(Alignment.CenterVertically)
+                                )
+                            }
+                        }
+                    }
                 }
             }
-            Row(
-                modifier = Modifier
-                    .padding(0.dp, 32.dp)
-                    .align(Alignment.CenterHorizontally),
-                horizontalArrangement = Arrangement.spacedBy(24.dp)
-            ) {
-                GlideImage(
-                    imageModel = R.drawable.ic_twitter,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .requiredSize(38.dp)
-                )
-                GlideImage(
-                    imageModel = R.drawable.ic_reddit,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .requiredSize(38.dp)
-                )
-                GlideImage(
-                    imageModel = R.drawable.ic_browser,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .requiredSize(38.dp)
-                )
-                GlideImage(
-                    imageModel = R.drawable.ic_documentation,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .requiredSize(38.dp)
-                )
-                GlideImage(
-                    imageModel = R.drawable.ic_chat,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .requiredSize(38.dp)
-                )
-                GlideImage(
-                    imageModel = R.drawable.ic_announcement,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .requiredSize(38.dp)
-                )
+            LazyRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                coinDetail.urlButtons.forEach { urlButton ->
+                    item {
+                        IconButton(
+                            onClick = { },
+                            modifier = Modifier
+                                .clip(CircleShape)
+                                .requiredSize(44.dp)
+                                .padding(4.dp)
+                        ) {
+                            Image(
+                                imageVector = ImageVector.vectorResource(id = urlButton.icon),
+                                contentDescription = null
+                            )
+                        }
+                    }
+                }
             }
         }
     }
@@ -146,16 +140,6 @@ fun CoinDetailLoadedPreview() {
                 tags = emptyList(),
                 category = "category",
                 platform = CoinPlatform("Coin", null),
-                website = listOf("urls.website"),
-                technicalDoc = listOf("urls.technicalDoc"),
-                twitter = listOf("urls.twitter"),
-                reddit = listOf("urls.reddit"),
-                messageBoard = listOf("urls.messageBoard"),
-                announcement = listOf("urls.announcement"),
-                chat = listOf("urls.chat"),
-                explorer = listOf("urls.explorer"),
-                sourceCode = listOf("urls.sourceCode"),
-                subreddit = "subreddit",
                 tagNames = listOf("tagNames"),
                 tagGroups = listOf("tagGroups"),
                 twitterUsername = "twitterUsername",
@@ -163,7 +147,12 @@ fun CoinDetailLoadedPreview() {
                 dateLaunched = "dateLaunched",
                 contractAddress = listOf(ContractAddress("address", CoinPlatform("Coin", null))),
                 selfReportedCirculatingSupply = "selfReportedCirculatingSupply",
-                selfReportedTags = listOf("selfReportedTags")
+                selfReportedTags = listOf("selfReportedTags"),
+                technicalButtons = emptyList(),
+                urlButtons = listOf(
+                    CoinDetail.UrlButton(R.drawable.ic_twitter, "urls.twitter"),
+                    CoinDetail.UrlButton(R.drawable.ic_reddit, "urls.reddit"),
+                )
             )
         )
     }

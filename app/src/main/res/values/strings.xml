@@ -10,4 +10,7 @@
     <string name="menu_item_markets">Markets</string>
     <string name="no_connection_message">No connection</string>
 
+    <!-- Coin details -->
+    <string name="details_source_code_button">Source code</string>
+    <string name="details_technical_docs_button">Technical docs</string>
 </resources>

@@ -10,8 +10,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.msd117.cryptocompose.presentation.detail.presenter.CoinDetailViewModel
-import com.msd117.cryptocompose.presentation.detail.ui.view.CoinDetailView
-import com.msd117.cryptocompose.presentation.detail.ui.view.coinDetailViewModel
+import com.msd117.cryptocompose.presentation.detail.ui.CoinDetailView
+import com.msd117.cryptocompose.presentation.detail.ui.coinDetailViewModel
 import com.msd117.cryptocompose.presentation.latest.ui.LatestCoinsView
 import com.msd117.cryptocompose.presentation.splash.ui.SplashView
 import com.msd117.cryptocompose.theme.setUi

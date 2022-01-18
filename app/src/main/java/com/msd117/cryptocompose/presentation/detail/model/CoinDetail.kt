@@ -1,5 +1,8 @@
 package com.msd117.cryptocompose.presentation.detail.model
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+
 data class CoinDetail(
     val logo: String,
     val id: Int,
@@ -12,16 +15,6 @@ data class CoinDetail(
     val tags: List<String>,
     val category: String,
     val platform: CoinPlatform?,
-    val website: List<String>,
-    val technicalDoc: List<String>,
-    val twitter: List<String>,
-    val reddit: List<String>,
-    val messageBoard: List<String>,
-    val announcement: List<String>,
-    val chat: List<String>,
-    val explorer: List<String>,
-    val sourceCode: List<String>,
-    val subreddit: String,
     val tagNames: List<String>,
     val tagGroups: List<String>,
     val twitterUsername: String,
@@ -29,5 +22,16 @@ data class CoinDetail(
     val dateLaunched: String?,
     val contractAddress: List<ContractAddress>,
     val selfReportedCirculatingSupply: String?,
-    val selfReportedTags: List<String>?
-)
+    val selfReportedTags: List<String>?,
+    val technicalButtons: List<TechnicalButtons>,
+    val urlButtons: List<UrlButton>
+) {
+
+    data class TechnicalButtons(
+        @DrawableRes val icon: Int,
+        @StringRes val label: Int,
+        val url: String
+    )
+
+    data class UrlButton(@DrawableRes val icon: Int, val url: String)
+}
