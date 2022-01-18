@@ -9,12 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,6 +22,7 @@ import com.msd117.cryptocompose.presentation.detail.model.CoinDetail
 import com.msd117.cryptocompose.presentation.detail.model.CoinPlatform
 import com.msd117.cryptocompose.presentation.detail.model.ContractAddress
 import com.msd117.cryptocompose.theme.CryptoComposeTheme
+import com.msd117.cryptocompose.theme.ui.widget.CardIconButtonView
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -77,25 +76,8 @@ fun CoinDetailLoadedView(coinDetail: CoinDetail) {
             ) {
                 coinDetail.technicalButtons.forEach { technicalButton ->
                     item {
-                        Card(
-                            onClick = { },
-                            modifier = Modifier
-                                .padding(4.dp)
-                                .shadow(4.dp)
-                        ) {
-                            Row(modifier = Modifier.padding(8.dp)) {
-                                GlideImage(
-                                    imageModel = technicalButton.icon,
-                                    contentScale = ContentScale.Crop,
-                                    modifier = Modifier.requiredSize(40.dp)
-                                )
-                                Text(
-                                    text = LocalContext.current.getString(technicalButton.label),
-                                    modifier = Modifier
-                                        .padding(8.dp, 0.dp)
-                                        .align(Alignment.CenterVertically)
-                                )
-                            }
+                        with(technicalButton) {
+                            CardIconButtonView(icon = icon, label = label) { }
                         }
                     }
                 }

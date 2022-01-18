@@ -1,4 +1,4 @@
-package com.msd117.cryptocompose.theme.ui
+package com.msd117.cryptocompose.theme.ui.loading
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

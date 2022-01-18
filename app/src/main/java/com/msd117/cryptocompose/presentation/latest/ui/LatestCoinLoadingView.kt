@@ -10,9 +10,9 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.msd117.cryptocompose.theme.BaseView
-import com.msd117.cryptocompose.theme.ui.Height
-import com.msd117.cryptocompose.theme.ui.LoadingCircle
-import com.msd117.cryptocompose.theme.ui.LoadingText
+import com.msd117.cryptocompose.theme.ui.loading.Height
+import com.msd117.cryptocompose.theme.ui.loading.LoadingCircle
+import com.msd117.cryptocompose.theme.ui.loading.LoadingText
 
 @Composable
 fun LatestCoinLoadingView() {
