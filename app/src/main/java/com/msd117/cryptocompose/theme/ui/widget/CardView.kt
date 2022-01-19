@@ -16,6 +16,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.msd117.cryptocompose.theme.paddingM
+import com.msd117.cryptocompose.theme.paddingS
+import com.msd117.cryptocompose.theme.sizeS
+import com.msd117.cryptocompose.theme.zero
 import com.skydoves.landscapist.glide.GlideImage
 
 enum class CardViewIconSize(val size: Dp) {
@@ -52,10 +56,10 @@ fun CardIconButtonView(
     Card(
         onClick = onClick,
         modifier = modifier
-            .padding(4.dp)
-            .shadow(4.dp)
+            .padding(all = paddingS)
+            .shadow(elevation = sizeS)
     ) {
-        Row(modifier = Modifier.padding(8.dp)) {
+        Row(modifier = Modifier.padding(all = paddingM)) {
             GlideImage(
                 imageModel = icon,
                 contentScale = ContentScale.Crop,
@@ -64,7 +68,7 @@ fun CardIconButtonView(
             Text(
                 text = label,
                 modifier = Modifier
-                    .padding(8.dp, 0.dp)
+                    .padding(horizontal = paddingM, vertical = zero)
                     .align(Alignment.CenterVertically)
             )
         }

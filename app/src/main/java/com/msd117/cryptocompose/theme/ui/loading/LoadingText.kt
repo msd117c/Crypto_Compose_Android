@@ -9,6 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.msd117.cryptocompose.theme.BaseView
+import com.msd117.cryptocompose.theme.paddingM
 import com.valentinilk.shimmer.shimmer
 
 enum class Height(val dp: Dp) {
@@ -42,6 +43,10 @@ fun LoadingText(height: Height, modifier: Modifier = Modifier) {
 @Preview
 fun LoadingTextPreview() {
     BaseView {
-        LoadingText(width = 70.dp, height = Height.Medium, modifier = Modifier.padding(8.dp))
+        LoadingText(
+            width = 70.dp,
+            height = Height.Medium,
+            modifier = Modifier.padding(all = paddingM)
+        )
     }
 }

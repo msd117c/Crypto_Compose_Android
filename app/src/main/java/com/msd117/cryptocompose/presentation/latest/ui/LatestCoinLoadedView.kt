@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.msd117.cryptocompose.presentation.latest.model.Growth
 import com.msd117.cryptocompose.presentation.latest.model.LatestCoin
-import com.msd117.cryptocompose.theme.BaseView
+import com.msd117.cryptocompose.theme.*
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -41,8 +41,8 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp, 4.dp)
-            .shadow(4.dp)
+            .padding(horizontal = paddingM, vertical = paddingS)
+            .shadow(elevation = sizeS)
     ) {
         Button(onClick = { onClick(latestCoin.symbol) }) {
             Box(modifier = Modifier.fillMaxWidth()) {
@@ -51,7 +51,7 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String) -> Unit) {
                         imageModel = latestCoin.icon,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .requiredSize(44.dp)
+                            .requiredSize(smallIconSize)
                             .align(Alignment.CenterVertically),
                         shimmerParams = ShimmerParams(
                             baseColor = MaterialTheme.colors.background,
@@ -64,12 +64,15 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String) -> Unit) {
                     Column {
                         Text(
                             text = latestCoin.name,
-                            modifier = Modifier.padding(8.dp, 2.dp),
+                            modifier = Modifier.padding(
+                                horizontal = paddingM,
+                                vertical = paddingXS
+                            ),
                             color = Color.Black
                         )
                         Text(
                             text = latestCoin.symbol,
-                            modifier = Modifier.padding(8.dp, 2.dp)
+                            modifier = Modifier.padding(horizontal = paddingM, vertical = paddingXS)
                         )
                     }
                 }
@@ -77,7 +80,7 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String) -> Unit) {
                     Text(
                         text = latestCoin.price,
                         modifier = Modifier
-                            .padding(8.dp, 2.dp)
+                            .padding(horizontal = paddingM, vertical = paddingXS)
                             .fillMaxWidth(),
                         color = Color.Black,
                         textAlign = TextAlign.End
@@ -85,7 +88,7 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String) -> Unit) {
                     Text(
                         text = latestCoin.summary,
                         modifier = Modifier
-                            .padding(8.dp, 2.dp)
+                            .padding(horizontal = paddingM, vertical = paddingXS)
                             .fillMaxWidth(),
                         color = growthColor,
                         textAlign = TextAlign.End

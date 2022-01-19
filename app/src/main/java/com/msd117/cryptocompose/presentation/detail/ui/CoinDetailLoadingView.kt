@@ -16,7 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.msd117.cryptocompose.R
-import com.msd117.cryptocompose.theme.BaseView
+import com.msd117.cryptocompose.theme.*
 import com.msd117.cryptocompose.theme.ui.loading.Height
 import com.msd117.cryptocompose.theme.ui.loading.LoadingCircle
 import com.msd117.cryptocompose.theme.ui.loading.LoadingText
@@ -29,7 +29,7 @@ fun CoinDetailLoadingView() {
             title = {
                 Row {
                     LoadingCircle(
-                        size = 40.dp,
+                        size = smallIconSize,
                         modifier = Modifier
                             .align(Alignment.CenterVertically)
                     )
@@ -38,7 +38,7 @@ fun CoinDetailLoadingView() {
                         height = Height.Large,
                         modifier = Modifier
                             .align(Alignment.CenterVertically)
-                            .padding(8.dp, 0.dp)
+                            .padding(horizontal = paddingM, vertical = zero)
                     )
                 }
             },
@@ -49,16 +49,16 @@ fun CoinDetailLoadingView() {
                     colorFilter = ColorFilter.tint(Color.Black),
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
-                        .padding(16.dp)
+                        .padding(all = paddingL)
                 )
             }
         )
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(modifier = Modifier.padding(all = paddingL)) {
             CoinDetailTechnicalDescriptionLoadingView()
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(0.dp, 8.dp),
+                    .padding(horizontal = zero, vertical = paddingM),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 CoinDetailTechnicalButtonLoadingView()
@@ -71,12 +71,12 @@ fun CoinDetailLoadingView() {
 @ExperimentalMaterialApi
 @Composable
 fun CoinDetailTechnicalDescriptionLoadingView() {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(space = paddingM)) {
+        LazyColumn(verticalArrangement = Arrangement.spacedBy(space = paddingM)) {
             (0..1).forEach { _ -> item { LoadingText(height = Height.Medium) } }
         }
         LoadingText(width = 150.dp, height = Height.Medium)
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        LazyColumn(verticalArrangement = Arrangement.spacedBy(space = paddingM)) {
             (0..4).forEach { _ -> item { LoadingText(height = Height.Medium) } }
         }
         LoadingText(width = 200.dp, height = Height.Medium)
@@ -89,16 +89,16 @@ fun CoinDetailTechnicalButtonLoadingView() {
     Card(
         onClick = { },
         modifier = Modifier
-            .padding(4.dp)
-            .shadow(4.dp)
+            .padding(all = paddingS)
+            .shadow(elevation = sizeS)
     ) {
-        Row(modifier = Modifier.padding(8.dp)) {
-            LoadingCircle(size = 40.dp)
+        Row(modifier = Modifier.padding(all = paddingM)) {
+            LoadingCircle(size = smallIconSize)
             LoadingText(
                 width = 100.dp,
                 height = Height.Medium,
                 modifier = Modifier
-                    .padding(8.dp, 0.dp)
+                    .padding(horizontal = paddingM, vertical = zero)
                     .align(Alignment.CenterVertically)
             )
         }

@@ -16,12 +16,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.msd117.cryptocompose.R
 import com.msd117.cryptocompose.presentation.detail.model.CoinDetail
 import com.msd117.cryptocompose.presentation.detail.model.CoinPlatform
 import com.msd117.cryptocompose.presentation.detail.model.ContractAddress
-import com.msd117.cryptocompose.theme.CryptoComposeTheme
+import com.msd117.cryptocompose.theme.*
 import com.msd117.cryptocompose.theme.ui.widget.CardIconButtonView
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
@@ -37,7 +36,7 @@ fun CoinDetailLoadedView(coinDetail: CoinDetail) {
                         imageModel = coinDetail.logo,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .requiredSize(40.dp)
+                            .requiredSize(smallIconSize)
                             .align(Alignment.CenterVertically),
                         shimmerParams = ShimmerParams(
                             baseColor = MaterialTheme.colors.background,
@@ -51,7 +50,7 @@ fun CoinDetailLoadedView(coinDetail: CoinDetail) {
                         text = coinDetail.name,
                         modifier = Modifier
                             .align(Alignment.CenterVertically)
-                            .padding(8.dp, 0.dp)
+                            .padding(horizontal = paddingM, vertical = zero)
                     )
                 }
             },
@@ -62,16 +61,16 @@ fun CoinDetailLoadedView(coinDetail: CoinDetail) {
                     colorFilter = ColorFilter.tint(Color.Black),
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
-                        .padding(16.dp)
+                        .padding(all = paddingL)
                 )
             }
         )
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(modifier = Modifier.padding(all = paddingL)) {
             Text(text = coinDetail.description)
             LazyRow(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(0.dp, 8.dp),
+                    .padding(horizontal = zero, vertical = paddingM),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 coinDetail.technicalButtons.forEach { technicalButton ->
@@ -82,15 +81,15 @@ fun CoinDetailLoadedView(coinDetail: CoinDetail) {
                     }
                 }
             }
-            LazyRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            LazyRow(horizontalArrangement = Arrangement.spacedBy(space = paddingL)) {
                 coinDetail.urlButtons.forEach { urlButton ->
                     item {
                         IconButton(
                             onClick = { },
                             modifier = Modifier
                                 .clip(CircleShape)
-                                .requiredSize(44.dp)
-                                .padding(4.dp)
+                                .requiredSize(smallIconSize)
+                                .padding(all = paddingS)
                         ) {
                             Image(
                                 imageVector = ImageVector.vectorResource(id = urlButton.icon),

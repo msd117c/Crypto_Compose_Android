@@ -16,13 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.msd117.cryptocompose.R
 import com.msd117.cryptocompose.presentation.main.presenter.MainState
 import com.msd117.cryptocompose.presentation.main.presenter.MainViewModel
 import com.msd117.cryptocompose.presentation.main.presenter.initialState
-import com.msd117.cryptocompose.theme.BaseView
+import com.msd117.cryptocompose.theme.*
 import com.msd117.cryptocompose.utils.NavigationConstants
 
 @Composable
@@ -57,14 +56,14 @@ fun MainView(viewModel: MainViewModel, navController: NavController) {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .align(Alignment.BottomCenter)
-                                .padding(8.dp, 4.dp)
-                                .shadow(4.dp),
+                                .padding(horizontal = paddingM, vertical = paddingS)
+                                .shadow(elevation = sizeS),
                             backgroundColor = MaterialTheme.colors.error
                         ) {
                             Text(
                                 text = stringResource(R.string.no_connection_message),
                                 color = MaterialTheme.colors.onError,
-                                modifier = Modifier.padding(16.dp)
+                                modifier = Modifier.padding(all = paddingL)
                             )
                         }
                     }
@@ -83,13 +82,13 @@ fun MainMenuItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
-            .shadow(4.dp)
+            .padding(all = paddingM)
+            .shadow(elevation = sizeS)
     ) {
         Button(onClick = { onClicked() }, enabled = isConnected) {
             Text(
                 text = stringResource(label),
-                modifier = Modifier.padding(8.dp, 16.dp)
+                modifier = Modifier.padding(horizontal = paddingM, vertical = paddingL)
             )
         }
     }

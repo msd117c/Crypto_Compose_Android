@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.msd117.cryptocompose.theme.BaseView
+import com.msd117.cryptocompose.theme.*
 import com.msd117.cryptocompose.theme.ui.loading.Height
 import com.msd117.cryptocompose.theme.ui.loading.LoadingCircle
 import com.msd117.cryptocompose.theme.ui.loading.LoadingText
@@ -28,27 +28,27 @@ fun LoadingItemView() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp, 4.dp)
-            .shadow(4.dp)
+            .padding(horizontal = paddingM, vertical = paddingS)
+            .shadow(elevation = sizeS)
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
             Row {
                 LoadingCircle(
-                    size = 48.dp,
+                    size = smallIconSize,
                     modifier = Modifier
-                        .padding(14.dp, 6.dp, 0.dp, 6.dp)
+                        .padding(start = paddingL, top = paddingM, end = zero, bottom = paddingM)
                         .align(Alignment.CenterVertically)
                 )
                 Column(modifier = Modifier.align(Alignment.CenterVertically)) {
                     LoadingText(
                         width = 70.dp,
                         height = Height.Medium,
-                        modifier = Modifier.padding(8.dp, 2.dp)
+                        modifier = Modifier.padding(horizontal = paddingM, vertical = paddingXS)
                     )
                     LoadingText(
                         width = 50.dp,
                         height = Height.Medium,
-                        modifier = Modifier.padding(8.dp, 2.dp)
+                        modifier = Modifier.padding(horizontal = paddingM, vertical = paddingXS)
                     )
                 }
             }
@@ -57,14 +57,14 @@ fun LoadingItemView() {
                     width = 90.dp,
                     height = Height.Medium,
                     modifier = Modifier
-                        .padding(8.dp, 2.dp)
+                        .padding(horizontal = paddingM, vertical = paddingXS)
                         .align(Alignment.End)
                 )
                 LoadingText(
                     width = 50.dp,
                     height = Height.Medium,
                     modifier = Modifier
-                        .padding(8.dp, 2.dp)
+                        .padding(horizontal = paddingM, vertical = paddingXS)
                         .align(Alignment.End)
                 )
             }

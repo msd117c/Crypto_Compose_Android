@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.msd117.cryptocompose.theme.BaseView
+import com.msd117.cryptocompose.theme.paddingM
 import com.valentinilk.shimmer.shimmer
 
 @Composable
@@ -50,7 +51,7 @@ fun LoadingCircle(size: Dp, modifier: Modifier = Modifier) {
 @Preview
 fun LoadingBoxPreview() {
     BaseView {
-        LoadingBox(width = 70.dp, height = 70.dp, modifier = Modifier.padding(8.dp))
-        LoadingBox(size = 70.dp, modifier = Modifier.padding(8.dp))
+        LoadingBox(width = 70.dp, height = 70.dp, modifier = Modifier.padding(all = paddingM))
+        LoadingBox(size = 70.dp, modifier = Modifier.padding(all = paddingM))
     }
 }
