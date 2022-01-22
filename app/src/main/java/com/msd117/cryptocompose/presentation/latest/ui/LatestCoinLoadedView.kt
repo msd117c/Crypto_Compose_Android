@@ -19,7 +19,7 @@ import com.msd117.cryptocompose.presentation.latest.model.Growth
 import com.msd117.cryptocompose.presentation.latest.model.LatestCoin
 import com.msd117.cryptocompose.theme.*
 import com.msd117.cryptocompose.theme.ui.shared.SharedElement
-import com.msd117.cryptocompose.theme.ui.shared.SharedElementType
+import com.msd117.cryptocompose.theme.ui.shared.SharedElementInfo
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -52,7 +52,7 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String) -> Unit) {
             Box(modifier = Modifier.fillMaxWidth()) {
                 Row {
                     SharedElement(
-                        tag = "coin", type = SharedElementType.From, modifier = Modifier
+                        tag = "coin", type = SharedElementInfo.SharedElementType.From, modifier = Modifier
                             .requiredSize(smallIconSize)
                             .align(Alignment.CenterVertically)
                     ) {

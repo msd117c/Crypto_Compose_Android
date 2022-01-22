@@ -24,7 +24,7 @@ import com.msd117.cryptocompose.theme.ui.loading.Height
 import com.msd117.cryptocompose.theme.ui.loading.LoadingCircle
 import com.msd117.cryptocompose.theme.ui.loading.LoadingText
 import com.msd117.cryptocompose.theme.ui.shared.SharedElement
-import com.msd117.cryptocompose.theme.ui.shared.SharedElementType
+import com.msd117.cryptocompose.theme.ui.shared.SharedElementInfo
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -37,7 +37,7 @@ fun CoinDetailLoadingView(logo: String) {
             title = {
                 Row {
                     SharedElement(
-                        tag = "coin", type = SharedElementType.To, modifier = Modifier
+                        tag = "coin", type = SharedElementInfo.SharedElementType.To, modifier = Modifier
                             .requiredSize(smallIconSize)
                             .align(Alignment.CenterVertically)
                     ) {

@@ -16,8 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.msd117.cryptocompose.theme.CryptoComposeTheme
 import com.msd117.cryptocompose.theme.ui.shared.SharedElement
+import com.msd117.cryptocompose.theme.ui.shared.SharedElementInfo
 import com.msd117.cryptocompose.theme.ui.shared.SharedElementRoot
-import com.msd117.cryptocompose.theme.ui.shared.SharedElementType
 
 class CoinActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +49,7 @@ fun Greeting() {
         ) {
             if (!state) {
                 SharedElement(
-                    tag = "box", type = SharedElementType.From, modifier = Modifier
+                    tag = "box", type = SharedElementInfo.SharedElementType.From, modifier = Modifier
                         .size(40.dp)
                         .offset(x = 40.dp, y = 60.dp)
                 ) {
@@ -62,7 +62,7 @@ fun Greeting() {
             }
             if (state) {
                 SharedElement(
-                    tag = "box", type = SharedElementType.To, modifier = Modifier
+                    tag = "box", type = SharedElementInfo.SharedElementType.To, modifier = Modifier
                         .size(60.dp)
                         .offset(x = 100.dp, y = 200.dp)
                 ) {
