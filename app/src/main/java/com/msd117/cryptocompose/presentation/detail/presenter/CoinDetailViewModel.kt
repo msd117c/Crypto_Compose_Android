@@ -12,12 +12,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Named
 
 class CoinDetailViewModel @AssistedInject constructor(
     coroutineScope: CoroutineScope?,
     private val fetchCoinDetailInfoHelper: FetchCoinDetailInfoHelper,
-    @Assisted private val symbol: String
+    @Assisted(NavigationConstants.CoinDetailsRouteSymbolArg) val symbol: String,
+    @Assisted(NavigationConstants.CoinDetailsRouteIconArg) val icon: String,
+    @Assisted(NavigationConstants.CoinDetailsRouteNameArg) val name: String
 ) : ViewModel() {
 
     private val scope = getViewModelScope(coroutineScope)
@@ -40,18 +41,22 @@ class CoinDetailViewModel @AssistedInject constructor(
     @AssistedFactory
     interface Factory {
         fun create(
-            @Named(NavigationConstants.CoinDetailsRouteSymbolArg) symbol: String
+            @Assisted(NavigationConstants.CoinDetailsRouteSymbolArg) symbol: String,
+            @Assisted(NavigationConstants.CoinDetailsRouteIconArg) icon: String,
+            @Assisted(NavigationConstants.CoinDetailsRouteNameArg) name: String
         ): CoinDetailViewModel
     }
 
     companion object {
         fun provideFactory(
             assistedFactory: Factory,
-            symbol: String
+            symbol: String,
+            icon: String,
+            name: String,
         ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
 
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return assistedFactory.create(symbol) as T
+                return assistedFactory.create(symbol, icon, name) as T
             }
         }
     }

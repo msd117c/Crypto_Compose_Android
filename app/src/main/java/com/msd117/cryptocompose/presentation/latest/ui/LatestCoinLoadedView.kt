@@ -25,7 +25,7 @@ import com.skydoves.landscapist.glide.GlideImage
 
 @ExperimentalComposeUiApi
 @Composable
-fun LatestCoinLoadedView(latestCoins: List<LatestCoin>, onClick: (String) -> Unit) {
+fun LatestCoinLoadedView(latestCoins: List<LatestCoin>, onClick: (String, String, String) -> Unit) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         latestCoins.forEach { latestCoin ->
             item { LatestCoinItemView(latestCoin = latestCoin, onClick = onClick) }
@@ -35,7 +35,7 @@ fun LatestCoinLoadedView(latestCoins: List<LatestCoin>, onClick: (String) -> Uni
 
 @ExperimentalComposeUiApi
 @Composable
-fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String) -> Unit) {
+fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String, String, String) -> Unit) {
     val growthColor = when (latestCoin.growth) {
         Growth.POSITIVE -> Color.Green
         Growth.NEGATIVE -> Color.Red
@@ -48,11 +48,13 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String) -> Unit) {
             .padding(horizontal = paddingM, vertical = paddingS)
             .shadow(elevation = sizeS)
     ) {
-        Button(onClick = { onClick(latestCoin.symbol) }) {
+        Button(onClick = { with(latestCoin) { onClick(symbol, icon, name) } }) {
             Box(modifier = Modifier.fillMaxWidth()) {
                 Row {
                     SharedElement(
-                        tag = "coin", type = SharedElementInfo.SharedElementType.From, modifier = Modifier
+                        tag = latestCoin.symbol,
+                        type = SharedElementInfo.SharedElementType.From,
+                        modifier = Modifier
                             .requiredSize(smallIconSize)
                             .align(Alignment.CenterVertically)
                     ) {
@@ -121,7 +123,8 @@ fun LatestCoinLoadedViewPreview() {
                     price = "50",
                     icon = "https://cryptoicon-api.vercel.app/api/icon/btc"
                 )
-            )
-        ) {}
+            ),
+            onClick = { _, _, _ -> }
+        )
     }
 }

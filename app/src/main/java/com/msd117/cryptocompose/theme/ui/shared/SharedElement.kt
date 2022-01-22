@@ -1,7 +1,6 @@
 package com.msd117.cryptocompose.theme.ui.shared
 
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.animateOffsetAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
@@ -26,19 +25,10 @@ fun SharedElement(
     val elementInfo = SharedElementInfo(tag, type)
     val rootState = LocalSharedElementsRootStateAmbient.current
 
-    val visibility by animateFloatAsState(
-        if (elementInfo.type == SharedElementInfo.SharedElementType.To) {
-            val states = remember { rootState.states }
-            (states[elementInfo.tag] as? SharedElementState.AnimationReady)?.let { sharedElementState ->
-                val state by remember { sharedElementState.endElementState }
-                if (state == SharedElementState.State.END) {
-                    1f
-                } else {
-                    0f
-                }
-            } ?: 1f
-        } else 1f
-    )
+    val isVisible = remember { mutableStateOf(1f) }
+    if (elementInfo.type == SharedElementInfo.SharedElementType.To) {
+        rootState.setEndElementVisibilityListener(tag) { isVisible.value = it }
+    }
 
     Box(
         modifier = modifier
@@ -49,7 +39,7 @@ fun SharedElement(
                     placeholder = children
                 )
             }
-            .then(Modifier.graphicsLayer(alpha = visibility))
+            .then(Modifier.graphicsLayer(alpha = isVisible.value))
     ) {
         children()
     }
@@ -101,6 +91,7 @@ fun SharedElementOverlay() {
                     }
                 }
             )
+
             Box(
                 modifier = Modifier
                     .offset(
@@ -111,6 +102,7 @@ fun SharedElementOverlay() {
             ) {
                 sharedElementState.placeholder()
             }
+
             rootState.startTransition(tag)
         }
     }
@@ -124,6 +116,11 @@ private val LocalSharedElementsRootStateAmbient =
 private class SharedElementRootState {
 
     val states = mutableStateMapOf<String, SharedElementState>()
+    private val endElementVisibilityListeners = mutableMapOf<String, (Float) -> Unit>()
+
+    fun setEndElementVisibilityListener(tag: String, listener: (Float) -> Unit) {
+        endElementVisibilityListeners[tag] = listener
+    }
 
     fun onElementPositioned(
         elementInfo: SharedElementInfo,
@@ -177,17 +174,16 @@ private class SharedElementRootState {
             if (sharedElementState is SharedElementState.AnimationReady &&
                 sharedElementState.state.value == SharedElementState.State.START
             ) {
+                endElementVisibilityListeners[tag]?.invoke(0f)
                 sharedElementState.state.value = SharedElementState.State.END
             }
         }
     }
 
     fun finishTransition(tag: String) {
-        tag.withState { sharedElementState ->
-            (sharedElementState as? SharedElementState.AnimationReady)?.endElementState?.value =
-                SharedElementState.State.END
-            states.remove(tag)
-        }
+        endElementVisibilityListeners[tag]?.invoke(1f)
+        states.remove(tag)
+        endElementVisibilityListeners.remove(tag)
     }
 
     fun onElementRegistered(elementInfo: SharedElementInfo) {

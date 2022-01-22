@@ -57,14 +57,28 @@ class MainActivity : AppCompatActivity() {
                     }
                     composable(
                         NavigationConstants.CoinDetailsRoute,
-                        arguments = listOf(navArgument(NavigationConstants.CoinDetailsRouteSymbolArg) {
-                            type = NavType.StringType
-                        })
+                        arguments = listOf(
+                            navArgument(NavigationConstants.CoinDetailsRouteSymbolArg) {
+                                type = NavType.StringType
+                            },
+                            navArgument(NavigationConstants.CoinDetailsRouteIconArg) {
+                                type = NavType.StringType
+                            },
+                            navArgument(NavigationConstants.CoinDetailsRouteNameArg) {
+                                type = NavType.StringType
+                            }
+                        )
                     ) { backStackEntry ->
                         val symbol = backStackEntry.arguments?.getString(
                             NavigationConstants.CoinDetailsRouteSymbolArg
                         ).orEmpty()
-                        val viewModel = coinDetailViewModel(symbol = symbol)
+                        val icon = backStackEntry.arguments?.getString(
+                            NavigationConstants.CoinDetailsRouteIconArg
+                        ).orEmpty()
+                        val name = backStackEntry.arguments?.getString(
+                            NavigationConstants.CoinDetailsRouteNameArg
+                        ).orEmpty()
+                        val viewModel = coinDetailViewModel(symbol, icon, name)
                         CoinDetailView(viewModel = viewModel)
                     }
                 }

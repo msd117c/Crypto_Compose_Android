@@ -13,6 +13,7 @@ import com.msd117.cryptocompose.presentation.latest.presenter.LatestCoinsViewMod
 import com.msd117.cryptocompose.presentation.latest.presenter.initialState
 import com.msd117.cryptocompose.theme.BaseView
 import com.msd117.cryptocompose.utils.NavigationConstants
+import java.net.URLEncoder
 
 @ExperimentalComposeUiApi
 @Composable
@@ -26,11 +27,20 @@ fun LatestCoinsView(viewModel: LatestCoinsViewModel, navController: NavControlle
             is LatestCoinsState.Error -> LatestCoinErrorView()
             is LatestCoinsState.Loaded -> LatestCoinLoadedView(
                 latestCoins = state.latestCoins,
-                onClick = { symbol ->
-                    val route = NavigationConstants.CoinDetailsRoute.replace(
-                        NavigationConstants.CoinDetailsRouteSymbolArgToReplace,
-                        symbol
-                    )
+                onClick = { symbol, icon, name ->
+                    val route = NavigationConstants.CoinDetailsRoute
+                        .replace(
+                            NavigationConstants.CoinDetailsRouteSymbolArgToReplace,
+                            symbol
+                        )
+                        .replace(
+                            NavigationConstants.CoinDetailsRouteIconArgToReplace,
+                            URLEncoder.encode(icon, "UTF-8")
+                        )
+                        .replace(
+                            NavigationConstants.CoinDetailsRouteNameArgToReplace,
+                            name
+                        )
                     navController.navigate(route)
                 }
             )
