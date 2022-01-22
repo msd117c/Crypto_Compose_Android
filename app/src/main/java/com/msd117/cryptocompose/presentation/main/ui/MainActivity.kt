@@ -2,7 +2,9 @@ package com.msd117.cryptocompose.presentation.main.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.core.ExperimentalTransitionApi
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -15,12 +17,15 @@ import com.msd117.cryptocompose.presentation.detail.ui.coinDetailViewModel
 import com.msd117.cryptocompose.presentation.latest.ui.LatestCoinsView
 import com.msd117.cryptocompose.presentation.splash.ui.SplashView
 import com.msd117.cryptocompose.theme.setUi
+import com.msd117.cryptocompose.theme.ui.shared.SharedElementRoot
 import com.msd117.cryptocompose.utils.NavigationConstants
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.components.ActivityComponent
 
+@ExperimentalComposeUiApi
+@ExperimentalTransitionApi
 @ExperimentalMaterialApi
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -35,31 +40,33 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setUi {
-            val navController = rememberNavController()
-            NavHost(
-                navController = navController,
-                startDestination = NavigationConstants.SplashRoute
-            ) {
-                composable(NavigationConstants.SplashRoute) {
-                    SplashView(navController = navController)
-                }
-                composable(NavigationConstants.MainRoute) {
-                    MainView(viewModel = hiltViewModel(), navController = navController)
-                }
-                composable(NavigationConstants.LatestCoinsRoute) {
-                    LatestCoinsView(viewModel = hiltViewModel(), navController = navController)
-                }
-                composable(
-                    NavigationConstants.CoinDetailsRoute,
-                    arguments = listOf(navArgument(NavigationConstants.CoinDetailsRouteSymbolArg) {
-                        type = NavType.StringType
-                    })
-                ) { backStackEntry ->
-                    val symbol = backStackEntry.arguments?.getString(
-                        NavigationConstants.CoinDetailsRouteSymbolArg
-                    ).orEmpty()
-                    val viewModel = coinDetailViewModel(symbol = symbol)
-                    CoinDetailView(viewModel = viewModel)
+            SharedElementRoot {
+                val navController = rememberNavController()
+                NavHost(
+                    navController = navController,
+                    startDestination = NavigationConstants.SplashRoute
+                ) {
+                    composable(NavigationConstants.SplashRoute) {
+                        SplashView(navController = navController)
+                    }
+                    composable(NavigationConstants.MainRoute) {
+                        MainView(viewModel = hiltViewModel(), navController = navController)
+                    }
+                    composable(NavigationConstants.LatestCoinsRoute) {
+                        LatestCoinsView(viewModel = hiltViewModel(), navController = navController)
+                    }
+                    composable(
+                        NavigationConstants.CoinDetailsRoute,
+                        arguments = listOf(navArgument(NavigationConstants.CoinDetailsRouteSymbolArg) {
+                            type = NavType.StringType
+                        })
+                    ) { backStackEntry ->
+                        val symbol = backStackEntry.arguments?.getString(
+                            NavigationConstants.CoinDetailsRouteSymbolArg
+                        ).orEmpty()
+                        val viewModel = coinDetailViewModel(symbol = symbol)
+                        CoinDetailView(viewModel = viewModel)
+                    }
                 }
             }
         }

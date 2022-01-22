@@ -5,6 +5,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.msd117.cryptocompose.presentation.latest.presenter.LatestCoinsState
@@ -13,6 +14,7 @@ import com.msd117.cryptocompose.presentation.latest.presenter.initialState
 import com.msd117.cryptocompose.theme.BaseView
 import com.msd117.cryptocompose.utils.NavigationConstants
 
+@ExperimentalComposeUiApi
 @Composable
 fun LatestCoinsView(viewModel: LatestCoinsViewModel, navController: NavController) {
     val currentState by viewModel.getState().collectAsState(initial = initialState)

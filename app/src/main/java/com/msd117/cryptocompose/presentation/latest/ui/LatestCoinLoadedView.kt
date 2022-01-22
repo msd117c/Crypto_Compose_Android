@@ -8,19 +8,22 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.msd117.cryptocompose.presentation.latest.model.Growth
 import com.msd117.cryptocompose.presentation.latest.model.LatestCoin
 import com.msd117.cryptocompose.theme.*
+import com.msd117.cryptocompose.theme.ui.shared.SharedElement
+import com.msd117.cryptocompose.theme.ui.shared.SharedElementType
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 
+@ExperimentalComposeUiApi
 @Composable
 fun LatestCoinLoadedView(latestCoins: List<LatestCoin>, onClick: (String) -> Unit) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -30,6 +33,7 @@ fun LatestCoinLoadedView(latestCoins: List<LatestCoin>, onClick: (String) -> Uni
     }
 }
 
+@ExperimentalComposeUiApi
 @Composable
 fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String) -> Unit) {
     val growthColor = when (latestCoin.growth) {
@@ -47,20 +51,23 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String) -> Unit) {
         Button(onClick = { onClick(latestCoin.symbol) }) {
             Box(modifier = Modifier.fillMaxWidth()) {
                 Row {
-                    GlideImage(
-                        imageModel = latestCoin.icon,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
+                    SharedElement(
+                        tag = "coin", type = SharedElementType.From, modifier = Modifier
                             .requiredSize(smallIconSize)
-                            .align(Alignment.CenterVertically),
-                        shimmerParams = ShimmerParams(
-                            baseColor = MaterialTheme.colors.background,
-                            highlightColor = Color.LightGray,
-                            durationMillis = 600,
-                            dropOff = 0.65f,
-                            tilt = 20f
-                        ),
-                    )
+                            .align(Alignment.CenterVertically)
+                    ) {
+                        GlideImage(
+                            imageModel = latestCoin.icon,
+                            contentScale = ContentScale.Crop,
+                            shimmerParams = ShimmerParams(
+                                baseColor = MaterialTheme.colors.background,
+                                highlightColor = Color.LightGray,
+                                durationMillis = 600,
+                                dropOff = 0.65f,
+                                tilt = 20f
+                            ),
+                        )
+                    }
                     Column {
                         Text(
                             text = latestCoin.name,
@@ -99,6 +106,7 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String) -> Unit) {
     }
 }
 
+@ExperimentalComposeUiApi
 @Preview
 @Composable
 fun LatestCoinLoadedViewPreview() {

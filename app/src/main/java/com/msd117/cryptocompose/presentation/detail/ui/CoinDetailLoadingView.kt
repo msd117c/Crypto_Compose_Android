@@ -5,13 +5,16 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,19 +23,36 @@ import com.msd117.cryptocompose.theme.*
 import com.msd117.cryptocompose.theme.ui.loading.Height
 import com.msd117.cryptocompose.theme.ui.loading.LoadingCircle
 import com.msd117.cryptocompose.theme.ui.loading.LoadingText
+import com.msd117.cryptocompose.theme.ui.shared.SharedElement
+import com.msd117.cryptocompose.theme.ui.shared.SharedElementType
+import com.skydoves.landscapist.ShimmerParams
+import com.skydoves.landscapist.glide.GlideImage
 
+@ExperimentalComposeUiApi
 @ExperimentalMaterialApi
 @Composable
-fun CoinDetailLoadingView() {
+fun CoinDetailLoadingView(logo: String) {
     Column(modifier = Modifier.fillMaxWidth()) {
         TopAppBar(
             title = {
                 Row {
-                    LoadingCircle(
-                        size = smallIconSize,
-                        modifier = Modifier
+                    SharedElement(
+                        tag = "coin", type = SharedElementType.To, modifier = Modifier
+                            .requiredSize(smallIconSize)
                             .align(Alignment.CenterVertically)
-                    )
+                    ) {
+                        GlideImage(
+                            imageModel = logo,
+                            contentScale = ContentScale.Crop,
+                            shimmerParams = ShimmerParams(
+                                baseColor = MaterialTheme.colors.background,
+                                highlightColor = Color.LightGray,
+                                durationMillis = 600,
+                                dropOff = 0.65f,
+                                tilt = 20f
+                            )
+                        )
+                    }
                     LoadingText(
                         width = 140.dp,
                         height = Height.Large,
@@ -105,11 +125,12 @@ fun CoinDetailTechnicalButtonLoadingView() {
     }
 }
 
+@ExperimentalComposeUiApi
 @ExperimentalMaterialApi
 @Composable
 @Preview
 fun CoinDetailLoadingPreview() {
     BaseView {
-        CoinDetailLoadingView()
+        CoinDetailLoadingView("")
     }
 }

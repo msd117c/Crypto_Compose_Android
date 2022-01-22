@@ -30,7 +30,7 @@ class LatestCoinsViewModel @Inject constructor(
             if (latestCoins.isEmpty()) {
                 state.value = LatestCoinsState.Error
             } else {
-                state.value = LatestCoinsState.Loaded(latestCoins = latestCoins)
+                state.value = LatestCoinsState.Loaded(latestCoins = latestCoins.take(1))
             }
         }
     }
