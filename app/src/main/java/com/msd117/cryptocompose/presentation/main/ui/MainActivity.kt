@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                             NavigationConstants.CoinDetailsRouteNameArg
                         ).orEmpty()
                         val viewModel = coinDetailViewModel(symbol, icon, name)
-                        CoinDetailView(viewModel = viewModel)
+                        CoinDetailView(viewModel = viewModel, navController = navController)
                     }
                 }
             }

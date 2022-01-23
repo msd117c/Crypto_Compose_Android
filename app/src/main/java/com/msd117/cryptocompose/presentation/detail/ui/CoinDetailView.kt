@@ -6,29 +6,29 @@ import androidx.compose.animation.core.ExperimentalTransitionApi
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.msd117.cryptocompose.R
 import com.msd117.cryptocompose.presentation.detail.presenter.CoinDetailState
 import com.msd117.cryptocompose.presentation.detail.presenter.CoinDetailViewModel
 import com.msd117.cryptocompose.presentation.latest.presenter.initialState
 import com.msd117.cryptocompose.presentation.main.ui.MainActivity
-import com.msd117.cryptocompose.theme.paddingL
 import com.msd117.cryptocompose.theme.paddingM
+import com.msd117.cryptocompose.theme.paddingS
 import com.msd117.cryptocompose.theme.smallIconSize
 import com.msd117.cryptocompose.theme.ui.shared.SharedElement
 import com.msd117.cryptocompose.theme.ui.shared.SharedElementInfo
@@ -53,17 +53,17 @@ fun coinDetailViewModel(symbol: String, icon: String, name: String): CoinDetailV
 @ExperimentalComposeUiApi
 @ExperimentalMaterialApi
 @Composable
-fun CoinDetailView(viewModel: CoinDetailViewModel) {
+fun CoinDetailView(viewModel: CoinDetailViewModel, navController: NavController) {
     val currentState by viewModel.getState().collectAsState(initial = initialState)
 
     Column(modifier = Modifier.fillMaxWidth()) {
-        TopAppBar(
-            title = {
-                SharedElement(
-                    tag = viewModel.symbol,
-                    type = SharedElementInfo.SharedElementType.To,
-                    modifier = Modifier
-                ) {
+        SharedElement(
+            tag = viewModel.symbol,
+            type = SharedElementInfo.SharedElementType.To,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            TopAppBar(
+                title = {
                     Row {
                         GlideImage(
                             imageModel = viewModel.icon,
@@ -86,19 +86,24 @@ fun CoinDetailView(viewModel: CoinDetailViewModel) {
                                 .padding(horizontal = paddingM, vertical = zero)
                         )
                     }
+                },
+                navigationIcon = {
+                    IconButton(
+                        onClick = { navController.popBackStack() },
+                        modifier = Modifier
+                            .clip(CircleShape)
+                            .padding(all = paddingS)
+                            .align(Alignment.CenterHorizontally)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_arrow_back),
+                            contentDescription = null,
+                            colorFilter = ColorFilter.tint(Color.Black)
+                        )
+                    }
                 }
-            },
-            navigationIcon = {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_arrow_back),
-                    contentDescription = null,
-                    colorFilter = ColorFilter.tint(Color.Black),
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .padding(all = paddingL)
-                )
-            }
-        )
+            )
+        }
         Crossfade(targetState = currentState, animationSpec = tween(1000)) { state ->
             when (state) {
                 is CoinDetailState.Loading -> CoinDetailLoadingView()
