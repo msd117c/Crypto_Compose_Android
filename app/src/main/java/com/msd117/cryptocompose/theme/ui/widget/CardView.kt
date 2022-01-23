@@ -2,6 +2,7 @@ package com.msd117.cryptocompose.theme.ui.widget
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
@@ -14,17 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
-import com.msd117.cryptocompose.theme.paddingM
-import com.msd117.cryptocompose.theme.paddingS
-import com.msd117.cryptocompose.theme.sizeS
-import com.msd117.cryptocompose.theme.zero
-import com.skydoves.landscapist.glide.GlideImage
-
-enum class CardViewIconSize(val size: Dp) {
-    MEDIUM(40.dp)
-}
+import com.msd117.cryptocompose.theme.*
 
 @ExperimentalMaterialApi
 @Composable
@@ -32,7 +25,7 @@ fun CardIconButtonView(
     @DrawableRes icon: Int,
     @StringRes label: Int,
     modifier: Modifier = Modifier,
-    iconSize: CardViewIconSize = CardViewIconSize.MEDIUM,
+    iconSize: Dp = smallIconSize,
     onClick: () -> Unit
 ) {
     CardIconButtonView(
@@ -50,7 +43,7 @@ fun CardIconButtonView(
     @DrawableRes icon: Int,
     label: String,
     modifier: Modifier = Modifier,
-    iconSize: CardViewIconSize = CardViewIconSize.MEDIUM,
+    iconSize: Dp = smallIconSize,
     onClick: () -> Unit
 ) {
     Card(
@@ -60,10 +53,11 @@ fun CardIconButtonView(
             .shadow(elevation = sizeS)
     ) {
         Row(modifier = Modifier.padding(all = paddingM)) {
-            GlideImage(
-                imageModel = icon,
+            Image(
+                painter = painterResource(id = icon),
+                contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.requiredSize(iconSize.size)
+                modifier = Modifier.requiredSize(iconSize)
             )
             Text(
                 text = label,

@@ -16,18 +16,14 @@ import androidx.navigation.NavController
 import com.msd117.cryptocompose.R
 import com.msd117.cryptocompose.theme.BaseView
 import com.msd117.cryptocompose.utils.NavigationConstants
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
 
 @Composable
 fun SplashView(navController: NavController) {
-    LaunchedEffect("navigation") {
-        withContext(Dispatchers.Main) {
-            delay(3000)
-            navController.navigate(NavigationConstants.MainRoute) {
-                popUpTo(NavigationConstants.SplashRoute) { inclusive = true }
-            }
+    LaunchedEffect(key1 = Unit) {
+        delay(3000)
+        navController.navigate(NavigationConstants.MainRoute) {
+            popUpTo(NavigationConstants.SplashRoute) { inclusive = true }
         }
     }
     Box(modifier = Modifier.fillMaxSize()) {

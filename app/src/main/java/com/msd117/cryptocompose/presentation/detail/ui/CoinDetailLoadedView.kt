@@ -25,17 +25,19 @@ import com.msd117.cryptocompose.theme.ui.widget.CardIconButtonView
 fun CoinDetailLoadedView(coinDetail: CoinDetail) {
     Column(modifier = Modifier.padding(all = paddingL)) {
         Text(text = coinDetail.description)
-        LazyRow(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = zero, vertical = paddingM),
+                .padding(horizontal = zero, vertical = paddingL),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             coinDetail.technicalButtons.forEach { technicalButton ->
-                item {
-                    with(technicalButton) {
-                        CardIconButtonView(icon = icon, label = label) { }
-                    }
+                with(technicalButton) {
+                    CardIconButtonView(
+                        icon = icon,
+                        label = label,
+                        iconSize = xSmallIconSize
+                    ) { }
                 }
             }
         }
@@ -86,7 +88,18 @@ fun CoinDetailLoadedPreview() {
                 contractAddress = listOf(ContractAddress("address", CoinPlatform("Coin", null))),
                 selfReportedCirculatingSupply = "selfReportedCirculatingSupply",
                 selfReportedTags = listOf("selfReportedTags"),
-                technicalButtons = emptyList(),
+                technicalButtons = listOf(
+                    CoinDetail.TechnicalButtons(
+                        R.drawable.ic_twitter,
+                        R.string.details_source_code_button,
+                        "urls.twitter"
+                    ),
+                    CoinDetail.TechnicalButtons(
+                        R.drawable.ic_reddit,
+                        R.string.details_technical_docs_button,
+                        "urls.reddit"
+                    ),
+                ),
                 urlButtons = listOf(
                     CoinDetail.UrlButton(R.drawable.ic_twitter, "urls.twitter"),
                     CoinDetail.UrlButton(R.drawable.ic_reddit, "urls.reddit"),

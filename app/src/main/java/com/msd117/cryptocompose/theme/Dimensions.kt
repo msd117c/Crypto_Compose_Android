@@ -24,4 +24,6 @@ val sizeS = sizeM.times(sMultiplier)
 
 val smallIconSize = 44.dp
 
-val smallLoadingIconSize = 40.dp
+val smallLoadingIconSize = 47.5.dp
+
+val xSmallIconSize = 34.dp

@@ -76,8 +76,7 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String, String, String)
                             modifier = Modifier.padding(
                                 horizontal = paddingM,
                                 vertical = paddingXS
-                            ),
-                            color = Color.Black
+                            )
                         )
                         Text(
                             text = latestCoin.symbol,

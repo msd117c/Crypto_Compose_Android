@@ -35,7 +35,7 @@ fun LatestCoinsView(viewModel: LatestCoinsViewModel, navController: NavControlle
                         )
                         .replace(
                             NavigationConstants.CoinDetailsRouteIconArgToReplace,
-                            URLEncoder.encode(icon, "UTF-8")
+                            URLEncoder.encode(icon, Charsets.UTF_8.name())
                         )
                         .replace(
                             NavigationConstants.CoinDetailsRouteNameArgToReplace,

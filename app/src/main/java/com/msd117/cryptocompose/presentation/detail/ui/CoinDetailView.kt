@@ -26,7 +26,7 @@ import com.msd117.cryptocompose.R
 import com.msd117.cryptocompose.presentation.detail.presenter.CoinDetailState
 import com.msd117.cryptocompose.presentation.detail.presenter.CoinDetailViewModel
 import com.msd117.cryptocompose.presentation.latest.presenter.initialState
-import com.msd117.cryptocompose.presentation.main.ui.MainActivity
+import com.msd117.cryptocompose.presentation.activity.MainActivity
 import com.msd117.cryptocompose.theme.paddingM
 import com.msd117.cryptocompose.theme.paddingS
 import com.msd117.cryptocompose.theme.smallIconSize

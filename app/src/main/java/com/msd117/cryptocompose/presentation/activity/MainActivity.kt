@@ -1,4 +1,4 @@
-package com.msd117.cryptocompose.presentation.main.ui
+package com.msd117.cryptocompose.presentation.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +15,7 @@ import com.msd117.cryptocompose.presentation.detail.presenter.CoinDetailViewMode
 import com.msd117.cryptocompose.presentation.detail.ui.CoinDetailView
 import com.msd117.cryptocompose.presentation.detail.ui.coinDetailViewModel
 import com.msd117.cryptocompose.presentation.latest.ui.LatestCoinsView
+import com.msd117.cryptocompose.presentation.main.ui.MainView
 import com.msd117.cryptocompose.presentation.splash.ui.SplashView
 import com.msd117.cryptocompose.theme.setUi
 import com.msd117.cryptocompose.theme.ui.shared.SharedElementRoot
