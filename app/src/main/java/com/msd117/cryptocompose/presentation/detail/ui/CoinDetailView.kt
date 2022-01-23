@@ -59,17 +59,18 @@ fun CoinDetailView(viewModel: CoinDetailViewModel) {
     Column(modifier = Modifier.fillMaxWidth()) {
         TopAppBar(
             title = {
-                Row {
-                    SharedElement(
-                        tag = viewModel.symbol,
-                        type = SharedElementInfo.SharedElementType.To,
-                        modifier = Modifier
-                            .requiredSize(smallIconSize)
-                            .align(Alignment.CenterVertically)
-                    ) {
+                SharedElement(
+                    tag = viewModel.symbol,
+                    type = SharedElementInfo.SharedElementType.To,
+                    modifier = Modifier
+                ) {
+                    Row {
                         GlideImage(
                             imageModel = viewModel.icon,
                             contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .requiredSize(smallIconSize)
+                                .align(Alignment.CenterVertically),
                             shimmerParams = ShimmerParams(
                                 baseColor = MaterialTheme.colors.background,
                                 highlightColor = Color.LightGray,
@@ -78,13 +79,13 @@ fun CoinDetailView(viewModel: CoinDetailViewModel) {
                                 tilt = 20f
                             )
                         )
+                        Text(
+                            text = viewModel.name,
+                            modifier = Modifier
+                                .align(Alignment.CenterVertically)
+                                .padding(horizontal = paddingM, vertical = zero)
+                        )
                     }
-                    Text(
-                        text = viewModel.name,
-                        modifier = Modifier
-                            .align(Alignment.CenterVertically)
-                            .padding(horizontal = paddingM, vertical = zero)
-                    )
                 }
             },
             navigationIcon = {
