@@ -2,6 +2,7 @@ package com.msd117.cryptocompose.theme.ui.shared
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateOffsetAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
@@ -14,6 +15,9 @@ import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.IntOffset
+
+private const val durationMillis = 500
 
 @Composable
 fun SharedElement(
@@ -46,7 +50,7 @@ fun SharedElement(
 
     DisposableEffect(key1 = Unit) {
         rootState.onElementRegistered(elementInfo)
-        onDispose { }
+        onDispose { rootState.onElementDisposed(elementInfo) }
     }
 }
 
@@ -59,6 +63,10 @@ fun SharedElementRoot(children: @Composable () -> Unit) {
             children()
             SharedElementOverlay()
         }
+    }
+
+    DisposableEffect(key1 = Unit) {
+        onDispose { rootState.dispose() }
     }
 }
 
@@ -80,6 +88,7 @@ fun SharedElementOverlay() {
                 } else {
                     sharedElementState.endStateProps.position
                 },
+                animationSpec = tween(durationMillis),
                 finishedListener = animationFinished
             )
             val size by animateDpAsState(
@@ -89,15 +98,13 @@ fun SharedElementOverlay() {
                     } else {
                         sharedElementState.endStateProps.size.toDp()
                     }
-                }
+                },
+                animationSpec = tween(durationMillis)
             )
 
             Box(
                 modifier = Modifier
-                    .offset(
-                        x = with(LocalDensity.current) { position.x.toDp() },
-                        y = with(LocalDensity.current) { position.y.toDp() }
-                    )
+                    .offset { IntOffset(x = position.x.toInt(), y = position.y.toInt()) }
                     .size(size)
             ) {
                 sharedElementState.placeholder()
@@ -140,20 +147,20 @@ private class SharedElementRootState {
                 }
                 is SharedElementState.AnimationReady -> Unit
                 else -> {
+                    val elementProps = layoutCoordinates.buildElementProps()
                     when {
                         elementInfo.type == SharedElementInfo.SharedElementType.From &&
-                                sharedElementState is SharedElementState.Empty -> {
+                                (sharedElementState as? SharedElementState.SourceLoaded)?.startStateProps != elementProps -> {
                             states[tag] = SharedElementState.SourceLoaded(
-                                startStateProps = layoutCoordinates.buildElementProps(),
-                                placeholder = placeholder
+                                startStateProps = elementProps
                             )
                         }
                         elementInfo.type == SharedElementInfo.SharedElementType.To &&
                                 sharedElementState is SharedElementState.SourceLoaded -> {
                             states[tag] = SharedElementState.DestinationLoaded(
                                 startStateProps = sharedElementState.startStateProps,
-                                endStateProps = layoutCoordinates.buildElementProps(),
-                                placeholder = sharedElementState.placeholder
+                                endStateProps = elementProps,
+                                placeholder = placeholder
                             )
                         }
                     }
@@ -187,9 +194,36 @@ private class SharedElementRootState {
     }
 
     fun onElementRegistered(elementInfo: SharedElementInfo) {
-        if (elementInfo.type == SharedElementInfo.SharedElementType.From) {
+        if (elementInfo.type == SharedElementInfo.SharedElementType.From && states[elementInfo.tag] == null) {
             states[elementInfo.tag] = SharedElementState.Empty
         }
+    }
+
+    fun onElementDisposed(elementInfo: SharedElementInfo) {
+        elementInfo.tag.withState { sharedElementState ->
+            when (elementInfo.type) {
+                SharedElementInfo.SharedElementType.From -> {
+                    if (
+                        sharedElementState is SharedElementState.SourceLoaded ||
+                        sharedElementState is SharedElementState.Empty
+                    ) {
+                        states.remove(elementInfo.tag)
+                    }
+                }
+                SharedElementInfo.SharedElementType.To -> {
+                    if (
+                        sharedElementState is SharedElementState.AnimationReady ||
+                        sharedElementState is SharedElementState.DestinationLoaded
+                    ) {
+                        states.remove(elementInfo.tag)
+                    }
+                }
+            }
+        }
+    }
+
+    fun dispose() {
+        states.clear()
     }
 
     private fun String.withState(block: (SharedElementState) -> Unit) {
@@ -208,10 +242,7 @@ data class SharedElementInfo(val tag: String, val type: SharedElementType) {
 
 sealed class SharedElementState {
     object Empty : SharedElementState()
-    data class SourceLoaded(
-        val startStateProps: SharedElementSateProps,
-        val placeholder: @Composable () -> Unit
-    ) : SharedElementState()
+    data class SourceLoaded(val startStateProps: SharedElementSateProps) : SharedElementState()
 
     data class DestinationLoaded(
         val startStateProps: SharedElementSateProps,
