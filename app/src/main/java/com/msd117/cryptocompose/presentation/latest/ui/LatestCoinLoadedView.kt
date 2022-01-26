@@ -1,5 +1,6 @@
 package com.msd117.cryptocompose.presentation.latest.ui
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Button
@@ -15,6 +16,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.paging.LoadState
+import androidx.paging.PagingData
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.msd117.cryptocompose.presentation.latest.model.Growth
 import com.msd117.cryptocompose.presentation.latest.model.LatestCoin
 import com.msd117.cryptocompose.theme.*
@@ -22,13 +27,42 @@ import com.msd117.cryptocompose.theme.ui.shared.SharedElement
 import com.msd117.cryptocompose.theme.ui.shared.SharedElementInfo
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 
 @ExperimentalComposeUiApi
 @Composable
-fun LatestCoinLoadedView(latestCoins: List<LatestCoin>, onClick: (String, String, String) -> Unit) {
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        latestCoins.forEach { latestCoin ->
-            item { LatestCoinItemView(latestCoin = latestCoin, onClick = onClick) }
+fun LatestCoinLoadedView(
+    latestCoins: Flow<PagingData<LatestCoin>>,
+    onClick: (String, String, String) -> Unit
+) {
+    val latestCoinItems: LazyPagingItems<LatestCoin> = latestCoins.collectAsLazyPagingItems()
+    LazyColumn(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        items(latestCoinItems.itemCount) { index ->
+            latestCoinItems[index]?.let { item ->
+                LatestCoinItemView(
+                    latestCoin = item,
+                    onClick = onClick
+                )
+            }
+        }
+        latestCoinItems.apply {
+            when {
+                loadState.refresh is LoadState.Loading -> {
+                    (0..10).forEach { _ ->
+                        item { LoadingItemView() }
+                    }
+                }
+                loadState.append is LoadState.Loading -> {
+                    item { LoadingItemView() }
+                }
+                loadState.append is LoadState.Error -> {
+                    //You can use modifier to show error message
+                    Log.d("LOADERR", "ERROR")
+                }
+            }
         }
     }
 }
@@ -113,14 +147,18 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String, String, String)
 fun LatestCoinLoadedViewPreview() {
     BaseView {
         LatestCoinLoadedView(
-            latestCoins = listOf(
-                LatestCoin(
-                    name = "Bitcoin",
-                    symbol = "BTC",
-                    summary = "+0.5%",
-                    growth = Growth.POSITIVE,
-                    price = "50",
-                    icon = "https://cryptoicon-api.vercel.app/api/icon/btc"
+            latestCoins = flowOf(
+                PagingData.from(
+                    listOf(
+                        LatestCoin(
+                            name = "Bitcoin",
+                            symbol = "BTC",
+                            summary = "+0.5%",
+                            growth = Growth.POSITIVE,
+                            price = "50",
+                            icon = "https://cryptoicon-api.vercel.app/api/icon/btc"
+                        )
+                    )
                 )
             ),
             onClick = { _, _, _ -> }
