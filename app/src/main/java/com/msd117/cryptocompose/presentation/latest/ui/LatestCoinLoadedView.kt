@@ -3,6 +3,7 @@ package com.msd117.cryptocompose.presentation.latest.ui
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -14,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.LoadState
@@ -22,9 +24,11 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.msd117.cryptocompose.presentation.latest.model.Growth
 import com.msd117.cryptocompose.presentation.latest.model.LatestCoin
+import com.msd117.cryptocompose.presentation.latest.presenter.LatestCoinsState
 import com.msd117.cryptocompose.theme.*
 import com.msd117.cryptocompose.theme.ui.shared.SharedElement
 import com.msd117.cryptocompose.theme.ui.shared.SharedElementInfo
+import com.msd117.cryptocompose.theme.ui.widget.SelectableChip
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.flow.Flow
@@ -33,38 +37,69 @@ import kotlinx.coroutines.flow.flowOf
 @ExperimentalComposeUiApi
 @Composable
 fun LatestCoinLoadedView(
+    sortByOptions: List<LatestCoinsState.Loaded.SortBy>,
     latestCoins: Flow<PagingData<LatestCoin>>,
-    onClick: (String, String, String) -> Unit
+    onClick: (String, String, String) -> Unit,
+    onSortByClicked: (String, Boolean) -> Unit
 ) {
     val latestCoinItems: LazyPagingItems<LatestCoin> = latestCoins.collectAsLazyPagingItems()
-    LazyColumn(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        items(latestCoinItems.itemCount) { index ->
-            latestCoinItems[index]?.let { item ->
-                LatestCoinItemView(
-                    latestCoin = item,
-                    onClick = onClick
-                )
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(all = paddingM),
+            horizontalArrangement = Arrangement.spacedBy(space = sizeS)
+        ) {
+            sortByOptions.forEach { sortBy ->
+                item { LatestCoinSortByView(sortBy = sortBy, onClick = onSortByClicked) }
             }
         }
-        latestCoinItems.apply {
-            when {
-                loadState.refresh is LoadState.Loading -> {
-                    (0..10).forEach { _ ->
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            items(latestCoinItems.itemCount) { index ->
+                latestCoinItems[index]?.let { item ->
+                    LatestCoinItemView(
+                        latestCoin = item,
+                        onClick = onClick
+                    )
+                }
+            }
+            latestCoinItems.apply {
+                when {
+                    loadState.refresh is LoadState.Loading -> {
+                        (0..10).forEach { _ ->
+                            item { LoadingItemView() }
+                        }
+                    }
+                    loadState.append is LoadState.Loading -> {
                         item { LoadingItemView() }
                     }
-                }
-                loadState.append is LoadState.Loading -> {
-                    item { LoadingItemView() }
-                }
-                loadState.append is LoadState.Error -> {
-                    //You can use modifier to show error message
-                    Log.d("LOADERR", "ERROR")
+                    loadState.append is LoadState.Error -> {
+                        //You can use modifier to show error message
+                        Log.d("LOADERR", "ERROR")
+                    }
                 }
             }
         }
     }
+}
+
+@Composable
+fun LatestCoinSortByView(
+    sortBy: LatestCoinsState.Loaded.SortBy,
+    onClick: (String, Boolean) -> Unit
+) {
+    val (sortById, label, selected) = sortBy
+    SelectableChip(
+        label = LocalContext.current.getString(label),
+        contentDescription = "",
+        selected = selected,
+        onClick = { isSelected ->
+            onClick(sortById, isSelected)
+        }
+    )
 }
 
 @ExperimentalComposeUiApi
@@ -147,6 +182,7 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String, String, String)
 fun LatestCoinLoadedViewPreview() {
     BaseView {
         LatestCoinLoadedView(
+            sortByOptions = emptyList(),
             latestCoins = flowOf(
                 PagingData.from(
                     listOf(
@@ -161,7 +197,8 @@ fun LatestCoinLoadedViewPreview() {
                     )
                 )
             ),
-            onClick = { _, _, _ -> }
+            onClick = { _, _, _ -> },
+            onSortByClicked = { _, _ -> }
         )
     }
 }

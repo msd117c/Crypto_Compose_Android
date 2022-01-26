@@ -10,7 +10,27 @@
     <string name="menu_item_markets">Markets</string>
     <string name="no_connection_message">No connection</string>
 
+    <!-- Latest coins sort by labels -->
+    <string name="sort_by_name">Name</string>
+    <string name="sort_by_symbol">Symbol</string>
+    <string name="sort_by_date_added">Date added</string>
+    <string name="sort_by_market_cap">Market cap</string>
+    <string name="sort_by_market_cap_strict">Market cap (strict)</string>
+    <string name="sort_by_price">Price</string>
+    <string name="sort_by_circulating_supply">Circulating supply</string>
+    <string name="sort_by_total_supply">Total supply</string>
+    <string name="sort_by_max_supply">Max supply</string>
+    <string name="sort_by_num_market_pairs">Num market pairs</string>
+    <string name="sort_by_volume_24h">Volume 24h</string>
+    <string name="sort_by_percent_change_1h">Percent change 1h</string>
+    <string name="sort_by_percent_change_24h">Percent change 24h</string>
+    <string name="sort_by_percent_change_7d">Percent change 7d</string>
+    <string name="sort_by_market_cap_by_total_supply_strict">Market cap by total supply (strict)</string>
+    <string name="sort_by_volume_7d">Volume 7d</string>
+    <string name="sort_by_volume_30d">Volume 30d</string>
+
     <!-- Coin details -->
     <string name="details_source_code_button">Source code</string>
     <string name="details_technical_docs_button">Technical docs</string>
+
 </resources>

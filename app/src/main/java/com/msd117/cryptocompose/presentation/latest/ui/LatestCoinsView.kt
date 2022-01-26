@@ -26,6 +26,7 @@ fun LatestCoinsView(viewModel: LatestCoinsViewModel, navController: NavControlle
             is LatestCoinsState.Loading -> LatestCoinLoadingView()
             is LatestCoinsState.Error -> LatestCoinErrorView()
             is LatestCoinsState.Loaded -> LatestCoinLoadedView(
+                sortByOptions = state.sortByOptions,
                 latestCoins = state.latestCoins,
                 onClick = { symbol, icon, name ->
                     val route = NavigationConstants.CoinDetailsRoute
@@ -42,7 +43,8 @@ fun LatestCoinsView(viewModel: LatestCoinsViewModel, navController: NavControlle
                             name
                         )
                     navController.navigate(route)
-                }
+                },
+                onSortByClicked = viewModel::onSortByClicked
             )
             is LatestCoinsState.Uninitialized -> Unit
         }

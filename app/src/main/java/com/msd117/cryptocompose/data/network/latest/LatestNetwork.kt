@@ -10,6 +10,7 @@ interface LatestNetwork {
     @GET(latestEndpoint)
     suspend fun fetchLatest(
         @Query("start") start: Int,
-        @Query("limit") limit: Int
+        @Query("limit") limit: Int,
+        @Query("sort") sort: String
     ): LatestResponse
 }

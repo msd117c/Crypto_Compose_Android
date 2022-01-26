@@ -4,6 +4,7 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import com.msd117.cryptocompose.domain.usecase.latest.FetchLatestUseCase
 import com.msd117.cryptocompose.presentation.latest.model.*
+import com.msd117.cryptocompose.presentation.latest.presenter.LatestCoinsState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.math.BigDecimal
@@ -18,8 +19,8 @@ private const val ICON_API_URL = "https://cryptoicon-api.vercel.app/api/icon/"
 
 class FetchLatestModelsHelper @Inject constructor(private val fetchLatestUseCase: FetchLatestUseCase) {
 
-    operator fun invoke(): Flow<PagingData<LatestCoin>> {
-        val latestResponse = fetchLatestUseCase()
+    operator fun invoke(sortBy: LatestCoinsState.Loaded.SortBy): Flow<PagingData<LatestCoin>> {
+        val latestResponse = fetchLatestUseCase(sortBy.id)
         return latestResponse.map { pagingData ->
             pagingData.map { data ->
                 val growthPercent = data.quote?.usd?.percentChange1h?.let { percent ->
