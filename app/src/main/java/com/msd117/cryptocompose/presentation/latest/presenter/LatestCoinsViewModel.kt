@@ -1,11 +1,9 @@
 package com.msd117.cryptocompose.presentation.latest.presenter
 
-import androidx.lifecycle.ViewModel
 import com.msd117.cryptocompose.presentation.latest.helper.FetchLatestModelsHelper
-import com.msd117.cryptocompose.utils.getViewModelScope
+import com.msd117.cryptocompose.utils.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,12 +12,9 @@ import javax.inject.Inject
 class LatestCoinsViewModel @Inject constructor(
     coroutineScope: CoroutineScope?,
     private val fetchLatestModelsHelper: FetchLatestModelsHelper
-) : ViewModel() {
+) : BaseViewModel<LatestCoinsState>(coroutineScope) {
 
-    private val scope = getViewModelScope(coroutineScope)
-
-    private val state: MutableStateFlow<LatestCoinsState> = MutableStateFlow(initialState)
-    fun getState(): Flow<LatestCoinsState> = state
+    override val state: MutableStateFlow<LatestCoinsState> = MutableStateFlow(initialState)
 
     fun initialize() {
         if (state.value !is LatestCoinsState.Uninitialized) return

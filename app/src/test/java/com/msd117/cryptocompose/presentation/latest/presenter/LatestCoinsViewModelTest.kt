@@ -1,25 +1,47 @@
 package com.msd117.cryptocompose.presentation.latest.presenter
 
+import com.msd117.cryptocompose.TestModels.LatestCoinModels.latestCoin
 import com.msd117.cryptocompose.presentation.latest.helper.FetchLatestModelsHelper
+import com.msd117.cryptocompose.utils.ViewModelTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.only
+import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
-class LatestCoinsViewModelTest {
+class LatestCoinsViewModelTest : ViewModelTest<LatestCoinsViewModel>() {
 
-    private val scope = TestCoroutineScope()
     private val fetchLatestModelsHelper: FetchLatestModelsHelper = mock()
-
-    private val viewModel = LatestCoinsViewModel(scope, fetchLatestModelsHelper)
+    override val viewModel = LatestCoinsViewModel(scope, fetchLatestModelsHelper)
 
     @Test
-    fun `when fetching latest coins successfully should emit the expected state`() =
+    fun `when success on initialization should return the expected states`() {
+        runBlockingTest {
+            whenever(fetchLatestModelsHelper()).thenReturn(listOf(latestCoin))
+            val expectedStates = listOf(
+                LatestCoinsState.Uninitialized,
+                LatestCoinsState.Loading,
+                LatestCoinsState.Loaded(listOf(latestCoin))
+            )
+            val states = mutableListOf<LatestCoinsState>()
+            launch { viewModel.getState().toList(states) }.apply {
+
+                viewModel.initialize()
+
+                verify(fetchLatestModelsHelper, only()).invoke()
+                assert(expectedStates == states)
+                cancel()
+            }
+        }
+    }
+
+    @Test
+    fun `when error on initialization should return the expected states`() {
         runBlockingTest {
             whenever(fetchLatestModelsHelper()).thenReturn(emptyList())
             val expectedStates = listOf(
@@ -28,13 +50,16 @@ class LatestCoinsViewModelTest {
                 LatestCoinsState.Error
             )
             val states = mutableListOf<LatestCoinsState>()
-            val job = launch { viewModel.getState().toList(states) }
+            launch { viewModel.getState().toList(states) }.apply {
 
-            viewModel.initialize()
+                viewModel.initialize()
 
-            assert(states == expectedStates)
-            job.cancel()
+                verify(fetchLatestModelsHelper, only()).invoke()
+                assert(expectedStates == states)
+                cancel()
+            }
         }
+    }
 
     @Test
     fun `when already initialized should not initialize again`() =
@@ -43,11 +68,13 @@ class LatestCoinsViewModelTest {
             viewModel.initialize()
             val expectedStates = listOf(LatestCoinsState.Error)
             val states = mutableListOf<LatestCoinsState>()
-            val job = launch { viewModel.getState().toList(states) }
+            launch { viewModel.getState().toList(states) }.apply {
 
-            viewModel.initialize()
+                viewModel.initialize()
 
-            assert(states == expectedStates)
-            job.cancel()
+                verify(fetchLatestModelsHelper, only()).invoke()
+                assert(expectedStates == states)
+                cancel()
+            }
         }
 }

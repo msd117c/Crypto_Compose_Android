@@ -55,6 +55,7 @@ fun coinDetailViewModel(symbol: String, icon: String, name: String): CoinDetailV
 @Composable
 fun CoinDetailView(viewModel: CoinDetailViewModel, navController: NavController) {
     val currentState by viewModel.getState().collectAsState(initial = initialState)
+    viewModel.initialize()
 
     Column(modifier = Modifier.fillMaxWidth()) {
         SharedElement(

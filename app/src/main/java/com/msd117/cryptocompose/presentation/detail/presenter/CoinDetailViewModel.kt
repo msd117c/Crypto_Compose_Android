@@ -3,13 +3,12 @@ package com.msd117.cryptocompose.presentation.detail.presenter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.msd117.cryptocompose.presentation.detail.helper.FetchCoinDetailInfoHelper
+import com.msd117.cryptocompose.utils.BaseViewModel
 import com.msd117.cryptocompose.utils.NavigationConstants
-import com.msd117.cryptocompose.utils.getViewModelScope
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
@@ -19,14 +18,13 @@ class CoinDetailViewModel @AssistedInject constructor(
     @Assisted(NavigationConstants.CoinDetailsRouteSymbolArg) val symbol: String,
     @Assisted(NavigationConstants.CoinDetailsRouteIconArg) val icon: String,
     @Assisted(NavigationConstants.CoinDetailsRouteNameArg) val name: String
-) : ViewModel() {
+) : BaseViewModel<CoinDetailState>(coroutineScope) {
 
-    private val scope = getViewModelScope(coroutineScope)
+    override val state: MutableStateFlow<CoinDetailState> = MutableStateFlow(initialState)
 
-    private val state: MutableStateFlow<CoinDetailState> = MutableStateFlow(initialState)
-    fun getState(): Flow<CoinDetailState> = state
+    fun initialize() {
+        if (state.value !is CoinDetailState.Uninitialized) return
 
-    init {
         scope.launch {
             state.value = CoinDetailState.Loading
             try {

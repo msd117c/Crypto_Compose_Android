@@ -1,53 +1,63 @@
 package com.msd117.cryptocompose.presentation.main.presenter
 
 import com.msd117.cryptocompose.domain.usecase.connection.IsConnectionAvailableUseCase
+import com.msd117.cryptocompose.utils.ViewModelTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.only
+import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
-class MainViewModelTest {
+class MainViewModelTest : ViewModelTest<MainViewModel>() {
 
-    private val testScope = TestCoroutineScope()
     private val isConnectionAvailableUseCase: IsConnectionAvailableUseCase = mock()
-
-    private val viewModel = MainViewModel(testScope, isConnectionAvailableUseCase)
-
-    private val expectedStates = listOf(MainState.Uninitialized)
+    override val viewModel = MainViewModel(scope, isConnectionAvailableUseCase)
 
     @Test
-    fun `when initializing with connection should emit the state with isConnected as true`() =
+    fun `when initializing with connection should return the expected states`() {
         runBlockingTest {
             whenever(isConnectionAvailableUseCase()).thenReturn(flowOf(true))
-            val expectedStates = expectedStates + listOf(MainState.Loaded(isConnected = true))
+            val expectedStates = listOf(
+                MainState.Uninitialized,
+                MainState.Loaded(isConnected = true)
+            )
             val states = mutableListOf<MainState>()
-            val job = launch { viewModel.getState().toList(states) }
+            launch { viewModel.getState().toList(states) }.apply {
 
-            viewModel.initialize()
+                viewModel.initialize()
 
-            assert(states == expectedStates)
-            job.cancel()
+                verify(isConnectionAvailableUseCase, only()).invoke()
+                assert(expectedStates == states)
+                cancel()
+            }
         }
+    }
 
     @Test
-    fun `when initializing without connection should emit the state with isConnected as true`() =
+    fun `when initializing without connection should return the expected states`() {
         runBlockingTest {
             whenever(isConnectionAvailableUseCase()).thenReturn(flowOf(false))
-            val expectedStates = expectedStates + listOf(MainState.Loaded(isConnected = false))
+            val expectedStates = listOf(
+                MainState.Uninitialized,
+                MainState.Loaded(isConnected = false)
+            )
             val states = mutableListOf<MainState>()
-            val job = launch { viewModel.getState().toList(states) }
+            launch { viewModel.getState().toList(states) }.apply {
 
-            viewModel.initialize()
+                viewModel.initialize()
 
-            assert(states == expectedStates)
-            job.cancel()
+                verify(isConnectionAvailableUseCase, only()).invoke()
+                assert(expectedStates == states)
+                cancel()
+            }
         }
+    }
 
     @Test
     fun `when state is already initialized should not initialize again`() =
@@ -56,11 +66,14 @@ class MainViewModelTest {
             viewModel.initialize()
             val expectedStates = listOf(MainState.Loaded(isConnected = false))
             val states = mutableListOf<MainState>()
-            val job = launch { viewModel.getState().toList(states) }
+            launch { viewModel.getState().toList(states) }.apply {
 
-            viewModel.initialize()
+                viewModel.initialize()
 
-            assert(states == expectedStates)
-            job.cancel()
+                verify(isConnectionAvailableUseCase, only()).invoke()
+                assert(states == expectedStates)
+                cancel()
+            }
+
         }
 }
