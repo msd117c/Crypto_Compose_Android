@@ -39,7 +39,7 @@ fun Chip(
         modifier = Modifier.clickable(
             enabled = isClickable,
             onClick = { onClick() }
-        ),
+        ).padding(all = paddingS),
         elevation = sizeM,
         shape = MaterialTheme.shapes.small,
         color = color
@@ -55,7 +55,7 @@ fun Chip(
                     tint = startIconTint,
                     modifier = Modifier
                         .clickable(enabled = isStartIconEnabled, onClick = onStartIconClicked)
-                        .padding(horizontal = paddingS)
+                        .padding(start = paddingS)
                 )
             }
 
@@ -72,7 +72,7 @@ fun Chip(
                     tint = endIconTint,
                     modifier = Modifier
                         .clickable(enabled = isEndIconEnabled, onClick = onEndIconClicked)
-                        .padding(horizontal = paddingS)
+                        .padding(end = paddingS)
                 )
             }
 

@@ -8,6 +8,8 @@ private const val xsMultiplier = .25f
 
 private const val lMultiplier = 2
 
+private const val xlMultiplier = 4
+
 val zero = 0.dp
 
 val paddingM = 8.dp
@@ -17,6 +19,8 @@ val paddingS = paddingM.times(sMultiplier)
 val paddingXS = paddingM.times(xsMultiplier)
 
 val paddingL = paddingM.times(lMultiplier)
+
+val paddingXL = paddingM.times(xlMultiplier)
 
 val sizeM = 8.dp
 

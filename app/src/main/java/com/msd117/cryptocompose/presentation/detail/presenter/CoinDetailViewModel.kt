@@ -46,6 +46,7 @@ class CoinDetailViewModel @AssistedInject constructor(
     }
 
     companion object {
+
         fun provideFactory(
             assistedFactory: Factory,
             symbol: String,

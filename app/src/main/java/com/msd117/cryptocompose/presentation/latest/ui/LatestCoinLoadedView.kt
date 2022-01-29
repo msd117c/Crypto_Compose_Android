@@ -4,20 +4,24 @@ import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.*
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
@@ -33,7 +37,11 @@ import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
+@ExperimentalUnitApi
+@ExperimentalMaterialApi
 @ExperimentalComposeUiApi
 @Composable
 fun LatestCoinLoadedView(
@@ -43,42 +51,105 @@ fun LatestCoinLoadedView(
     onSortByClicked: (String, Boolean) -> Unit
 ) {
     val latestCoinItems: LazyPagingItems<LatestCoin> = latestCoins.collectAsLazyPagingItems()
+    val listState = rememberLazyListState()
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        LazyRow(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = paddingM),
-            horizontalArrangement = Arrangement.spacedBy(space = sizeS)
-        ) {
-            sortByOptions.forEach { sortBy ->
-                item { LatestCoinSortByView(sortBy = sortBy, onClick = onSortByClicked) }
+    val topBarHeight = 48.dp
+    val topBarHeightPx = with(LocalDensity.current) { topBarHeight.roundToPx().toFloat() }
+    val topBarOffsetHeightPx = remember { mutableStateOf(0f) }
+
+    val nestedScrollConnection = remember {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+
+                val delta = available.y
+                val newOffset = topBarOffsetHeightPx.value + delta
+                topBarOffsetHeightPx.value = newOffset.coerceIn(-topBarHeightPx, 0f)
+
+                return Offset.Zero
             }
         }
-        LazyColumn(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            items(latestCoinItems.itemCount) { index ->
-                latestCoinItems[index]?.let { item ->
-                    LatestCoinItemView(
-                        latestCoin = item,
-                        onClick = onClick
-                    )
+    }
+
+    val bottomState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+    val coroutineScope = rememberCoroutineScope()
+
+    ModalBottomSheetLayout(
+        sheetState = bottomState,
+        sheetContent = {
+            LazyRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = paddingM, end = paddingM, bottom = paddingXL, top = paddingM)
+            ) {
+                sortByOptions.forEach { sortBy ->
+                    item {
+                        LatestCoinSortByView(
+                            sortBy = sortBy,
+                            onClick = onSortByClicked
+                        )
+                    }
                 }
             }
-            latestCoinItems.apply {
-                when {
-                    loadState.refresh is LoadState.Loading -> {
-                        (0..10).forEach { _ ->
+        }
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .nestedScroll(nestedScrollConnection)
+        ) {
+            LazyColumn(state = listState, contentPadding = PaddingValues(top = topBarHeight)) {
+                items(latestCoinItems.itemCount) { index ->
+                    latestCoinItems[index]?.let { item ->
+                        LatestCoinItemView(
+                            latestCoin = item,
+                            onClick = onClick
+                        )
+                    }
+                }
+                latestCoinItems.apply {
+                    when {
+                        loadState.refresh is LoadState.Loading -> {
+                            (0..10).forEach { _ ->
+                                item { LoadingItemView() }
+                            }
+                        }
+                        loadState.append is LoadState.Loading -> {
                             item { LoadingItemView() }
                         }
+                        loadState.append is LoadState.Error -> {
+                            //You can use modifier to show error message
+                            Log.d("LOADERR", "ERROR")
+                        }
                     }
-                    loadState.append is LoadState.Loading -> {
-                        item { LoadingItemView() }
-                    }
-                    loadState.append is LoadState.Error -> {
-                        //You can use modifier to show error message
-                        Log.d("LOADERR", "ERROR")
+                }
+            }
+            TopAppBar(
+                modifier = Modifier
+                    .height(topBarHeight)
+                    .offset { IntOffset(x = 0, y = topBarOffsetHeightPx.value.roundToInt()) },
+            ) {
+                Column {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Latest coins",
+                            modifier = Modifier.padding(all = paddingM),
+                            fontSize = TextUnit(22f, TextUnitType.Sp)
+                        )
+                        Button(onClick = {
+                            coroutineScope.launch {
+                                if (bottomState.isVisible) {
+                                    bottomState.hide()
+                                } else {
+                                    bottomState.show()
+                                }
+                            }
+                        }) {
+                            Text(text = "Sort by")
+                        }
                     }
                 }
             }
@@ -176,6 +247,8 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String, String, String)
     }
 }
 
+@ExperimentalUnitApi
+@ExperimentalMaterialApi
 @ExperimentalComposeUiApi
 @Preview
 @Composable
@@ -198,7 +271,6 @@ fun LatestCoinLoadedViewPreview() {
                 )
             ),
             onClick = { _, _, _ -> },
-            onSortByClicked = { _, _ -> }
-        )
+        ) { _, _ -> }
     }
 }

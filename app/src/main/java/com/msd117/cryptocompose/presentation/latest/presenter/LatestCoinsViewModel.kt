@@ -23,7 +23,7 @@ class LatestCoinsViewModel @Inject constructor(
         if (state.value !is LatestCoinsState.Uninitialized) return
 
         val sortByOptions = getLatestCoinSortByOptionsHelper()
-        fetchLatestCoins(sortByOptions)
+        fetchLatestCoins(sortByOptions = sortByOptions)
     }
 
     fun onSortByClicked(sortById: String, isSelected: Boolean) {
@@ -42,17 +42,23 @@ class LatestCoinsViewModel @Inject constructor(
                 updatedSortByOptions
             }
 
-            fetchLatestCoins(sortByOptions)
+            fetchLatestCoins(loaded = loaded, sortByOptions = sortByOptions)
         }
     }
 
-    private fun fetchLatestCoins(sortByOptions: List<LatestCoinsState.Loaded.SortBy>) {
+    private fun fetchLatestCoins(
+        loaded: LatestCoinsState.Loaded? = null,
+        sortByOptions: List<LatestCoinsState.Loaded.SortBy>
+    ) {
         scope.launch {
             state.value = LatestCoinsState.Loading
             try {
                 val sortBy = sortByOptions.first { it.selected }
                 val latestCoins = fetchLatestModelsHelper(sortBy).cachedIn(scope)
-                state.value = LatestCoinsState.Loaded(
+                state.value = loaded?.copy(
+                    sortByOptions = sortByOptions,
+                    latestCoins = latestCoins
+                ) ?: LatestCoinsState.Loaded(
                     sortByOptions = sortByOptions,
                     latestCoins = latestCoins
                 )
