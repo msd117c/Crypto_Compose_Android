@@ -8,7 +8,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.navigation.NavController
 import com.msd117.cryptocompose.presentation.latest.presenter.LatestCoinsState
 import com.msd117.cryptocompose.presentation.latest.presenter.LatestCoinsViewModel
@@ -17,7 +16,6 @@ import com.msd117.cryptocompose.theme.BaseView
 import com.msd117.cryptocompose.utils.NavigationConstants
 import java.net.URLEncoder
 
-@ExperimentalUnitApi
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
 @Composable

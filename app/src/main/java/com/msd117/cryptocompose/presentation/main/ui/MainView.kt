@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -22,6 +21,11 @@ import com.msd117.cryptocompose.presentation.main.presenter.MainState
 import com.msd117.cryptocompose.presentation.main.presenter.MainViewModel
 import com.msd117.cryptocompose.presentation.main.presenter.initialState
 import com.msd117.cryptocompose.theme.*
+import com.msd117.cryptocompose.theme.Padding.paddingL
+import com.msd117.cryptocompose.theme.Padding.paddingM
+import com.msd117.cryptocompose.theme.Padding.paddingS
+import com.msd117.cryptocompose.theme.Size.sizeS
+import com.msd117.cryptocompose.theme.ui.widget.BodyText
 import com.msd117.cryptocompose.utils.NavigationConstants
 
 @Composable
@@ -60,7 +64,7 @@ fun MainView(viewModel: MainViewModel, navController: NavController) {
                                 .shadow(elevation = sizeS),
                             backgroundColor = MaterialTheme.colors.error
                         ) {
-                            Text(
+                            BodyText(
                                 text = stringResource(R.string.no_connection_message),
                                 color = MaterialTheme.colors.onError,
                                 modifier = Modifier.padding(all = paddingL)
@@ -86,7 +90,7 @@ fun MainMenuItem(
             .shadow(elevation = sizeS)
     ) {
         Button(onClick = { onClicked() }, enabled = isConnected) {
-            Text(
+            BodyText(
                 text = stringResource(label),
                 modifier = Modifier.padding(horizontal = paddingM, vertical = paddingL)
             )

@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.HighlightOff
@@ -15,9 +14,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.msd117.cryptocompose.theme.paddingM
-import com.msd117.cryptocompose.theme.paddingS
-import com.msd117.cryptocompose.theme.sizeM
+import com.msd117.cryptocompose.theme.Padding.paddingM
+import com.msd117.cryptocompose.theme.Padding.paddingS
+import com.msd117.cryptocompose.theme.Size.sizeM
 
 @Composable
 fun Chip(
@@ -36,10 +35,12 @@ fun Chip(
     onClick: () -> Unit = { }
 ) {
     Surface(
-        modifier = Modifier.clickable(
-            enabled = isClickable,
-            onClick = { onClick() }
-        ).padding(all = paddingS),
+        modifier = Modifier
+            .clickable(
+                enabled = isClickable,
+                onClick = { onClick() }
+            )
+            .padding(all = paddingS),
         elevation = sizeM,
         shape = MaterialTheme.shapes.small,
         color = color
@@ -59,11 +60,7 @@ fun Chip(
                 )
             }
 
-            Text(
-                label,
-                modifier = Modifier.padding(all = paddingM),
-                style = MaterialTheme.typography.button.copy(color = Color.Black)
-            )
+            BodyText(text = label, modifier = Modifier.padding(all = paddingM))
 
             if (trailer != null) {
                 Icon(

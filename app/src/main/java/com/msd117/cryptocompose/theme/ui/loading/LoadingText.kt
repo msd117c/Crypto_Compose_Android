@@ -9,7 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.msd117.cryptocompose.theme.BaseView
-import com.msd117.cryptocompose.theme.paddingM
+import com.msd117.cryptocompose.theme.Padding.paddingM
 import com.valentinilk.shimmer.shimmer
 
 enum class Height(val dp: Dp) {

@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +17,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import com.msd117.cryptocompose.theme.*
+import com.msd117.cryptocompose.theme.Padding.paddingM
+import com.msd117.cryptocompose.theme.Padding.paddingS
+import com.msd117.cryptocompose.theme.Size.sizeS
+import com.msd117.cryptocompose.theme.Size.smallIconSize
 
 @ExperimentalMaterialApi
 @Composable
@@ -59,7 +62,7 @@ fun CardIconButtonView(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.requiredSize(iconSize)
             )
-            Text(
+            BodyText(
                 text = label,
                 modifier = Modifier
                     .padding(horizontal = paddingM, vertical = zero)

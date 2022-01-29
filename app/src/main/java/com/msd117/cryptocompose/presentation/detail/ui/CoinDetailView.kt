@@ -7,7 +7,10 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.*
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,15 +26,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.msd117.cryptocompose.R
+import com.msd117.cryptocompose.presentation.activity.MainActivity
 import com.msd117.cryptocompose.presentation.detail.presenter.CoinDetailState
 import com.msd117.cryptocompose.presentation.detail.presenter.CoinDetailViewModel
 import com.msd117.cryptocompose.presentation.latest.presenter.initialState
-import com.msd117.cryptocompose.presentation.activity.MainActivity
-import com.msd117.cryptocompose.theme.paddingM
-import com.msd117.cryptocompose.theme.paddingS
-import com.msd117.cryptocompose.theme.smallIconSize
+import com.msd117.cryptocompose.theme.Padding.paddingM
+import com.msd117.cryptocompose.theme.Padding.paddingS
+import com.msd117.cryptocompose.theme.Size.smallIconSize
 import com.msd117.cryptocompose.theme.ui.shared.SharedElement
 import com.msd117.cryptocompose.theme.ui.shared.SharedElementInfo
+import com.msd117.cryptocompose.theme.ui.widget.TitleText
 import com.msd117.cryptocompose.theme.zero
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
@@ -80,7 +84,7 @@ fun CoinDetailView(viewModel: CoinDetailViewModel, navController: NavController)
                                 tilt = 20f
                             )
                         )
-                        Text(
+                        TitleText(
                             text = viewModel.name,
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)

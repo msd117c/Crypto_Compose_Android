@@ -6,7 +6,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -21,7 +24,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.*
+import androidx.compose.ui.unit.ExperimentalUnitApi
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
@@ -30,9 +35,18 @@ import com.msd117.cryptocompose.presentation.latest.model.Growth
 import com.msd117.cryptocompose.presentation.latest.model.LatestCoin
 import com.msd117.cryptocompose.presentation.latest.presenter.LatestCoinsState
 import com.msd117.cryptocompose.theme.*
+import com.msd117.cryptocompose.theme.Padding.paddingM
+import com.msd117.cryptocompose.theme.Padding.paddingS
+import com.msd117.cryptocompose.theme.Padding.paddingXL
+import com.msd117.cryptocompose.theme.Padding.paddingXS
+import com.msd117.cryptocompose.theme.Size.sizeS
+import com.msd117.cryptocompose.theme.Size.smallIconSize
 import com.msd117.cryptocompose.theme.ui.shared.SharedElement
 import com.msd117.cryptocompose.theme.ui.shared.SharedElementInfo
+import com.msd117.cryptocompose.theme.ui.widget.BodyText
 import com.msd117.cryptocompose.theme.ui.widget.SelectableChip
+import com.msd117.cryptocompose.theme.ui.widget.SmallBodyText
+import com.msd117.cryptocompose.theme.ui.widget.TitleText
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.flow.Flow
@@ -40,7 +54,6 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
-@ExperimentalUnitApi
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
 @Composable
@@ -134,10 +147,9 @@ fun LatestCoinLoadedView(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(
+                        TitleText(
                             text = "Latest coins",
-                            modifier = Modifier.padding(all = paddingM),
-                            fontSize = TextUnit(22f, TextUnitType.Sp)
+                            modifier = Modifier.padding(all = paddingM)
                         )
                         Button(onClick = {
                             coroutineScope.launch {
@@ -148,7 +160,7 @@ fun LatestCoinLoadedView(
                                 }
                             }
                         }) {
-                            Text(text = "Sort by")
+                            BodyText(text = "Sort by")
                         }
                     }
                 }
@@ -211,29 +223,28 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String, String, String)
                         )
                     }
                     Column {
-                        Text(
+                        BodyText(
                             text = latestCoin.name,
                             modifier = Modifier.padding(
                                 horizontal = paddingM,
                                 vertical = paddingXS
                             )
                         )
-                        Text(
+                        SmallBodyText(
                             text = latestCoin.symbol,
                             modifier = Modifier.padding(horizontal = paddingM, vertical = paddingXS)
                         )
                     }
                 }
                 Column(modifier = Modifier.align(Alignment.CenterEnd)) {
-                    Text(
+                    BodyText(
                         text = latestCoin.price,
                         modifier = Modifier
                             .padding(horizontal = paddingM, vertical = paddingXS)
                             .fillMaxWidth(),
-                        color = Color.Black,
                         textAlign = TextAlign.End
                     )
-                    Text(
+                    SmallBodyText(
                         text = latestCoin.summary,
                         modifier = Modifier
                             .padding(horizontal = paddingM, vertical = paddingXS)

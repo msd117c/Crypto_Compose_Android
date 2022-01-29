@@ -9,9 +9,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
-import com.msd117.cryptocompose.theme.paddingM
-import com.msd117.cryptocompose.theme.paddingS
-import com.msd117.cryptocompose.theme.sizeS
+import com.msd117.cryptocompose.theme.Padding.paddingM
+import com.msd117.cryptocompose.theme.Padding.paddingS
+import com.msd117.cryptocompose.theme.Size.sizeS
 import com.msd117.cryptocompose.theme.zero
 
 @ExperimentalMaterialApi

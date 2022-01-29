@@ -6,7 +6,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.IconButton
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -17,14 +16,20 @@ import com.msd117.cryptocompose.R
 import com.msd117.cryptocompose.presentation.detail.model.CoinDetail
 import com.msd117.cryptocompose.presentation.detail.model.CoinPlatform
 import com.msd117.cryptocompose.presentation.detail.model.ContractAddress
-import com.msd117.cryptocompose.theme.*
+import com.msd117.cryptocompose.theme.CryptoComposeTheme
+import com.msd117.cryptocompose.theme.Padding.paddingL
+import com.msd117.cryptocompose.theme.Padding.paddingS
+import com.msd117.cryptocompose.theme.Size.smallIconSize
+import com.msd117.cryptocompose.theme.Size.xSmallIconSize
+import com.msd117.cryptocompose.theme.ui.widget.BodyText
 import com.msd117.cryptocompose.theme.ui.widget.CardIconButtonView
+import com.msd117.cryptocompose.theme.zero
 
 @ExperimentalMaterialApi
 @Composable
 fun CoinDetailLoadedView(coinDetail: CoinDetail) {
     Column(modifier = Modifier.padding(all = paddingL)) {
-        Text(text = coinDetail.description)
+        BodyText(text = coinDetail.description)
         Row(
             modifier = Modifier
                 .fillMaxWidth()
