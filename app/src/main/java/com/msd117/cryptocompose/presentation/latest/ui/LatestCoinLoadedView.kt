@@ -20,8 +20,8 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.ExperimentalUnitApi
@@ -31,10 +31,11 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.msd117.cryptocompose.R
 import com.msd117.cryptocompose.presentation.latest.model.Growth
 import com.msd117.cryptocompose.presentation.latest.model.LatestCoin
 import com.msd117.cryptocompose.presentation.latest.presenter.LatestCoinsState
-import com.msd117.cryptocompose.theme.*
+import com.msd117.cryptocompose.theme.BaseView
 import com.msd117.cryptocompose.theme.Padding.paddingM
 import com.msd117.cryptocompose.theme.Padding.paddingS
 import com.msd117.cryptocompose.theme.Padding.paddingXL
@@ -110,7 +111,11 @@ fun LatestCoinLoadedView(
                 .fillMaxSize()
                 .nestedScroll(nestedScrollConnection)
         ) {
-            LazyColumn(state = listState, contentPadding = PaddingValues(top = topBarHeight)) {
+            LazyColumn(
+                modifier = Modifier.padding(vertical = paddingM),
+                state = listState,
+                contentPadding = PaddingValues(top = topBarHeight)
+            ) {
                 items(latestCoinItems.itemCount) { index ->
                     latestCoinItems[index]?.let { item ->
                         LatestCoinItemView(
@@ -122,9 +127,8 @@ fun LatestCoinLoadedView(
                 latestCoinItems.apply {
                     when {
                         loadState.refresh is LoadState.Loading -> {
-                            (0..10).forEach { _ ->
-                                item { LoadingItemView() }
-                            }
+                            Log.d("LOADERR", "Loading 2")
+                            loadingItemsView()
                         }
                         loadState.append is LoadState.Loading -> {
                             item { LoadingItemView() }
@@ -148,7 +152,7 @@ fun LatestCoinLoadedView(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         TitleText(
-                            text = "Latest coins",
+                            text = stringResource(R.string.latest_coins_title),
                             modifier = Modifier.padding(all = paddingM)
                         )
                         Button(onClick = {
@@ -160,7 +164,7 @@ fun LatestCoinLoadedView(
                                 }
                             }
                         }) {
-                            BodyText(text = "Sort by")
+                            BodyText(text = stringResource(R.string.latest_coins_sort_by_button))
                         }
                     }
                 }
@@ -176,7 +180,7 @@ fun LatestCoinSortByView(
 ) {
     val (sortById, label, selected) = sortBy
     SelectableChip(
-        label = LocalContext.current.getString(label),
+        label = stringResource(label),
         contentDescription = "",
         selected = selected,
         onClick = { isSelected ->

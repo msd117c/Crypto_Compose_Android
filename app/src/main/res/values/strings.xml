@@ -10,6 +10,10 @@
     <string name="menu_item_markets">Markets</string>
     <string name="no_connection_message">No connection</string>
 
+    <!-- Latest coins screen -->
+    <string name="latest_coins_title">Latest coins</string>
+    <string name="latest_coins_sort_by_button">Sort by</string>
+
     <!-- Latest coins sort by labels -->
     <string name="sort_by_name">Name</string>
     <string name="sort_by_symbol">Symbol</string>
@@ -32,5 +36,8 @@
     <!-- Coin details -->
     <string name="details_source_code_button">Source code</string>
     <string name="details_technical_docs_button">Technical docs</string>
+
+    <!-- Shared elements -->
+    <string name="shared_element_root_error">SharedElementRoot not found. SharedElement must be hosted in SharedElementRoot.</string>
 
 </resources>

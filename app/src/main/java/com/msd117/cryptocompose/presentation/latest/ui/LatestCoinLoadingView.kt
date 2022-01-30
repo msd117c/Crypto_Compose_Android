@@ -1,7 +1,9 @@
 package com.msd117.cryptocompose.presentation.latest.ui
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -9,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.msd117.cryptocompose.theme.*
+import com.msd117.cryptocompose.theme.BaseView
 import com.msd117.cryptocompose.theme.Padding.paddingL
 import com.msd117.cryptocompose.theme.Padding.paddingM
 import com.msd117.cryptocompose.theme.Padding.paddingS
@@ -19,14 +21,16 @@ import com.msd117.cryptocompose.theme.Size.smallLoadingIconSize
 import com.msd117.cryptocompose.theme.ui.loading.Height
 import com.msd117.cryptocompose.theme.ui.loading.LoadingCircle
 import com.msd117.cryptocompose.theme.ui.loading.LoadingText
+import com.msd117.cryptocompose.theme.zero
 
 @Composable
 fun LatestCoinLoadingView() {
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        (0..10).forEach { _ ->
-            item { LoadingItemView() }
-        }
-    }
+    Log.d("LOADERR", "Loading 1")
+    LazyColumn(modifier = Modifier.fillMaxSize()) { loadingItemsView() }
+}
+
+fun LazyListScope.loadingItemsView() {
+    repeat(10) { item { LoadingItemView() } }
 }
 
 @Composable

@@ -9,8 +9,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.msd117.cryptocompose.R
@@ -29,7 +29,7 @@ fun SplashView(navController: NavController) {
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.ic_coinmarket_logo),
-            contentDescription = LocalContext.current.getString(R.string.splash_image_content_description),
+            contentDescription = stringResource(R.string.splash_image_content_description),
             modifier = Modifier.align(Alignment.Center),
             colorFilter = ColorFilter.tint(color = MaterialTheme.colors.onPrimary)
         )

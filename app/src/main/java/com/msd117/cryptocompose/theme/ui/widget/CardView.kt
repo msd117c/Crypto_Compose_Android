@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import com.msd117.cryptocompose.theme.*
 import com.msd117.cryptocompose.theme.Padding.paddingM
@@ -33,7 +34,7 @@ fun CardIconButtonView(
 ) {
     CardIconButtonView(
         icon = icon,
-        label = LocalContext.current.getString(label),
+        label = stringResource(label),
         modifier = modifier,
         iconSize = iconSize,
         onClick = onClick
