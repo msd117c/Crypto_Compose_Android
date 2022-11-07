@@ -1,7 +1,7 @@
 package com.msd117.cryptocompose
 
-import com.msd117.cryptocompose.presentation.latest.model.Growth
-import com.msd117.cryptocompose.presentation.latest.model.LatestCoin
+import com.msd117.cryptocompose.latest.presenter.model.Growth
+import com.msd117.cryptocompose.latest.presenter.model.LatestCoin
 
 class TestModels {
 

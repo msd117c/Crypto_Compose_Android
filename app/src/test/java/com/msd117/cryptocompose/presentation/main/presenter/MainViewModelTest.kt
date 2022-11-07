@@ -1,6 +1,8 @@
 package com.msd117.cryptocompose.presentation.main.presenter
 
-import com.msd117.cryptocompose.domain.usecase.connection.IsConnectionAvailableUseCase
+import com.msd117.cryptocompose.main.domain.IsConnectionAvailableUseCase
+import com.msd117.cryptocompose.main.presenter.MainState
+import com.msd117.cryptocompose.main.presenter.MainViewModel
 import com.msd117.cryptocompose.utils.ViewModelTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf

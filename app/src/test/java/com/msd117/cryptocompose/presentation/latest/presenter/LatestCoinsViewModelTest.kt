@@ -3,8 +3,10 @@ package com.msd117.cryptocompose.presentation.latest.presenter
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.msd117.cryptocompose.TestModels.LatestCoinModels.latestCoin
-import com.msd117.cryptocompose.presentation.latest.helper.FetchLatestModelsHelper
-import com.msd117.cryptocompose.presentation.latest.model.LatestCoin
+import com.msd117.cryptocompose.latest.presenter.LatestCoinsState
+import com.msd117.cryptocompose.latest.presenter.LatestCoinsViewModel
+import com.msd117.cryptocompose.latest.presenter.helper.FetchLatestModelsHelper
+import com.msd117.cryptocompose.latest.presenter.model.LatestCoin
 import com.msd117.cryptocompose.utils.ViewModelTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
