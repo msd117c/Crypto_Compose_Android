@@ -1,4 +1,4 @@
-package com.msd117.cryptocompose.domain.model.latest
+package com.msd117.cryptocompose.latest.domain.model
 
 data class LatestCoinDomain(
     val id: Int?,

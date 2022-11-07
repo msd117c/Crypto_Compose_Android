@@ -1,15 +1,15 @@
-package com.msd117.cryptocompose.domain.mapper.latest
+package com.msd117.cryptocompose.latest.domain.mapper
 
 import com.msd117.cryptocompose.latest.data.model.Btc
 import com.msd117.cryptocompose.latest.data.model.Data
 import com.msd117.cryptocompose.latest.data.model.Eth
 import com.msd117.cryptocompose.latest.data.model.Usd
-import com.msd117.cryptocompose.domain.model.latest.*
+import com.msd117.cryptocompose.latest.domain.model.*
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.*
 
-private const val ICON_API_URL = "https://cryptoicon-api.vercel.app/api/icon/"
+private const val ICON_API_URL = "https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/master/64/"
 
 fun List<Data>.toDomain(): List<LatestCoinDomain> {
     return map { data ->
@@ -21,7 +21,7 @@ fun List<Data>.toDomain(): List<LatestCoinDomain> {
                 summary = toGrowthPercentage(),
                 growth = toGrowth(),
                 price = toFormattedPrice(),
-                icon = ICON_API_URL + symbol?.lowercase(),
+                icon = ICON_API_URL + name?.lowercase() + ".png",
                 slug = slug,
                 cmcRank = cmcRank,
                 numMarketPairs = numMarketPairs,

@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.only
@@ -23,7 +24,7 @@ class MainViewModelTest : ViewModelTest<MainViewModel>() {
 
     @Test
     fun `when initializing with connection should return the expected states`() {
-        runBlockingTest {
+        runTest {
             whenever(isConnectionAvailableUseCase()).thenReturn(flowOf(true))
             val expectedStates = listOf(
                 MainState.Uninitialized,
@@ -43,7 +44,7 @@ class MainViewModelTest : ViewModelTest<MainViewModel>() {
 
     @Test
     fun `when initializing without connection should return the expected states`() {
-        runBlockingTest {
+        runTest {
             whenever(isConnectionAvailableUseCase()).thenReturn(flowOf(false))
             val expectedStates = listOf(
                 MainState.Uninitialized,
@@ -63,7 +64,7 @@ class MainViewModelTest : ViewModelTest<MainViewModel>() {
 
     @Test
     fun `when state is already initialized should not initialize again`() =
-        runBlockingTest {
+        runTest {
             whenever(isConnectionAvailableUseCase()).thenReturn(flowOf(false))
             viewModel.initialize()
             val expectedStates = listOf(MainState.Loaded(isConnected = false))

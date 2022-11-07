@@ -1,6 +1,6 @@
 package com.msd117.cryptocompose.latest.presenter.mapper
 
-import com.msd117.cryptocompose.domain.model.latest.*
+import com.msd117.cryptocompose.latest.domain.model.*
 import com.msd117.cryptocompose.latest.presenter.model.*
 
 fun List<LatestCoinDomain>.toPresentation(): List<LatestCoin> {

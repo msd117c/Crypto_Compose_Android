@@ -10,7 +10,7 @@ import com.msd117.cryptocompose.utils.ViewModelTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toCollection
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.only
@@ -59,7 +59,7 @@ class CoinDetailViewModelTest : ViewModelTest<CoinDetailViewModel>() {
 
     @Test
     fun `when initializing successfully should return the expected states`() {
-        runBlockingTest {
+        runTest {
             whenever(fetchCoinDetailInfoHelper(symbol)).thenReturn(coinDetail)
             val expectedStates = listOf(
                 CoinDetailState.Uninitialized,
@@ -80,7 +80,7 @@ class CoinDetailViewModelTest : ViewModelTest<CoinDetailViewModel>() {
 
     @Test
     fun `when initializing with errors should return the expected states`() {
-        runBlockingTest {
+        runTest {
             whenever(fetchCoinDetailInfoHelper(symbol)).thenAnswer { throw Exception() }
             val expectedStates = listOf(
                 CoinDetailState.Uninitialized,
@@ -101,7 +101,7 @@ class CoinDetailViewModelTest : ViewModelTest<CoinDetailViewModel>() {
 
     @Test
     fun `when already initialized should not initialize again`() {
-        runBlockingTest {
+        runTest {
             whenever(fetchCoinDetailInfoHelper(symbol)).thenAnswer { throw Exception() }
             viewModel.initialize()
             val expectedStates = listOf(CoinDetailState.Error)
