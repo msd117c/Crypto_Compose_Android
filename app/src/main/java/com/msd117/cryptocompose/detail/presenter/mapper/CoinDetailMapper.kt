@@ -9,7 +9,7 @@ import com.msd117.cryptocompose.detail.presenter.model.CoinDetail
 import com.msd117.cryptocompose.detail.presenter.model.CoinPlatform
 import com.msd117.cryptocompose.detail.presenter.model.ContractAddress
 
-fun CoinInfoDomain.toPresentation(): CoinDetail {
+fun CoinDetailDomain.toPresentation(): CoinDetail {
     return CoinDetail(
         logo = logo,
         id = id,

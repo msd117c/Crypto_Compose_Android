@@ -2,7 +2,7 @@ package com.msd117.cryptocompose.detail.presenter
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.msd117.cryptocompose.detail.presenter.helper.FetchCoinDetailInfoHelper
+import com.msd117.cryptocompose.detail.presenter.helper.FetchCoinDetailHelper
 import com.msd117.cryptocompose.utils.BaseViewModel
 import com.msd117.cryptocompose.utils.NavigationConstants
 import dagger.assisted.Assisted
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class CoinDetailViewModel @AssistedInject constructor(
     coroutineScope: CoroutineScope?,
-    private val fetchCoinDetailInfoHelper: FetchCoinDetailInfoHelper,
+    private val fetchCoinDetailHelper: FetchCoinDetailHelper,
     @Assisted(NavigationConstants.CoinDetailsRouteSymbolArg) val symbol: String,
     @Assisted(NavigationConstants.CoinDetailsRouteIconArg) val icon: String,
     @Assisted(NavigationConstants.CoinDetailsRouteNameArg) val name: String
@@ -28,7 +28,7 @@ class CoinDetailViewModel @AssistedInject constructor(
         scope.launch {
             state.value = CoinDetailState.Loading
             try {
-                val coinDetail = fetchCoinDetailInfoHelper(symbol)
+                val coinDetail = fetchCoinDetailHelper(symbol)
                 state.value = CoinDetailState.Loaded(coinDetail)
             } catch (exception: Exception) {
                 state.value = CoinDetailState.Error

@@ -20,9 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.msd117.cryptocompose.R
@@ -82,7 +84,8 @@ fun CoinDetailView(viewModel: CoinDetailViewModel, navController: NavController)
                                 durationMillis = 600,
                                 dropOff = 0.65f,
                                 tilt = 20f
-                            )
+                            ),
+                            error = ImageVector.vectorResource(id = R.drawable.ic_placeholder)
                         )
                         TitleText(
                             text = viewModel.name,

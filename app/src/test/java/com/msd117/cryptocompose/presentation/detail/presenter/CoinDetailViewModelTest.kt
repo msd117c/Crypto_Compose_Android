@@ -2,7 +2,7 @@ package com.msd117.cryptocompose.presentation.detail.presenter
 
 import com.msd117.cryptocompose.detail.presenter.CoinDetailState
 import com.msd117.cryptocompose.detail.presenter.CoinDetailViewModel
-import com.msd117.cryptocompose.detail.presenter.helper.FetchCoinDetailInfoHelper
+import com.msd117.cryptocompose.detail.presenter.helper.FetchCoinDetailHelper
 import com.msd117.cryptocompose.detail.presenter.model.CoinDetail
 import com.msd117.cryptocompose.detail.presenter.model.CoinPlatform
 import com.msd117.cryptocompose.detail.presenter.model.ContractAddress
@@ -20,7 +20,7 @@ import org.mockito.kotlin.whenever
 @ExperimentalCoroutinesApi
 class CoinDetailViewModelTest : ViewModelTest<CoinDetailViewModel>() {
 
-    private val fetchCoinDetailInfoHelper: FetchCoinDetailInfoHelper = mock()
+    private val fetchCoinDetailInfoHelper: FetchCoinDetailHelper = mock()
     private val symbol = "BTC"
     private val icon = "icon"
     private val name = "Bitcoin"

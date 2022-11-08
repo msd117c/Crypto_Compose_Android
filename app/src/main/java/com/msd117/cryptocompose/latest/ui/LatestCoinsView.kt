@@ -14,7 +14,11 @@ import com.msd117.cryptocompose.latest.presenter.LatestCoinsViewModel
 import com.msd117.cryptocompose.latest.presenter.initialState
 import com.msd117.cryptocompose.theme.BaseView
 import com.msd117.cryptocompose.utils.NavigationConstants
-import java.net.URLEncoder
+import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRouteIconArgToReplace
+import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRouteNameArgToReplace
+import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRouteSymbolArgToReplace
+import java.net.URLEncoder.encode
+import kotlin.text.Charsets.UTF_8
 
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
@@ -32,18 +36,10 @@ fun LatestCoinsView(viewModel: LatestCoinsViewModel, navController: NavControlle
                 latestCoins = state.latestCoins,
                 onClick = { symbol, icon, name ->
                     val route = NavigationConstants.CoinDetailsRoute
-                        .replace(
-                            NavigationConstants.CoinDetailsRouteSymbolArgToReplace,
-                            symbol
-                        )
-                        .replace(
-                            NavigationConstants.CoinDetailsRouteIconArgToReplace,
-                            URLEncoder.encode(icon, Charsets.UTF_8.name())
-                        )
-                        .replace(
-                            NavigationConstants.CoinDetailsRouteNameArgToReplace,
-                            name
-                        )
+                        .replace(CoinDetailsRouteSymbolArgToReplace, symbol)
+                        .replace(CoinDetailsRouteIconArgToReplace, encode(icon, UTF_8.name()))
+                        .replace(CoinDetailsRouteNameArgToReplace, name)
+
                     navController.navigate(route)
                 },
                 onSortByClicked = viewModel::onSortByClicked

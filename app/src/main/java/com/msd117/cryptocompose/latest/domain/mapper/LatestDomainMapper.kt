@@ -1,17 +1,17 @@
 package com.msd117.cryptocompose.latest.domain.mapper
 
 import com.msd117.cryptocompose.latest.data.model.Btc
-import com.msd117.cryptocompose.latest.data.model.Data
+import com.msd117.cryptocompose.latest.data.model.CoinData
 import com.msd117.cryptocompose.latest.data.model.Eth
 import com.msd117.cryptocompose.latest.data.model.Usd
 import com.msd117.cryptocompose.latest.domain.model.*
+import com.msd117.cryptocompose.utils.ApiConstants.ICON_API_URL
+import com.msd117.cryptocompose.utils.ApiConstants.ICON_API_URL_NAME
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.*
 
-private const val ICON_API_URL = "https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/master/64/"
-
-fun List<Data>.toDomain(): List<LatestCoinDomain> {
+fun List<CoinData>.toDomain(): List<LatestCoinDomain> {
     return map { data ->
         with(data) {
             LatestCoinDomain(
@@ -21,7 +21,7 @@ fun List<Data>.toDomain(): List<LatestCoinDomain> {
                 summary = toGrowthPercentage(),
                 growth = toGrowth(),
                 price = toFormattedPrice(),
-                icon = ICON_API_URL + name?.lowercase() + ".png",
+                icon = toIconUrl(),
                 slug = slug,
                 cmcRank = cmcRank,
                 numMarketPairs = numMarketPairs,
@@ -40,7 +40,7 @@ fun List<Data>.toDomain(): List<LatestCoinDomain> {
     }
 }
 
-private fun Data.toGrowthPercentage(): String {
+private fun CoinData.toGrowthPercentage(): String {
     return quote?.usd?.percentChange1h?.let { percent ->
         val formattedPercent = BigDecimal(percent).setScale(2, RoundingMode.HALF_EVEN)
         if (formattedPercent > BigDecimal.ZERO) {
@@ -51,7 +51,7 @@ private fun Data.toGrowthPercentage(): String {
     } ?: ""
 }
 
-private fun Data.toGrowth(): GrowthDomain {
+private fun CoinData.toGrowth(): GrowthDomain {
     return when {
         (quote?.usd?.percentChange1h ?: 0.0) > 0.0 -> GrowthDomain.POSITIVE
         (quote?.usd?.percentChange1h ?: 0.0) < 0.0 -> GrowthDomain.NEGATIVE
@@ -59,13 +59,19 @@ private fun Data.toGrowth(): GrowthDomain {
     }
 }
 
-private fun Data.toFormattedPrice(): String {
+private fun CoinData.toFormattedPrice(): String {
     val price = quote?.usd?.price ?: 0.0
     val formattedPrice = StringBuilder()
     val formatter = Formatter(formattedPrice, Locale.US)
     formatter.format("$ %(,.2f", price)
 
     return formattedPrice.toString()
+}
+
+private fun CoinData.toIconUrl(): String {
+    return (ICON_API_URL.replace(ICON_API_URL_NAME, name?.lowercase().orEmpty())).takeUnless {
+        name.isNullOrEmpty()
+    }.orEmpty()
 }
 
 private fun Btc.toBtcDomain() = BtcDomain(

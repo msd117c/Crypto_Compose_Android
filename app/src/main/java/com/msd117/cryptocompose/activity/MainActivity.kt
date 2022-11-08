@@ -16,10 +16,14 @@ import com.msd117.cryptocompose.detail.ui.CoinDetailView
 import com.msd117.cryptocompose.detail.ui.coinDetailViewModel
 import com.msd117.cryptocompose.latest.ui.LatestCoinsView
 import com.msd117.cryptocompose.main.ui.MainView
-import com.msd117.cryptocompose.splash.ui.SplashView
 import com.msd117.cryptocompose.theme.setUi
 import com.msd117.cryptocompose.theme.ui.shared.SharedElementRoot
-import com.msd117.cryptocompose.utils.NavigationConstants
+import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRoute
+import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRouteIconArg
+import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRouteNameArg
+import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRouteSymbolArg
+import com.msd117.cryptocompose.utils.NavigationConstants.LatestCoinsRoute
+import com.msd117.cryptocompose.utils.NavigationConstants.MainRoute
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,44 +47,33 @@ class MainActivity : AppCompatActivity() {
         setUi {
             SharedElementRoot {
                 val navController = rememberNavController()
+
                 NavHost(
                     navController = navController,
-                    startDestination = NavigationConstants.SplashRoute
+                    startDestination = MainRoute
                 ) {
-                    composable(NavigationConstants.SplashRoute) {
-                        SplashView(navController = navController)
-                    }
-                    composable(NavigationConstants.MainRoute) {
+                    composable(MainRoute) {
                         MainView(viewModel = hiltViewModel(), navController = navController)
                     }
-                    composable(NavigationConstants.LatestCoinsRoute) {
+                    composable(LatestCoinsRoute) {
                         LatestCoinsView(viewModel = hiltViewModel(), navController = navController)
                     }
                     composable(
-                        NavigationConstants.CoinDetailsRoute,
+                        CoinDetailsRoute,
                         arguments = listOf(
-                            navArgument(NavigationConstants.CoinDetailsRouteSymbolArg) {
-                                type = NavType.StringType
-                            },
-                            navArgument(NavigationConstants.CoinDetailsRouteIconArg) {
-                                type = NavType.StringType
-                            },
-                            navArgument(NavigationConstants.CoinDetailsRouteNameArg) {
-                                type = NavType.StringType
-                            }
+                            navArgument(CoinDetailsRouteSymbolArg) { type = NavType.StringType },
+                            navArgument(CoinDetailsRouteIconArg) { type = NavType.StringType },
+                            navArgument(CoinDetailsRouteNameArg) { type = NavType.StringType }
                         )
                     ) { backStackEntry ->
-                        val symbol = backStackEntry.arguments?.getString(
-                            NavigationConstants.CoinDetailsRouteSymbolArg
-                        ).orEmpty()
-                        val icon = backStackEntry.arguments?.getString(
-                            NavigationConstants.CoinDetailsRouteIconArg
-                        ).orEmpty()
-                        val name = backStackEntry.arguments?.getString(
-                            NavigationConstants.CoinDetailsRouteNameArg
-                        ).orEmpty()
-                        val viewModel = coinDetailViewModel(symbol, icon, name)
-                        CoinDetailView(viewModel = viewModel, navController = navController)
+                        with(backStackEntry.arguments) {
+                            val symbol = this?.getString(CoinDetailsRouteSymbolArg).orEmpty()
+                            val icon = this?.getString(CoinDetailsRouteIconArg).orEmpty()
+                            val name = this?.getString(CoinDetailsRouteNameArg).orEmpty()
+                            val viewModel = coinDetailViewModel(symbol, icon, name)
+
+                            CoinDetailView(viewModel = viewModel, navController = navController)
+                        }
                     }
                 }
             }

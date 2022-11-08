@@ -2,14 +2,14 @@ package com.msd117.cryptocompose.latest.presenter.helper
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.msd117.cryptocompose.latest.domain.FetchLatestUseCase
+import com.msd117.cryptocompose.latest.domain.FetchLatestCoinsUseCase
 import com.msd117.cryptocompose.latest.presenter.mapper.toPresentation
 import com.msd117.cryptocompose.latest.presenter.model.LatestCoin
 import retrofit2.HttpException
 import java.io.IOException
 
 class LatestPagingSourceHelper(
-    private val fetchLatestUseCase: FetchLatestUseCase,
+    private val fetchLatestCoinsUseCase: FetchLatestCoinsUseCase,
     private val sort: String
 ) : PagingSource<Int, LatestCoin>() {
 
@@ -20,7 +20,7 @@ class LatestPagingSourceHelper(
             val nextPage = (params.key ?: 1)
             val start = (nextPage.minus(1)).times(params.loadSize).plus(1)
             val latestCoinList =
-                fetchLatestUseCase(start, limit = params.loadSize, sort).toPresentation()
+                fetchLatestCoinsUseCase(start, limit = params.loadSize, sort).toPresentation()
             LoadResult.Page(
                 data = latestCoinList,
                 prevKey = if (nextPage == 1) null else nextPage.minus(1),

@@ -1,8 +1,8 @@
 package com.msd117.cryptocompose.di
 
 import com.msd117.cryptocompose.BuildConfig
-import com.msd117.cryptocompose.utils.ApiConstants.baseUrl
-import com.msd117.cryptocompose.utils.ApiConstants.headerApiKeyParameterName
+import com.msd117.cryptocompose.utils.ApiConstants.BASE_URL
+import com.msd117.cryptocompose.utils.ApiConstants.HEADER_API_KEY_PARAMETER_NAME
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -30,7 +30,7 @@ class NetworkModule {
                 val originalRequest = chain.request()
 
                 val request = originalRequest.newBuilder()
-                    .header(headerApiKeyParameterName, BuildConfig.API_KEY)
+                    .header(HEADER_API_KEY_PARAMETER_NAME, BuildConfig.API_KEY)
                     .method(originalRequest.method, originalRequest.body)
                     .build()
 
@@ -46,7 +46,7 @@ class NetworkModule {
             .build()
 
         val retrofitBuilder = Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(httpClient)
 

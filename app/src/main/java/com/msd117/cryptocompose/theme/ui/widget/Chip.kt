@@ -8,7 +8,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.HighlightOff
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -91,20 +90,5 @@ fun SelectableChip(
         label = label,
         isClickable = true,
         onClick = { onClick(!selected) }
-    )
-}
-
-@Composable
-fun RemovableChip(
-    label: String,
-    contentDescription: String,
-    onRemove: () -> Unit
-) {
-    Chip(
-        endIcon = { Icons.Default.HighlightOff },
-        endIconTint = Color.Black.copy(alpha = 0.5f),
-        contentDescription = contentDescription,
-        label = label,
-        onEndIconClicked = { onRemove() }
     )
 }
