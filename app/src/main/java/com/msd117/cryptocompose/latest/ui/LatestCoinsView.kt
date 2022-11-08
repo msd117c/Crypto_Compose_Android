@@ -14,6 +14,7 @@ import com.msd117.cryptocompose.latest.presenter.LatestCoinsViewModel
 import com.msd117.cryptocompose.latest.presenter.initialState
 import com.msd117.cryptocompose.theme.BaseView
 import com.msd117.cryptocompose.utils.NavigationConstants
+import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRoute
 import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRouteIconArgToReplace
 import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRouteNameArgToReplace
 import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRouteSymbolArgToReplace
@@ -35,7 +36,7 @@ fun LatestCoinsView(viewModel: LatestCoinsViewModel, navController: NavControlle
                 sortByOptions = state.sortByOptions,
                 latestCoins = state.latestCoins,
                 onClick = { symbol, icon, name ->
-                    val route = NavigationConstants.CoinDetailsRoute
+                    val route = CoinDetailsRoute
                         .replace(CoinDetailsRouteSymbolArgToReplace, symbol)
                         .replace(CoinDetailsRouteIconArgToReplace, encode(icon, UTF_8.name()))
                         .replace(CoinDetailsRouteNameArgToReplace, name)
@@ -52,7 +53,5 @@ fun LatestCoinsView(viewModel: LatestCoinsViewModel, navController: NavControlle
 @Preview
 @Composable
 fun LatestCoinViewPreview() {
-    BaseView {
-        LatestCoinLoadingView()
-    }
+    BaseView { LatestCoinLoadingView() }
 }

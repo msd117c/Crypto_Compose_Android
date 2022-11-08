@@ -22,13 +22,15 @@ import com.msd117.cryptocompose.theme.ui.loading.LoadingCircle
 import com.msd117.cryptocompose.theme.ui.loading.LoadingText
 import com.msd117.cryptocompose.theme.zero
 
+private const val LOADING_ITEMS = 10
+
 @Composable
 fun LatestCoinLoadingView() {
     LazyColumn(modifier = Modifier.fillMaxSize()) { loadingItemsView() }
 }
 
 fun LazyListScope.loadingItemsView() {
-    repeat(10) { item { LoadingItemView() } }
+    repeat(LOADING_ITEMS) { item { LoadingItemView() } }
 }
 
 @Composable
@@ -83,7 +85,5 @@ fun LoadingItemView() {
 @Preview
 @Composable
 fun LatestCoinLoadingPreview() {
-    BaseView {
-        LatestCoinLoadingView()
-    }
+    BaseView { LatestCoinLoadingView() }
 }

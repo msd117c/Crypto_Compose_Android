@@ -6,13 +6,15 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.msd117.cryptocompose.R
 import com.msd117.cryptocompose.theme.ui.widget.TitleText
 
 @Composable
 fun CoinDetailErrorView() {
     Box(modifier = Modifier.fillMaxSize()) {
         TitleText(
-            text = "Error",
+            text = stringResource(id = R.string.details_error_message),
             color = MaterialTheme.colors.error,
             modifier = Modifier.align(Alignment.Center)
         )

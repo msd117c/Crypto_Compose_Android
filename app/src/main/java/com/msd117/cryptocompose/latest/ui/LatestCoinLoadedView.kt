@@ -28,7 +28,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
@@ -44,6 +43,7 @@ import com.msd117.cryptocompose.theme.Padding.paddingXL
 import com.msd117.cryptocompose.theme.Padding.paddingXS
 import com.msd117.cryptocompose.theme.Size.sizeS
 import com.msd117.cryptocompose.theme.Size.smallIconSize
+import com.msd117.cryptocompose.theme.Size.topBarHeight
 import com.msd117.cryptocompose.theme.ui.shared.SharedElement
 import com.msd117.cryptocompose.theme.ui.shared.SharedElementInfo
 import com.msd117.cryptocompose.theme.ui.widget.BodyText
@@ -69,7 +69,6 @@ fun LatestCoinLoadedView(
     val latestCoinItems: LazyPagingItems<LatestCoin> = latestCoins.collectAsLazyPagingItems()
     val listState = rememberLazyListState()
 
-    val topBarHeight = 48.dp
     val topBarHeightPx = with(LocalDensity.current) { topBarHeight.roundToPx().toFloat() }
     val topBarOffsetHeightPx = remember { mutableStateOf(0f) }
 
@@ -98,12 +97,7 @@ fun LatestCoinLoadedView(
                     .padding(start = paddingM, end = paddingM, bottom = paddingXL, top = paddingM)
             ) {
                 sortByOptions.forEach { sortBy ->
-                    item {
-                        LatestCoinSortByView(
-                            sortBy = sortBy,
-                            onClick = onSortByClicked
-                        )
-                    }
+                    item { LatestCoinSortByView(sortBy = sortBy, onClick = onSortByClicked) }
                 }
             }
         }
@@ -120,10 +114,7 @@ fun LatestCoinLoadedView(
             ) {
                 items(latestCoinItems.itemCount) { index ->
                     latestCoinItems[index]?.let { item ->
-                        LatestCoinItemView(
-                            latestCoin = item,
-                            onClick = onClick
-                        )
+                        LatestCoinItemView(latestCoin = item, onClick = onClick)
                     }
                 }
                 latestCoinItems.apply {
@@ -160,9 +151,7 @@ fun LatestCoinLoadedView(
                                     bottomState.show()
                                 }
                             }
-                        }) {
-                            BodyText(text = stringResource(R.string.latest_coins_sort_by_button))
-                        }
+                        }) { BodyText(text = stringResource(R.string.latest_coins_sort_by_button)) }
                     }
                 }
             }
@@ -180,9 +169,7 @@ fun LatestCoinSortByView(
         label = stringResource(label),
         contentDescription = "",
         selected = selected,
-        onClick = { isSelected ->
-            onClick(sortById, isSelected)
-        }
+        onClick = { isSelected -> onClick(sortById, isSelected) }
     )
 }
 

@@ -1,7 +1,5 @@
-package com.msd117.cryptocompose.presentation.detail.presenter
+package com.msd117.cryptocompose.detail.presenter
 
-import com.msd117.cryptocompose.detail.presenter.CoinDetailState
-import com.msd117.cryptocompose.detail.presenter.CoinDetailViewModel
 import com.msd117.cryptocompose.detail.presenter.helper.FetchCoinDetailHelper
 import com.msd117.cryptocompose.detail.presenter.model.CoinDetail
 import com.msd117.cryptocompose.detail.presenter.model.CoinPlatform
@@ -20,14 +18,14 @@ import org.mockito.kotlin.whenever
 @ExperimentalCoroutinesApi
 class CoinDetailViewModelTest : ViewModelTest<CoinDetailViewModel>() {
 
-    private val fetchCoinDetailInfoHelper: FetchCoinDetailHelper = mock()
+    private val fetchCoinDetailHelper: FetchCoinDetailHelper = mock()
     private val symbol = "BTC"
     private val icon = "icon"
     private val name = "Bitcoin"
 
     override val viewModel = CoinDetailViewModel(
         coroutineScope = scope,
-        fetchCoinDetailInfoHelper = fetchCoinDetailInfoHelper,
+        fetchCoinDetailHelper = fetchCoinDetailHelper,
         symbol = symbol,
         icon = icon,
         name = name
@@ -60,7 +58,7 @@ class CoinDetailViewModelTest : ViewModelTest<CoinDetailViewModel>() {
     @Test
     fun `when initializing successfully should return the expected states`() {
         runTest {
-            whenever(fetchCoinDetailInfoHelper(symbol)).thenReturn(coinDetail)
+            whenever(fetchCoinDetailHelper(symbol)).thenReturn(coinDetail)
             val expectedStates = listOf(
                 CoinDetailState.Uninitialized,
                 CoinDetailState.Loading,
@@ -72,7 +70,7 @@ class CoinDetailViewModelTest : ViewModelTest<CoinDetailViewModel>() {
                 viewModel.initialize()
 
                 assert(expectedStates == states)
-                verify(fetchCoinDetailInfoHelper, only()).invoke(symbol)
+                verify(fetchCoinDetailHelper, only()).invoke(symbol)
                 cancel()
             }
         }
@@ -81,7 +79,7 @@ class CoinDetailViewModelTest : ViewModelTest<CoinDetailViewModel>() {
     @Test
     fun `when initializing with errors should return the expected states`() {
         runTest {
-            whenever(fetchCoinDetailInfoHelper(symbol)).thenAnswer { throw Exception() }
+            whenever(fetchCoinDetailHelper(symbol)).thenAnswer { throw Exception() }
             val expectedStates = listOf(
                 CoinDetailState.Uninitialized,
                 CoinDetailState.Loading,
@@ -93,7 +91,7 @@ class CoinDetailViewModelTest : ViewModelTest<CoinDetailViewModel>() {
                 viewModel.initialize()
 
                 assert(expectedStates == states)
-                verify(fetchCoinDetailInfoHelper, only()).invoke(symbol)
+                verify(fetchCoinDetailHelper, only()).invoke(symbol)
                 cancel()
             }
         }
@@ -102,7 +100,7 @@ class CoinDetailViewModelTest : ViewModelTest<CoinDetailViewModel>() {
     @Test
     fun `when already initialized should not initialize again`() {
         runTest {
-            whenever(fetchCoinDetailInfoHelper(symbol)).thenAnswer { throw Exception() }
+            whenever(fetchCoinDetailHelper(symbol)).thenAnswer { throw Exception() }
             viewModel.initialize()
             val expectedStates = listOf(CoinDetailState.Error)
             val states = mutableListOf<CoinDetailState>()
@@ -111,7 +109,7 @@ class CoinDetailViewModelTest : ViewModelTest<CoinDetailViewModel>() {
                 viewModel.initialize()
 
                 assert(expectedStates == states)
-                verify(fetchCoinDetailInfoHelper, only()).invoke(symbol)
+                verify(fetchCoinDetailHelper, only()).invoke(symbol)
                 cancel()
             }
         }

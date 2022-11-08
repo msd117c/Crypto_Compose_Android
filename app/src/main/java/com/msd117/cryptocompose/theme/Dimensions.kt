@@ -6,6 +6,8 @@ import com.msd117.cryptocompose.theme.Multipliers.sMultiplier
 import com.msd117.cryptocompose.theme.Multipliers.xlMultiplier
 import com.msd117.cryptocompose.theme.Multipliers.xsMultiplier
 
+private val medium = 8.dp
+
 private object Multipliers {
 
     const val sMultiplier = .5f
@@ -19,7 +21,7 @@ private object Multipliers {
 
 object Padding {
 
-    val paddingM = 8.dp
+    val paddingM = medium
 
     val paddingS = paddingM.times(sMultiplier)
 
@@ -32,7 +34,7 @@ object Padding {
 
 object Size {
 
-    val sizeM = 8.dp
+    val sizeM = medium
 
     val sizeS = sizeM.times(sMultiplier)
 
@@ -41,6 +43,8 @@ object Size {
     val smallLoadingIconSize = 47.5.dp
 
     val xSmallIconSize = 34.dp
+
+    val topBarHeight = 48.dp
 }
 
 val zero = 0.dp

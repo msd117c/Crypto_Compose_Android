@@ -42,7 +42,7 @@ class LatestCoinsViewModel @Inject constructor(
                 updatedSortByOptions
             }
 
-            fetchLatestCoins(loaded = loaded, sortByOptions = sortByOptions)
+            fetchLatestCoins(loaded, sortByOptions)
         }
     }
 
@@ -58,10 +58,7 @@ class LatestCoinsViewModel @Inject constructor(
                 state.value = loaded?.copy(
                     sortByOptions = sortByOptions,
                     latestCoins = latestCoins
-                ) ?: LatestCoinsState.Loaded(
-                    sortByOptions = sortByOptions,
-                    latestCoins = latestCoins
-                )
+                ) ?: LatestCoinsState.Loaded(sortByOptions, latestCoins)
             } catch (exception: Exception) {
                 state.value = LatestCoinsState.Error
             }
