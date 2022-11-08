@@ -16,8 +16,8 @@ fun List<CoinData>.toDomain(): List<LatestCoinDomain> {
         with(data) {
             LatestCoinDomain(
                 id = id,
-                name = name ?: "",
-                symbol = symbol ?: "",
+                name = name.orEmpty(),
+                symbol = symbol.orEmpty(),
                 summary = toGrowthPercentage(),
                 growth = toGrowth(),
                 price = toFormattedPrice(),
@@ -48,7 +48,7 @@ private fun CoinData.toGrowthPercentage(): String {
         } else {
             "$formattedPercent%"
         }
-    } ?: ""
+    }.orEmpty()
 }
 
 private fun CoinData.toGrowth(): GrowthDomain {

@@ -10,5 +10,5 @@ class FetchLatestCoinsUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(start: Int, limit: Int, sort: String): List<LatestCoinDomain> =
-        latestCoinsRepository.fetchLatest(start, limit, sort).data?.toDomain().orEmpty()
+        latestCoinsRepository.fetchLatest(start, limit, sort).coinDataList?.toDomain().orEmpty()
 }
