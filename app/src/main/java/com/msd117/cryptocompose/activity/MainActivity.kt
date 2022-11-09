@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.msd117.cryptocompose.categories.ui.CategoriesView
 import com.msd117.cryptocompose.detail.presenter.CoinDetailViewModel
 import com.msd117.cryptocompose.detail.ui.CoinDetailView
 import com.msd117.cryptocompose.detail.ui.coinDetailViewModel
@@ -18,6 +19,7 @@ import com.msd117.cryptocompose.latest.ui.LatestCoinsView
 import com.msd117.cryptocompose.main.ui.MainView
 import com.msd117.cryptocompose.theme.setUi
 import com.msd117.cryptocompose.theme.ui.shared.SharedElementRoot
+import com.msd117.cryptocompose.utils.NavigationConstants.CategoriesRoute
 import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRoute
 import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRouteIconArg
 import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRouteNameArg
@@ -74,6 +76,9 @@ class MainActivity : AppCompatActivity() {
 
                             CoinDetailView(viewModel = viewModel, navController = navController)
                         }
+                    }
+                    composable(CategoriesRoute) {
+                        CategoriesView(viewModel = hiltViewModel())
                     }
                 }
             }

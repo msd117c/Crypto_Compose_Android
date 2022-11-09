@@ -3,7 +3,7 @@
 
     <!-- Main screen -->
     <string name="menu_item_coins">Coins</string>
-    <string name="menu_item_history">History</string>
+    <string name="menu_item_categories">Categories</string>
     <string name="menu_item_markets">Markets</string>
     <string name="no_connection_message">No connection</string>
 

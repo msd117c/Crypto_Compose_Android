@@ -20,13 +20,14 @@ import com.msd117.cryptocompose.R
 import com.msd117.cryptocompose.main.presenter.MainState
 import com.msd117.cryptocompose.main.presenter.MainViewModel
 import com.msd117.cryptocompose.main.presenter.initialState
-import com.msd117.cryptocompose.theme.*
+import com.msd117.cryptocompose.theme.BaseView
 import com.msd117.cryptocompose.theme.Padding.paddingL
 import com.msd117.cryptocompose.theme.Padding.paddingM
 import com.msd117.cryptocompose.theme.Padding.paddingS
 import com.msd117.cryptocompose.theme.Size.sizeS
 import com.msd117.cryptocompose.theme.ui.widget.BodyText
-import com.msd117.cryptocompose.utils.NavigationConstants
+import com.msd117.cryptocompose.utils.NavigationConstants.CategoriesRoute
+import com.msd117.cryptocompose.utils.NavigationConstants.LatestCoinsRoute
 
 @Composable
 fun MainView(viewModel: MainViewModel, navController: NavController) {
@@ -42,12 +43,12 @@ fun MainView(viewModel: MainViewModel, navController: NavController) {
                         MainMenuItem(
                             label = R.string.menu_item_coins,
                             isConnected = state.isConnected,
-                            onClicked = { navController.navigate(NavigationConstants.LatestCoinsRoute) }
+                            onClicked = { navController.navigate(LatestCoinsRoute) }
                         )
                         MainMenuItem(
-                            label = R.string.menu_item_history,
+                            label = R.string.menu_item_categories,
                             isConnected = state.isConnected,
-                            onClicked = {}
+                            onClicked = { navController.navigate(CategoriesRoute) }
                         )
                         MainMenuItem(
                             label = R.string.menu_item_markets,

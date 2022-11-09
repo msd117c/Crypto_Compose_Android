@@ -13,7 +13,6 @@ import com.msd117.cryptocompose.latest.presenter.LatestCoinsState
 import com.msd117.cryptocompose.latest.presenter.LatestCoinsViewModel
 import com.msd117.cryptocompose.latest.presenter.initialState
 import com.msd117.cryptocompose.theme.BaseView
-import com.msd117.cryptocompose.utils.NavigationConstants
 import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRoute
 import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRouteIconArgToReplace
 import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRouteNameArgToReplace

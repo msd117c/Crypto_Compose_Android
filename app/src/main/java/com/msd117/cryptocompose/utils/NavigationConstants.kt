@@ -3,6 +3,7 @@ package com.msd117.cryptocompose.utils
 object NavigationConstants {
     const val MainRoute = "main"
     const val LatestCoinsRoute = "latest_coins"
+    const val CategoriesRoute = "categories"
 
     const val CoinDetailsRouteSymbolArg = "symbol"
     const val CoinDetailsRouteSymbolArgToReplace = "{$CoinDetailsRouteSymbolArg}"

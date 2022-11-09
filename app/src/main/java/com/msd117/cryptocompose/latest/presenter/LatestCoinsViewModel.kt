@@ -1,5 +1,6 @@
 package com.msd117.cryptocompose.latest.presenter
 
+import android.util.Log
 import androidx.paging.cachedIn
 import com.msd117.cryptocompose.latest.presenter.helper.FetchLatestModelsHelper
 import com.msd117.cryptocompose.latest.presenter.helper.GetLatestCoinSortByOptionsHelper
@@ -20,8 +21,9 @@ class LatestCoinsViewModel @Inject constructor(
     override val state: MutableStateFlow<LatestCoinsState> = MutableStateFlow(initialState)
 
     fun initialize() {
+        Log.d("LATEST", "INIT")
         if (state.value !is LatestCoinsState.Uninitialized) return
-
+        Log.d("LATEST", "INIT OK")
         val sortByOptions = getLatestCoinSortByOptionsHelper()
         fetchLatestCoins(sortByOptions = sortByOptions)
     }
