@@ -19,5 +19,5 @@ data class CategoryData(
     @Json(name = "volume_change")
     val volumeChange: Double?,
     @Json(name = "last_updated")
-    val lastUpdated: Int?
+    val lastUpdated: String?
 )

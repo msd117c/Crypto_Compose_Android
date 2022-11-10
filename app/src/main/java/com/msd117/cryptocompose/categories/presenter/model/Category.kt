@@ -11,5 +11,5 @@ data class Category(
     val marketCapChange: Double?,
     val volume: Double?,
     val volumeChange: Double?,
-    val lastUpdated: Int?
+    val lastUpdated: String?
 )
