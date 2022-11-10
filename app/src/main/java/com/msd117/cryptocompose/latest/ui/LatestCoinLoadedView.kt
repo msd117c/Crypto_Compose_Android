@@ -224,7 +224,7 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String, String, String)
                 Box(modifier = Modifier.fillMaxWidth()) {
                     Row {
                         SharedElement(
-                            tag = symbol,
+                            tagProvider = ::symbol,
                             type = SharedElementInfo.SharedElementType.From,
                             modifier = Modifier
                                 .requiredSize(smallIconSize)

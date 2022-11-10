@@ -11,17 +11,17 @@ import androidx.compose.ui.layout.onGloballyPositioned
 
 @Composable
 fun SharedElement(
-    tag: String,
+    tagProvider: () -> String,
     type: SharedElementInfo.SharedElementType,
     modifier: Modifier,
     children: @Composable () -> Unit
 ) {
-    val elementInfo = SharedElementInfo(tag, type)
+    val elementInfo = SharedElementInfo(tagProvider(), type)
     val rootState = LocalSharedElementRootStateAmbient.current
 
     val isVisible = remember { mutableStateOf(1f) }
     if (elementInfo.type == SharedElementInfo.SharedElementType.To) {
-        rootState.setEndElementVisibilityListener(tag) { isVisible.value = it }
+        rootState.setEndElementVisibilityListener(tagProvider()) { isVisible.value = it }
     }
 
     Box(

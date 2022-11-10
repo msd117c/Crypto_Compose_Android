@@ -27,39 +27,41 @@ import com.msd117.cryptocompose.theme.zero
 
 @ExperimentalMaterialApi
 @Composable
-fun CoinDetailLoadedView(coinDetail: CoinDetail) {
-    Column(modifier = Modifier.padding(all = paddingL)) {
-        BodyText(text = coinDetail.description)
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = zero, vertical = paddingL),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            coinDetail.technicalButtons.forEach { technicalButton ->
-                with(technicalButton) {
-                    CardIconButtonView(
-                        icon = icon,
-                        label = label,
-                        iconSize = xSmallIconSize
-                    ) { }
+fun CoinDetailLoadedView(coinDetailProvider: () -> CoinDetail) {
+    with(coinDetailProvider()) {
+        Column(modifier = Modifier.padding(all = paddingL)) {
+            BodyText(text = description)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = zero, vertical = paddingL),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                technicalButtons.forEach { technicalButton ->
+                    with(technicalButton) {
+                        CardIconButtonView(
+                            icon = icon,
+                            label = label,
+                            iconSize = xSmallIconSize
+                        ) { }
+                    }
                 }
             }
-        }
-        LazyRow(horizontalArrangement = Arrangement.spacedBy(space = paddingL)) {
-            coinDetail.urlButtons.forEach { urlButton ->
-                item {
-                    IconButton(
-                        onClick = { },
-                        modifier = Modifier
-                            .clip(CircleShape)
-                            .requiredSize(smallIconSize)
-                            .padding(all = paddingS)
-                    ) {
-                        Image(
-                            imageVector = ImageVector.vectorResource(id = urlButton.icon),
-                            contentDescription = null
-                        )
+            LazyRow(horizontalArrangement = Arrangement.spacedBy(space = paddingL)) {
+                urlButtons.forEach { urlButton ->
+                    item {
+                        IconButton(
+                            onClick = { },
+                            modifier = Modifier
+                                .clip(CircleShape)
+                                .requiredSize(smallIconSize)
+                                .padding(all = paddingS)
+                        ) {
+                            Image(
+                                imageVector = ImageVector.vectorResource(id = urlButton.icon),
+                                contentDescription = null
+                            )
+                        }
                     }
                 }
             }
@@ -73,43 +75,50 @@ fun CoinDetailLoadedView(coinDetail: CoinDetail) {
 fun CoinDetailLoadedPreview() {
     CryptoComposeTheme {
         CoinDetailLoadedView(
-            coinDetail = CoinDetail(
-                logo = "",
-                id = 0,
-                name = "Bitcoin",
-                symbol = "BTC",
-                slug = "slug",
-                description = "description",
-                notice = "notice",
-                dateAdded = "",
-                tags = emptyList(),
-                category = "category",
-                platform = CoinPlatform("Coin", null),
-                tagNames = listOf("tagNames"),
-                tagGroups = listOf("tagGroups"),
-                twitterUsername = "twitterUsername",
-                isHidden = 0,
-                dateLaunched = "dateLaunched",
-                contractAddress = listOf(ContractAddress("address", CoinPlatform("Coin", null))),
-                selfReportedCirculatingSupply = "selfReportedCirculatingSupply",
-                selfReportedTags = listOf("selfReportedTags"),
-                technicalButtons = listOf(
-                    CoinDetail.TechnicalButtons(
-                        R.drawable.ic_twitter,
-                        R.string.details_source_code_button,
-                        "urls.twitter"
+            coinDetailProvider = {
+                CoinDetail(
+                    logo = "",
+                    id = 0,
+                    name = "Bitcoin",
+                    symbol = "BTC",
+                    slug = "slug",
+                    description = "description",
+                    notice = "notice",
+                    dateAdded = "",
+                    tags = emptyList(),
+                    category = "category",
+                    platform = CoinPlatform("Coin", null),
+                    tagNames = listOf("tagNames"),
+                    tagGroups = listOf("tagGroups"),
+                    twitterUsername = "twitterUsername",
+                    isHidden = 0,
+                    dateLaunched = "dateLaunched",
+                    contractAddress = listOf(
+                        ContractAddress(
+                            "address",
+                            CoinPlatform("Coin", null)
+                        )
                     ),
-                    CoinDetail.TechnicalButtons(
-                        R.drawable.ic_reddit,
-                        R.string.details_technical_docs_button,
-                        "urls.reddit"
+                    selfReportedCirculatingSupply = "selfReportedCirculatingSupply",
+                    selfReportedTags = listOf("selfReportedTags"),
+                    technicalButtons = listOf(
+                        CoinDetail.TechnicalButtons(
+                            R.drawable.ic_twitter,
+                            R.string.details_source_code_button,
+                            "urls.twitter"
+                        ),
+                        CoinDetail.TechnicalButtons(
+                            R.drawable.ic_reddit,
+                            R.string.details_technical_docs_button,
+                            "urls.reddit"
+                        ),
                     ),
-                ),
-                urlButtons = listOf(
-                    CoinDetail.UrlButton(R.drawable.ic_twitter, "urls.twitter"),
-                    CoinDetail.UrlButton(R.drawable.ic_reddit, "urls.reddit"),
+                    urlButtons = listOf(
+                        CoinDetail.UrlButton(R.drawable.ic_twitter, "urls.twitter"),
+                        CoinDetail.UrlButton(R.drawable.ic_reddit, "urls.reddit"),
+                    )
                 )
-            )
+            }
         )
     }
 }

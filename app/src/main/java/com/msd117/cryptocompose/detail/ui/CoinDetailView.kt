@@ -63,39 +63,20 @@ fun CoinDetailView(viewModel: CoinDetailViewModel) {
 
     Column(modifier = Modifier.fillMaxWidth()) {
         SharedElement(
-            tag = viewModel.symbol,
+            tagProvider = viewModel::symbol,
             type = SharedElementInfo.SharedElementType.To,
             modifier = Modifier.fillMaxWidth()
         ) {
             TopAppBar(
                 title = {
-                    Row {
-                        GlideImage(
-                            imageModel = viewModel.icon,
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .requiredSize(smallIconSize)
-                                .align(Alignment.CenterVertically),
-                            shimmerParams = ShimmerParams(
-                                baseColor = MaterialTheme.colors.background,
-                                highlightColor = Color.LightGray,
-                                durationMillis = 600,
-                                dropOff = 0.65f,
-                                tilt = 20f
-                            ),
-                            error = ImageVector.vectorResource(id = R.drawable.ic_placeholder)
-                        )
-                        TitleText(
-                            text = viewModel.name,
-                            modifier = Modifier
-                                .align(Alignment.CenterVertically)
-                                .padding(horizontal = paddingM, vertical = zero)
-                        )
-                    }
+                    CoinDetailTopBarTitleView(
+                        iconProvider = viewModel::icon,
+                        nameProvider = viewModel::name
+                    )
                 },
                 navigationIcon = {
                     IconButton(
-                        onClick = { viewModel.popBackStack() },
+                        onClick = viewModel::popBackStack,
                         modifier = Modifier
                             .clip(CircleShape)
                             .padding(all = paddingS)
@@ -114,8 +95,35 @@ fun CoinDetailView(viewModel: CoinDetailViewModel) {
             when (state) {
                 is CoinDetailState.Loading -> CoinDetailLoadingView()
                 is CoinDetailState.Error -> CoinDetailErrorView()
-                is CoinDetailState.Loaded -> CoinDetailLoadedView(state.coinDetail)
+                is CoinDetailState.Loaded -> CoinDetailLoadedView(state::coinDetail)
             }
         }
+    }
+}
+
+@Composable
+private fun CoinDetailTopBarTitleView(iconProvider: () -> String, nameProvider: () -> String) {
+    Row {
+        GlideImage(
+            imageModel = iconProvider(),
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .requiredSize(smallIconSize)
+                .align(Alignment.CenterVertically),
+            shimmerParams = ShimmerParams(
+                baseColor = MaterialTheme.colors.background,
+                highlightColor = Color.LightGray,
+                durationMillis = 600,
+                dropOff = 0.65f,
+                tilt = 20f
+            ),
+            error = ImageVector.vectorResource(id = R.drawable.ic_placeholder)
+        )
+        TitleText(
+            text = nameProvider(),
+            modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .padding(horizontal = paddingM, vertical = zero)
+        )
     }
 }
