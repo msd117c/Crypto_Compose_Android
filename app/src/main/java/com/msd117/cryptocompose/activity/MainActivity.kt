@@ -143,7 +143,7 @@ class MainActivity : AppCompatActivity() {
 
             content(viewModel)
 
-            viewModel.initialize()
+            LaunchedEffect(Unit) { viewModel.initialize() }
         }
     }
 }
