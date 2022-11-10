@@ -20,7 +20,7 @@ class LatestCoinsViewModel @Inject constructor(
 
     override val state: MutableStateFlow<LatestCoinsState> = MutableStateFlow(initialState)
 
-    fun initialize() {
+    override fun initialize() {
         Log.d("LATEST", "INIT")
         if (state.value !is LatestCoinsState.Uninitialized) return
         Log.d("LATEST", "INIT OK")

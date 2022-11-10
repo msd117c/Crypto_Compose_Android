@@ -26,7 +26,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import com.msd117.cryptocompose.R
 import com.msd117.cryptocompose.activity.MainActivity
 import com.msd117.cryptocompose.detail.presenter.CoinDetailState
@@ -59,9 +58,8 @@ fun coinDetailViewModel(symbol: String, icon: String, name: String): CoinDetailV
 @ExperimentalComposeUiApi
 @ExperimentalMaterialApi
 @Composable
-fun CoinDetailView(viewModel: CoinDetailViewModel, navController: NavController) {
+fun CoinDetailView(viewModel: CoinDetailViewModel) {
     val currentState by viewModel.getState().collectAsState(initial = initialState)
-    viewModel.initialize()
 
     Column(modifier = Modifier.fillMaxWidth()) {
         SharedElement(
@@ -97,7 +95,7 @@ fun CoinDetailView(viewModel: CoinDetailViewModel, navController: NavController)
                 },
                 navigationIcon = {
                     IconButton(
-                        onClick = { navController.popBackStack() },
+                        onClick = { viewModel.popBackStack() },
                         modifier = Modifier
                             .clip(CircleShape)
                             .padding(all = paddingS)

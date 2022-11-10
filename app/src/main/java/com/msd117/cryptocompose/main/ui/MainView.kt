@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
 import com.msd117.cryptocompose.R
 import com.msd117.cryptocompose.main.presenter.MainState
 import com.msd117.cryptocompose.main.presenter.MainViewModel
@@ -28,11 +27,11 @@ import com.msd117.cryptocompose.theme.Size.sizeS
 import com.msd117.cryptocompose.theme.ui.widget.BodyText
 import com.msd117.cryptocompose.utils.NavigationConstants.CategoriesRoute
 import com.msd117.cryptocompose.utils.NavigationConstants.LatestCoinsRoute
+import com.msd117.cryptocompose.utils.NavigationEvent.Route
 
 @Composable
-fun MainView(viewModel: MainViewModel, navController: NavController) {
+fun MainView(viewModel: MainViewModel) {
     val currentState by viewModel.getState().collectAsState(initial = initialState)
-    viewModel.initialize()
 
     Crossfade(targetState = currentState, animationSpec = tween(1000)) { state ->
         when (state) {
@@ -43,12 +42,12 @@ fun MainView(viewModel: MainViewModel, navController: NavController) {
                         MainMenuItem(
                             label = R.string.menu_item_coins,
                             isConnected = state.isConnected,
-                            onClicked = { navController.navigate(LatestCoinsRoute) }
+                            onClicked = { viewModel.navigate(Route(LatestCoinsRoute)) }
                         )
                         MainMenuItem(
                             label = R.string.menu_item_categories,
                             isConnected = state.isConnected,
-                            onClicked = { navController.navigate(CategoriesRoute) }
+                            onClicked = { viewModel.navigate(Route(CategoriesRoute)) }
                         )
                         MainMenuItem(
                             label = R.string.menu_item_markets,

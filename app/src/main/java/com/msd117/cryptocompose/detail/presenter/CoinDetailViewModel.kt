@@ -22,7 +22,7 @@ class CoinDetailViewModel @AssistedInject constructor(
 
     override val state: MutableStateFlow<CoinDetailState> = MutableStateFlow(initialState)
 
-    fun initialize() {
+    override fun initialize() {
         if (state.value !is CoinDetailState.Uninitialized) return
 
         scope.launch {

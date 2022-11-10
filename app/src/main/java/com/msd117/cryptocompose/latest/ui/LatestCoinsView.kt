@@ -8,7 +8,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
 import com.msd117.cryptocompose.latest.presenter.LatestCoinsState
 import com.msd117.cryptocompose.latest.presenter.LatestCoinsViewModel
 import com.msd117.cryptocompose.latest.presenter.initialState
@@ -17,15 +16,15 @@ import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRoute
 import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRouteIconArgToReplace
 import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRouteNameArgToReplace
 import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRouteSymbolArgToReplace
+import com.msd117.cryptocompose.utils.NavigationEvent.Route
 import java.net.URLEncoder.encode
 import kotlin.text.Charsets.UTF_8
 
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
 @Composable
-fun LatestCoinsView(viewModel: LatestCoinsViewModel, navController: NavController) {
+fun LatestCoinsView(viewModel: LatestCoinsViewModel) {
     val currentState by viewModel.getState().collectAsState(initial = initialState)
-    viewModel.initialize()
 
     Crossfade(targetState = currentState, animationSpec = tween(1000)) { state ->
         when (state) {
@@ -40,7 +39,7 @@ fun LatestCoinsView(viewModel: LatestCoinsViewModel, navController: NavControlle
                         .replace(CoinDetailsRouteIconArgToReplace, encode(icon, UTF_8.name()))
                         .replace(CoinDetailsRouteNameArgToReplace, name)
 
-                    navController.navigate(route)
+                    viewModel.navigate(Route(route))
                 },
                 onSortByClicked = viewModel::onSortByClicked
             )

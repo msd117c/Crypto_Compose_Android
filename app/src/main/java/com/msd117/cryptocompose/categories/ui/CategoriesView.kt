@@ -18,7 +18,7 @@ fun CategoriesView(viewModel: CategoriesViewModel) {
         when (state) {
             is CategoriesState.Loading -> CategoriesLoadingView()
             is CategoriesState.Error -> CategoriesErrorView()
-            is CategoriesState.Loaded -> CategoriesLoadedView()
+            is CategoriesState.Loaded -> CategoriesLoadedView(state.categories)
             is CategoriesState.Uninitialized -> Unit
         }
     }

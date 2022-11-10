@@ -176,71 +176,76 @@ fun LatestCoinSortByView(
 @ExperimentalComposeUiApi
 @Composable
 fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String, String, String) -> Unit) {
-    val growthColor = when (latestCoin.growth) {
-        Growth.POSITIVE -> Color.Green
-        Growth.NEGATIVE -> Color.Red
-        Growth.NONE -> Color.Gray
-    }
+    with(latestCoin) {
+        val growthColor = when (growth) {
+            Growth.POSITIVE -> Color.Green
+            Growth.NEGATIVE -> Color.Red
+            Growth.NONE -> Color.Gray
+        }
 
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = paddingM, vertical = paddingS)
-            .shadow(elevation = sizeS)
-    ) {
-        Button(onClick = { with(latestCoin) { onClick(symbol, icon, name) } }) {
-            Box(modifier = Modifier.fillMaxWidth()) {
-                Row {
-                    SharedElement(
-                        tag = latestCoin.symbol,
-                        type = SharedElementInfo.SharedElementType.From,
-                        modifier = Modifier
-                            .requiredSize(smallIconSize)
-                            .align(Alignment.CenterVertically)
-                    ) {
-                        GlideImage(
-                            imageModel = latestCoin.icon,
-                            contentScale = ContentScale.Crop,
-                            shimmerParams = ShimmerParams(
-                                baseColor = MaterialTheme.colors.background,
-                                highlightColor = Color.LightGray,
-                                durationMillis = 600,
-                                dropOff = 0.65f,
-                                tilt = 20f
-                            ),
-                            error = ImageVector.vectorResource(id = R.drawable.ic_placeholder)
-                        )
-                    }
-                    Column {
-                        BodyText(
-                            text = latestCoin.name,
-                            modifier = Modifier.padding(
-                                horizontal = paddingM,
-                                vertical = paddingXS
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = paddingM, vertical = paddingS)
+                .shadow(elevation = sizeS)
+        ) {
+            Button(onClick = { onClick(symbol, icon, name) }) {
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    Row {
+                        SharedElement(
+                            tag = symbol,
+                            type = SharedElementInfo.SharedElementType.From,
+                            modifier = Modifier
+                                .requiredSize(smallIconSize)
+                                .align(Alignment.CenterVertically)
+                        ) {
+                            GlideImage(
+                                imageModel = icon,
+                                contentScale = ContentScale.Crop,
+                                shimmerParams = ShimmerParams(
+                                    baseColor = MaterialTheme.colors.background,
+                                    highlightColor = Color.LightGray,
+                                    durationMillis = 600,
+                                    dropOff = 0.65f,
+                                    tilt = 20f
+                                ),
+                                error = ImageVector.vectorResource(id = R.drawable.ic_placeholder)
                             )
+                        }
+                        Column {
+                            BodyText(
+                                text = name,
+                                modifier = Modifier.padding(
+                                    horizontal = paddingM,
+                                    vertical = paddingXS
+                                )
+                            )
+                            SmallBodyText(
+                                text = symbol,
+                                modifier = Modifier.padding(
+                                    horizontal = paddingM,
+                                    vertical = paddingXS
+                                )
+                            )
+                        }
+                    }
+                    Column(modifier = Modifier.align(Alignment.CenterEnd)) {
+                        BodyText(
+                            text = price,
+                            modifier = Modifier
+                                .padding(horizontal = paddingM, vertical = paddingXS)
+                                .fillMaxWidth(),
+                            textAlign = TextAlign.End
                         )
                         SmallBodyText(
-                            text = latestCoin.symbol,
-                            modifier = Modifier.padding(horizontal = paddingM, vertical = paddingXS)
+                            text = summary,
+                            modifier = Modifier
+                                .padding(horizontal = paddingM, vertical = paddingXS)
+                                .fillMaxWidth(),
+                            color = growthColor,
+                            textAlign = TextAlign.End
                         )
                     }
-                }
-                Column(modifier = Modifier.align(Alignment.CenterEnd)) {
-                    BodyText(
-                        text = latestCoin.price,
-                        modifier = Modifier
-                            .padding(horizontal = paddingM, vertical = paddingXS)
-                            .fillMaxWidth(),
-                        textAlign = TextAlign.End
-                    )
-                    SmallBodyText(
-                        text = latestCoin.summary,
-                        modifier = Modifier
-                            .padding(horizontal = paddingM, vertical = paddingXS)
-                            .fillMaxWidth(),
-                        color = growthColor,
-                        textAlign = TextAlign.End
-                    )
                 }
             }
         }

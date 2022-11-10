@@ -17,7 +17,7 @@ class MainViewModel @Inject constructor(
 
     override val state: MutableStateFlow<MainState> = MutableStateFlow(initialState)
 
-    fun initialize() {
+    override fun initialize() {
         if (state.value !is MainState.Uninitialized) return
 
         isConnectionAvailableUseCase().onEach { isConnected ->
