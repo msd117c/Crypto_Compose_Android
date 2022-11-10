@@ -61,14 +61,11 @@ import kotlin.math.roundToInt
 @ExperimentalComposeUiApi
 @Composable
 fun LatestCoinLoadedView(
-    sortByOptions: List<LatestCoinsState.Loaded.SortBy>,
-    latestCoins: Flow<PagingData<LatestCoin>>,
+    sortByOptionsProvider: () -> List<LatestCoinsState.Loaded.SortBy>,
+    latestCoinsProvider: () -> Flow<PagingData<LatestCoin>>,
     onClick: (String, String, String) -> Unit,
     onSortByClicked: (String, Boolean) -> Unit
 ) {
-    val latestCoinItems: LazyPagingItems<LatestCoin> = latestCoins.collectAsLazyPagingItems()
-    val listState = rememberLazyListState()
-
     val topBarHeightPx = with(LocalDensity.current) { topBarHeight.roundToPx().toFloat() }
     val topBarOffsetHeightPx = remember { mutableStateOf(0f) }
 
@@ -86,20 +83,14 @@ fun LatestCoinLoadedView(
     }
 
     val bottomState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
-    val coroutineScope = rememberCoroutineScope()
 
     ModalBottomSheetLayout(
         sheetState = bottomState,
         sheetContent = {
-            LazyRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = paddingM, end = paddingM, bottom = paddingXL, top = paddingM)
-            ) {
-                sortByOptions.forEach { sortBy ->
-                    item { LatestCoinSortByView(sortBy = sortBy, onClick = onSortByClicked) }
-                }
-            }
+            LatestCoinSortByListView(
+                sortByOptionsProvider = sortByOptionsProvider,
+                onSortByClicked = onSortByClicked
+            )
         }
     ) {
         Box(
@@ -107,54 +98,58 @@ fun LatestCoinLoadedView(
                 .fillMaxSize()
                 .nestedScroll(nestedScrollConnection)
         ) {
-            LazyColumn(
-                modifier = Modifier.padding(vertical = paddingM),
-                state = listState,
-                contentPadding = PaddingValues(top = topBarHeight)
-            ) {
-                items(latestCoinItems.itemCount) { index ->
-                    latestCoinItems[index]?.let { item ->
-                        LatestCoinItemView(latestCoin = item, onClick = onClick)
-                    }
-                }
-                latestCoinItems.apply {
-                    when {
-                        loadState.refresh is LoadState.Loading -> loadingItemsView()
-                        loadState.append is LoadState.Loading -> item { LoadingItemView() }
-                        loadState.append is LoadState.Error -> {
-                            //You can use modifier to show error message
-                            Log.d("LOADERR", "ERROR")
-                        }
-                    }
-                }
-            }
+            LatestCoinListView(latestCoinsProvider = latestCoinsProvider, onClick = onClick)
             TopAppBar(
                 modifier = Modifier
                     .height(topBarHeight)
                     .offset { IntOffset(x = 0, y = topBarOffsetHeightPx.value.roundToInt()) },
             ) {
-                Column {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        TitleText(
-                            text = stringResource(R.string.latest_coins_title),
-                            modifier = Modifier.padding(all = paddingM)
-                        )
-                        Button(onClick = {
-                            coroutineScope.launch {
-                                if (bottomState.isVisible) {
-                                    bottomState.hide()
-                                } else {
-                                    bottomState.show()
-                                }
-                            }
-                        }) { BodyText(text = stringResource(R.string.latest_coins_sort_by_button)) }
+                LatestCoinsTopBarView(bottomState = bottomState)
+            }
+        }
+    }
+}
+
+@ExperimentalMaterialApi
+@Composable
+private fun LatestCoinsTopBarView(bottomState: ModalBottomSheetState) {
+    val coroutineScope = rememberCoroutineScope()
+
+    Column {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            TitleText(
+                text = stringResource(R.string.latest_coins_title),
+                modifier = Modifier.padding(all = paddingM)
+            )
+            Button(onClick = {
+                coroutineScope.launch {
+                    if (bottomState.isVisible) {
+                        bottomState.hide()
+                    } else {
+                        bottomState.show()
                     }
                 }
-            }
+            }) { BodyText(text = stringResource(R.string.latest_coins_sort_by_button)) }
+        }
+    }
+}
+
+@Composable
+private fun LatestCoinSortByListView(
+    sortByOptionsProvider: () -> List<LatestCoinsState.Loaded.SortBy>,
+    onSortByClicked: (String, Boolean) -> Unit
+) {
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = paddingM, end = paddingM, bottom = paddingXL, top = paddingM)
+    ) {
+        sortByOptionsProvider().forEach { sortBy ->
+            item { LatestCoinSortByView(sortBy = sortBy, onClick = onSortByClicked) }
         }
     }
 }
@@ -171,6 +166,42 @@ fun LatestCoinSortByView(
         selected = selected,
         onClick = { isSelected -> onClick(sortById, isSelected) }
     )
+}
+
+@ExperimentalComposeUiApi
+@Composable
+private fun LatestCoinListView(
+    latestCoinsProvider: () -> Flow<PagingData<LatestCoin>>,
+    onClick: (String, String, String) -> Unit
+) {
+    val latestCoinItems: LazyPagingItems<LatestCoin> =
+        latestCoinsProvider().collectAsLazyPagingItems()
+    val listState = rememberLazyListState()
+
+    LazyColumn(
+        modifier = Modifier.padding(vertical = paddingM),
+        state = listState,
+        contentPadding = PaddingValues(top = topBarHeight)
+    ) {
+        with(latestCoinItems) {
+            items(
+                count = itemCount,
+                key = { index -> get(index)?.name.orEmpty() }
+            ) { index ->
+                get(index)?.let { item ->
+                    LatestCoinItemView(latestCoin = item, onClick = onClick)
+                }
+            }
+            when {
+                loadState.refresh is LoadState.Loading -> loadingItemsView()
+                loadState.append is LoadState.Loading -> item { LoadingItemView() }
+                loadState.append is LoadState.Error -> {
+                    //You can use modifier to show error message
+                    Log.d("LOADERR", "ERROR")
+                }
+            }
+        }
+    }
 }
 
 @ExperimentalComposeUiApi
@@ -260,35 +291,37 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String, String, String)
 fun LatestCoinLoadedViewPreview() {
     BaseView {
         LatestCoinLoadedView(
-            sortByOptions = emptyList(),
-            latestCoins = flowOf(
-                PagingData.from(
-                    listOf(
-                        LatestCoin(
-                            name = "Bitcoin",
-                            symbol = "BTC",
-                            summary = "+0.5%",
-                            growth = Growth.POSITIVE,
-                            price = "50",
-                            icon = "https://cryptoicon-api.vercel.app/api/icon/btc",
-                            id = null,
-                            slug = null,
-                            cmcRank = null,
-                            numMarketPairs = null,
-                            circulatingSupply = null,
-                            totalSupply = null,
-                            maxSupply = null,
-                            lastUpdated = null,
-                            dateAdded = null,
-                            tags = null,
-                            platform = null,
-                            btc = null,
-                            eth = null,
-                            usd = null
+            sortByOptionsProvider = { emptyList() },
+            latestCoinsProvider = {
+                flowOf(
+                    PagingData.from(
+                        listOf(
+                            LatestCoin(
+                                name = "Bitcoin",
+                                symbol = "BTC",
+                                summary = "+0.5%",
+                                growth = Growth.POSITIVE,
+                                price = "50",
+                                icon = "https://cryptoicon-api.vercel.app/api/icon/btc",
+                                id = null,
+                                slug = null,
+                                cmcRank = null,
+                                numMarketPairs = null,
+                                circulatingSupply = null,
+                                totalSupply = null,
+                                maxSupply = null,
+                                lastUpdated = null,
+                                dateAdded = null,
+                                tags = null,
+                                platform = null,
+                                btc = null,
+                                eth = null,
+                                usd = null
+                            )
                         )
                     )
                 )
-            ),
+            },
             onClick = { _, _, _ -> },
         ) { _, _ -> }
     }

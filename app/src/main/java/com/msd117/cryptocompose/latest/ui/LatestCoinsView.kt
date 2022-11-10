@@ -31,8 +31,8 @@ fun LatestCoinsView(viewModel: LatestCoinsViewModel) {
             is LatestCoinsState.Loading -> LatestCoinLoadingView()
             is LatestCoinsState.Error -> LatestCoinErrorView()
             is LatestCoinsState.Loaded -> LatestCoinLoadedView(
-                sortByOptions = state.sortByOptions,
-                latestCoins = state.latestCoins,
+                sortByOptionsProvider = state::sortByOptions,
+                latestCoinsProvider = state::latestCoins,
                 onClick = { symbol, icon, name ->
                     val route = CoinDetailsRoute
                         .replace(CoinDetailsRouteSymbolArgToReplace, symbol)
