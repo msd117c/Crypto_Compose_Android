@@ -1,28 +1,29 @@
 package com.msd117.cryptocompose.latest.presenter.mapper
 
+import androidx.compose.ui.graphics.Color
 import com.msd117.cryptocompose.latest.domain.model.GrowthDomain
 import com.msd117.cryptocompose.latest.domain.model.LatestCoinDomain
-import com.msd117.cryptocompose.latest.presenter.model.Growth
 import com.msd117.cryptocompose.latest.presenter.model.LatestCoin
 
 fun List<LatestCoinDomain>.toPresentation(): List<LatestCoin> {
     return map { latestCoinDomain ->
         with(latestCoinDomain) {
             LatestCoin(
+                id = id,
                 name = name,
                 symbol = symbol,
                 summary = summary,
-                growth = growth.toPresentation(),
+                growthColor = growth.toPresentation(),
                 price = price,
                 icon = icon,
-                cmcRank = cmcRank
+                cmcRank = cmcRank.toString()
             )
         }
     }
 }
 
 private fun GrowthDomain.toPresentation() = when (this) {
-    GrowthDomain.POSITIVE -> Growth.POSITIVE
-    GrowthDomain.NEGATIVE -> Growth.NEGATIVE
-    GrowthDomain.NONE -> Growth.NONE
+    GrowthDomain.POSITIVE -> Color.Green
+    GrowthDomain.NEGATIVE -> Color.Red
+    GrowthDomain.NONE -> Color.Gray
 }

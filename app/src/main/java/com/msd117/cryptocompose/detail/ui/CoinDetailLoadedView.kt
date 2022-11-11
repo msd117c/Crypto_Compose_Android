@@ -21,6 +21,7 @@ import com.msd117.cryptocompose.theme.Size.smallIconSize
 import com.msd117.cryptocompose.theme.Size.xSmallIconSize
 import com.msd117.cryptocompose.theme.ui.widget.BodyText
 import com.msd117.cryptocompose.theme.ui.widget.CardIconButtonView
+import com.msd117.cryptocompose.theme.ui.widget.SmallBodyText
 import com.msd117.cryptocompose.theme.zero
 
 @ExperimentalMaterialApi
@@ -28,7 +29,7 @@ import com.msd117.cryptocompose.theme.zero
 fun CoinDetailLoadedView(coinDetailProvider: () -> CoinDetail) {
     with(coinDetailProvider()) {
         Column(modifier = Modifier.padding(all = paddingL)) {
-            BodyText(text = dateAdded)
+            SmallBodyText(text = dateAdded)
             BodyText(text = description)
             Row(
                 modifier = Modifier

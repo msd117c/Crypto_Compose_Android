@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 
 @Composable
 fun TitleText(
@@ -19,7 +20,8 @@ fun TitleText(
         style = MaterialTheme.typography.h5,
         modifier = modifier,
         color = color,
-        textAlign = textAlign
+        textAlign = textAlign,
+        overflow = TextOverflow.Ellipsis
     )
 }
 
@@ -35,7 +37,8 @@ fun BodyText(
         style = MaterialTheme.typography.body1,
         modifier = modifier,
         color = color,
-        textAlign = textAlign
+        textAlign = textAlign,
+        overflow = TextOverflow.Ellipsis
     )
 }
 
@@ -43,7 +46,7 @@ fun BodyText(
 fun SmallBodyText(
     text: String,
     modifier: Modifier = Modifier,
-    color: Color = MaterialTheme.colors.onPrimary,
+    color: Color = MaterialTheme.colors.onSecondary,
     textAlign: TextAlign? = null
 ) {
     Text(
@@ -51,6 +54,7 @@ fun SmallBodyText(
         style = MaterialTheme.typography.body2,
         modifier = modifier,
         color = color,
-        textAlign = textAlign
+        textAlign = textAlign,
+        overflow = TextOverflow.Ellipsis
     )
 }

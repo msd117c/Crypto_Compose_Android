@@ -1,17 +1,14 @@
 package com.msd117.cryptocompose.latest.presenter.model
 
+import androidx.compose.ui.graphics.Color
+
 data class LatestCoin(
+    val id: Int,
     val name: String,
     val symbol: String,
     val summary: String,
-    val growth: Growth,
+    val growthColor: Color,
     val price: String,
     val icon: String,
-    val cmcRank: Int
+    val cmcRank: String
 )
-
-enum class Growth {
-    POSITIVE,
-    NEGATIVE,
-    NONE
-}

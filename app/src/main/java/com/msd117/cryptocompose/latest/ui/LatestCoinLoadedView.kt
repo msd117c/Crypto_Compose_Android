@@ -24,17 +24,20 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.msd117.cryptocompose.R
 import com.msd117.cryptocompose.latest.presenter.LatestCoinsState
-import com.msd117.cryptocompose.latest.presenter.model.Growth
 import com.msd117.cryptocompose.latest.presenter.model.LatestCoin
 import com.msd117.cryptocompose.theme.BaseView
 import com.msd117.cryptocompose.theme.Padding.paddingM
@@ -46,6 +49,7 @@ import com.msd117.cryptocompose.theme.Size.smallIconSize
 import com.msd117.cryptocompose.theme.Size.topBarHeight
 import com.msd117.cryptocompose.theme.ui.shared.SharedElement
 import com.msd117.cryptocompose.theme.ui.shared.SharedElementInfo
+import com.msd117.cryptocompose.theme.ui.shared.SharedElementRoot
 import com.msd117.cryptocompose.theme.ui.widget.BodyText
 import com.msd117.cryptocompose.theme.ui.widget.SelectableChip
 import com.msd117.cryptocompose.theme.ui.widget.SmallBodyText
@@ -53,7 +57,6 @@ import com.msd117.cryptocompose.theme.ui.widget.TitleText
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
@@ -168,6 +171,7 @@ fun LatestCoinSortByView(
     )
 }
 
+@ExperimentalMaterialApi
 @ExperimentalComposeUiApi
 @Composable
 private fun LatestCoinListView(
@@ -186,7 +190,7 @@ private fun LatestCoinListView(
         with(latestCoinItems) {
             items(
                 count = itemCount,
-                key = { index -> get(index)?.name.orEmpty() }
+                key = { index -> get(index)?.id ?: 0 }
             ) { index ->
                 get(index)?.let { item ->
                     LatestCoinItemView(latestCoin = item, onClick = onClick)
@@ -204,79 +208,93 @@ private fun LatestCoinListView(
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalComposeUiApi
 @Composable
 fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String, String, String) -> Unit) {
     with(latestCoin) {
-        val growthColor = when (growth) {
-            Growth.POSITIVE -> Color.Green
-            Growth.NEGATIVE -> Color.Red
-            Growth.NONE -> Color.Gray
-        }
-
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = paddingM, vertical = paddingS)
-                .shadow(elevation = sizeS)
+                .shadow(elevation = sizeS),
+            onClick = { onClick(symbol, icon, name) }
         ) {
-            Button(onClick = { onClick(symbol, icon, name) }) {
-                Box(modifier = Modifier.fillMaxWidth()) {
-                    Row {
-                        SharedElement(
-                            tagProvider = ::symbol,
-                            type = SharedElementInfo.SharedElementType.From,
-                            modifier = Modifier
-                                .requiredSize(smallIconSize)
-                                .align(Alignment.CenterVertically)
-                        ) {
-                            GlideImage(
-                                imageModel = icon,
-                                contentScale = ContentScale.Crop,
-                                shimmerParams = ShimmerParams(
-                                    baseColor = MaterialTheme.colors.background,
-                                    highlightColor = Color.LightGray,
-                                    durationMillis = 600,
-                                    dropOff = 0.65f,
-                                    tilt = 20f
-                                ),
-                                error = ImageVector.vectorResource(id = R.drawable.ic_placeholder)
-                            )
-                        }
-                        Column {
-                            BodyText(
-                                text = name,
-                                modifier = Modifier.padding(
-                                    horizontal = paddingM,
-                                    vertical = paddingXS
-                                )
-                            )
-                            SmallBodyText(
-                                text = symbol,
-                                modifier = Modifier.padding(
-                                    horizontal = paddingM,
-                                    vertical = paddingXS
-                                )
-                            )
-                        }
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+            ) {
+                Text(
+                    text = cmcRank,
+                    style = TextStyle(
+                        fontSize = 58.sp,
+                        color = Color(0x68DADADA),
+                        fontWeight = FontWeight.ExtraBold
+                    ),
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .offset(x = 48.dp, y = 0.dp),
+                    textAlign = TextAlign.Center
+                )
+                Row(
+                    modifier = Modifier
+                        .align(Alignment.CenterStart)
+                        .fillMaxWidth(.6f)
+                ) {
+                    SharedElement(
+                        tagProvider = ::symbol,
+                        type = SharedElementInfo.SharedElementType.From,
+                        modifier = Modifier
+                            .requiredSize(smallIconSize)
+                            .align(Alignment.CenterVertically)
+                    ) {
+                        GlideImage(
+                            imageModel = icon,
+                            contentScale = ContentScale.Crop,
+                            shimmerParams = ShimmerParams(
+                                baseColor = MaterialTheme.colors.background,
+                                highlightColor = Color.LightGray,
+                                durationMillis = 600,
+                                dropOff = 0.65f,
+                                tilt = 20f
+                            ),
+                            error = ImageVector.vectorResource(id = R.drawable.ic_placeholder)
+                        )
                     }
-                    Column(modifier = Modifier.align(Alignment.CenterEnd)) {
+                    Column {
                         BodyText(
-                            text = price,
-                            modifier = Modifier
-                                .padding(horizontal = paddingM, vertical = paddingXS)
-                                .fillMaxWidth(),
-                            textAlign = TextAlign.End
+                            text = name,
+                            modifier = Modifier.padding(
+                                horizontal = paddingM,
+                                vertical = paddingXS
+                            )
                         )
                         SmallBodyText(
-                            text = summary,
-                            modifier = Modifier
-                                .padding(horizontal = paddingM, vertical = paddingXS)
-                                .fillMaxWidth(),
-                            color = growthColor,
-                            textAlign = TextAlign.End
+                            text = symbol,
+                            modifier = Modifier.padding(
+                                horizontal = paddingM,
+                                vertical = paddingXS
+                            )
                         )
                     }
+                }
+                Column(modifier = Modifier.align(Alignment.CenterEnd)) {
+                    BodyText(
+                        text = price,
+                        modifier = Modifier
+                            .padding(horizontal = paddingM, vertical = paddingXS)
+                            .fillMaxWidth(),
+                        textAlign = TextAlign.End
+                    )
+                    SmallBodyText(
+                        text = summary,
+                        modifier = Modifier
+                            .padding(horizontal = paddingM, vertical = paddingXS)
+                            .fillMaxWidth(),
+                        color = growthColor,
+                        textAlign = TextAlign.End
+                    )
                 }
             }
         }
@@ -290,26 +308,20 @@ fun LatestCoinItemView(latestCoin: LatestCoin, onClick: (String, String, String)
 @Composable
 fun LatestCoinLoadedViewPreview() {
     BaseView {
-        LatestCoinLoadedView(
-            sortByOptionsProvider = { emptyList() },
-            latestCoinsProvider = {
-                flowOf(
-                    PagingData.from(
-                        listOf(
-                            LatestCoin(
-                                name = "Bitcoin",
-                                symbol = "BTC",
-                                summary = "+0.5%",
-                                growth = Growth.POSITIVE,
-                                price = "50",
-                                icon = "https://cryptoicon-api.vercel.app/api/icon/btc",
-                                cmcRank = 1
-                            )
-                        )
-                    )
-                )
-            },
-            onClick = { _, _, _ -> },
-        ) { _, _ -> }
+        SharedElementRoot {
+            LatestCoinItemView(
+                LatestCoin(
+                    id = 1,
+                    name = "Bitcoin",
+                    symbol = "BTC",
+                    summary = "+0.5%",
+                    growthColor = Color.Green,
+                    price = "50",
+                    icon = "",
+                    cmcRank = "1"
+                ),
+                onClick = { _, _, _ -> },
+            )
+        }
     }
 }

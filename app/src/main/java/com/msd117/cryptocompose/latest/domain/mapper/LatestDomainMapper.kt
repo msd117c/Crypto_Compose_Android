@@ -13,15 +13,18 @@ fun List<CoinData>.toDomain(): List<LatestCoinDomain> {
     return mapNotNull { data ->
         with(data) {
             cmcRank?.let {
-                LatestCoinDomain(
-                    name = name.orEmpty(),
-                    symbol = symbol.orEmpty(),
-                    summary = toGrowthPercentage(),
-                    growth = toGrowth(),
-                    price = toFormattedPrice(),
-                    icon = toIconUrl(),
-                    cmcRank = cmcRank
-                )
+                id?.let {
+                    LatestCoinDomain(
+                        id = id,
+                        name = name.orEmpty(),
+                        symbol = symbol.orEmpty(),
+                        summary = toGrowthPercentage(),
+                        growth = toGrowth(),
+                        price = toFormattedPrice(),
+                        icon = toIconUrl(),
+                        cmcRank = cmcRank
+                    )
+                }
             }
         }
     }
