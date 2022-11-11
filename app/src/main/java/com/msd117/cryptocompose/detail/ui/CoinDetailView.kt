@@ -61,41 +61,44 @@ fun coinDetailViewModel(symbol: String, icon: String, name: String): CoinDetailV
 fun CoinDetailView(viewModel: CoinDetailViewModel) {
     val currentState by viewModel.getState().collectAsState(initial = initialState)
 
-    Column(modifier = Modifier.fillMaxWidth()) {
-        SharedElement(
-            tagProvider = viewModel::symbol,
-            type = SharedElementInfo.SharedElementType.To,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            TopAppBar(
-                title = {
-                    CoinDetailTopBarTitleView(
-                        iconProvider = viewModel::icon,
-                        nameProvider = viewModel::name
+    Crossfade(targetState = currentState, animationSpec = tween(1000)) { state ->
+        if (state is CoinDetailState) {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                SharedElement(
+                    tagProvider = state.coinData::symbol,
+                    type = SharedElementInfo.SharedElementType.To,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    TopAppBar(
+                        title = {
+                            CoinDetailTopBarTitleView(
+                                iconProvider = state.coinData::icon,
+                                nameProvider = state.coinData::name
+                            )
+                        },
+                        navigationIcon = {
+                            IconButton(
+                                onClick = viewModel::popBackStack,
+                                modifier = Modifier
+                                    .clip(CircleShape)
+                                    .padding(all = paddingS)
+                                    .align(Alignment.CenterHorizontally)
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.ic_arrow_back),
+                                    contentDescription = null,
+                                    colorFilter = ColorFilter.tint(Color.Black)
+                                )
+                            }
+                        }
                     )
-                },
-                navigationIcon = {
-                    IconButton(
-                        onClick = viewModel::popBackStack,
-                        modifier = Modifier
-                            .clip(CircleShape)
-                            .padding(all = paddingS)
-                            .align(Alignment.CenterHorizontally)
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_arrow_back),
-                            contentDescription = null,
-                            colorFilter = ColorFilter.tint(Color.Black)
-                        )
-                    }
                 }
-            )
-        }
-        Crossfade(targetState = currentState, animationSpec = tween(1000)) { state ->
-            when (state) {
-                is CoinDetailState.Loading -> CoinDetailLoadingView()
-                is CoinDetailState.Error -> CoinDetailErrorView()
-                is CoinDetailState.Loaded -> CoinDetailLoadedView(state::coinDetail)
+                when (state) {
+                    is CoinDetailState.Loading -> CoinDetailLoadingView()
+                    is CoinDetailState.Error -> CoinDetailErrorView()
+                    is CoinDetailState.Loaded -> CoinDetailLoadedView(state::coinDetail)
+                    is CoinDetailState.Uninitialized -> Unit
+                }
             }
         }
     }

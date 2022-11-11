@@ -15,23 +15,27 @@ import kotlinx.coroutines.launch
 class CoinDetailViewModel @AssistedInject constructor(
     coroutineScope: CoroutineScope?,
     private val fetchCoinDetailHelper: FetchCoinDetailHelper,
-    @Assisted(NavigationConstants.CoinDetailsRouteSymbolArg) val symbol: String,
-    @Assisted(NavigationConstants.CoinDetailsRouteIconArg) val icon: String,
-    @Assisted(NavigationConstants.CoinDetailsRouteNameArg) val name: String
+    @Assisted(NavigationConstants.CoinDetailsRouteSymbolArg) symbol: String,
+    @Assisted(NavigationConstants.CoinDetailsRouteIconArg) icon: String,
+    @Assisted(NavigationConstants.CoinDetailsRouteNameArg) name: String
 ) : BaseViewModel<CoinDetailState>(coroutineScope) {
 
     override val state: MutableStateFlow<CoinDetailState> = MutableStateFlow(initialState)
+
+    init {
+        state.value = CoinDetailState.Uninitialized(CoinDetailState.CoinData(symbol, icon, name))
+    }
 
     override fun initialize() {
         if (state.value !is CoinDetailState.Uninitialized) return
 
         scope.launch {
-            state.value = CoinDetailState.Loading
+            state.value = CoinDetailState.Loading(state.value.coinData)
             try {
-                val coinDetail = fetchCoinDetailHelper(symbol)
-                state.value = CoinDetailState.Loaded(coinDetail)
+                val coinDetail = fetchCoinDetailHelper(state.value.coinData.symbol)
+                state.value = CoinDetailState.Loaded(state.value.coinData, coinDetail)
             } catch (exception: Exception) {
-                state.value = CoinDetailState.Error
+                state.value = CoinDetailState.Error(state.value.coinData)
             }
         }
     }
