@@ -303,20 +303,7 @@ fun LatestCoinLoadedViewPreview() {
                                 growth = Growth.POSITIVE,
                                 price = "50",
                                 icon = "https://cryptoicon-api.vercel.app/api/icon/btc",
-                                id = null,
-                                slug = null,
-                                cmcRank = null,
-                                numMarketPairs = null,
-                                circulatingSupply = null,
-                                totalSupply = null,
-                                maxSupply = null,
-                                lastUpdated = null,
-                                dateAdded = null,
-                                tags = null,
-                                platform = null,
-                                btc = null,
-                                eth = null,
-                                usd = null
+                                cmcRank = 1
                             )
                         )
                     )

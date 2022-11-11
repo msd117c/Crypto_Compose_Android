@@ -3,53 +3,31 @@ package com.msd117.cryptocompose.detail.presenter.mapper
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.msd117.cryptocompose.R
-import com.msd117.cryptocompose.detail.domain.model.*
-import com.msd117.cryptocompose.detail.presenter.model.Coin
+import com.msd117.cryptocompose.detail.domain.model.CoinDetailDomain
+import com.msd117.cryptocompose.detail.domain.model.UrlsDomain
 import com.msd117.cryptocompose.detail.presenter.model.CoinDetail
-import com.msd117.cryptocompose.detail.presenter.model.CoinPlatform
-import com.msd117.cryptocompose.detail.presenter.model.ContractAddress
+import java.text.SimpleDateFormat
+import java.util.*
+
+private const val DATE_ADDED_INPUT_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+private const val DATE_ADDED_OUTPUT_FORMAT = "dd MMMM yyyy"
 
 fun CoinDetailDomain.toPresentation(): CoinDetail {
     return CoinDetail(
-        logo = logo,
-        id = id,
         name = name,
         symbol = symbol,
-        slug = slug,
         description = description,
-        notice = notice,
-        dateAdded = dateAdded,
-        tags = tags,
-        category = category,
-        platform = platform?.toPresentation(),
+        dateAdded = dateAdded.formatDateAdded(),
         tagNames = tagNames,
-        tagGroups = tagGroups,
-        twitterUsername = twitterUsername,
-        isHidden = isHidden,
-        dateLaunched = dateLaunched,
-        contractAddress = contractAddress.toPresentation(),
-        selfReportedCirculatingSupply = selfReportedCirculatingSupply,
-        selfReportedTags = selfReportedTags,
         technicalButtons = urls.toTechnicalButtons(),
         urlButtons = urls.toUrlButtons()
     )
 }
 
-private fun CoinPlatformDomain.toPresentation(): CoinPlatform {
-    return CoinPlatform(name = name, coin = coinDomain?.toPresentation())
-}
-
-private fun CoinDomain.toPresentation(): Coin {
-    return Coin(id = id, name = name, symbol = symbol, slug = slug)
-}
-
-private fun List<ContractAddressDomain>.toPresentation(): List<ContractAddress> {
-    return map { contractAddress ->
-        ContractAddress(
-            contractAddress = contractAddress.contractAddress,
-            platform = contractAddress.platform.toPresentation()
-        )
-    }
+private fun String.formatDateAdded(): String {
+    val date = SimpleDateFormat(DATE_ADDED_INPUT_FORMAT, Locale.getDefault()).parse(this)
+    val simpleDateFormat = SimpleDateFormat(DATE_ADDED_OUTPUT_FORMAT, Locale.getDefault())
+    return date?.let { simpleDateFormat.format(date) }.orEmpty()
 }
 
 private fun UrlsDomain.toTechnicalButtons(): List<CoinDetail.TechnicalButtons> {

@@ -14,8 +14,6 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.msd117.cryptocompose.R
 import com.msd117.cryptocompose.detail.presenter.model.CoinDetail
-import com.msd117.cryptocompose.detail.presenter.model.CoinPlatform
-import com.msd117.cryptocompose.detail.presenter.model.ContractAddress
 import com.msd117.cryptocompose.theme.CryptoComposeTheme
 import com.msd117.cryptocompose.theme.Padding.paddingL
 import com.msd117.cryptocompose.theme.Padding.paddingS
@@ -30,6 +28,7 @@ import com.msd117.cryptocompose.theme.zero
 fun CoinDetailLoadedView(coinDetailProvider: () -> CoinDetail) {
     with(coinDetailProvider()) {
         Column(modifier = Modifier.padding(all = paddingL)) {
+            BodyText(text = dateAdded)
             BodyText(text = description)
             Row(
                 modifier = Modifier
@@ -77,30 +76,11 @@ fun CoinDetailLoadedPreview() {
         CoinDetailLoadedView(
             coinDetailProvider = {
                 CoinDetail(
-                    logo = "",
-                    id = 0,
                     name = "Bitcoin",
                     symbol = "BTC",
-                    slug = "slug",
                     description = "description",
-                    notice = "notice",
                     dateAdded = "",
-                    tags = emptyList(),
-                    category = "category",
-                    platform = CoinPlatform("Coin", null),
                     tagNames = listOf("tagNames"),
-                    tagGroups = listOf("tagGroups"),
-                    twitterUsername = "twitterUsername",
-                    isHidden = 0,
-                    dateLaunched = "dateLaunched",
-                    contractAddress = listOf(
-                        ContractAddress(
-                            "address",
-                            CoinPlatform("Coin", null)
-                        )
-                    ),
-                    selfReportedCirculatingSupply = "selfReportedCirculatingSupply",
-                    selfReportedTags = listOf("selfReportedTags"),
                     technicalButtons = listOf(
                         CoinDetail.TechnicalButtons(
                             R.drawable.ic_twitter,
