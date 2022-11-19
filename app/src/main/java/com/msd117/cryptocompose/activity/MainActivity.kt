@@ -1,5 +1,6 @@
 package com.msd117.cryptocompose.activity
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.core.ExperimentalTransitionApi
@@ -9,35 +10,37 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.msd.core.navigation.NavigationConstants.CategoriesRoute
+import com.msd.core.navigation.NavigationConstants.CoinDetailsRoute
+import com.msd.core.navigation.NavigationConstants.CoinDetailsRouteIconArg
+import com.msd.core.navigation.NavigationConstants.CoinDetailsRouteNameArg
+import com.msd.core.navigation.NavigationConstants.CoinDetailsRouteSymbolArg
+import com.msd.core.navigation.NavigationConstants.LatestCoinsRoute
+import com.msd.core.navigation.NavigationConstants.MainRoute
+import com.msd.core.navigation.NavigationEvent
+import com.msd.core.presentation.BaseViewModel
+import com.msd.core.presentation.State
+import com.msd.core.ui.theme.setUi
+import com.msd.core.ui.theme.ui.shared.SharedElementRoot
+import com.msd.home.presenter.MainViewModel
+import com.msd.home.ui.MainView
+import com.msd.latest_coins.detail.presenter.CoinDetailViewModel
+import com.msd.latest_coins.detail.ui.CoinDetailView
+import com.msd.latest_coins.list.presenter.LatestCoinsViewModel
+import com.msd.latest_coins.list.ui.LatestCoinsView
 import com.msd117.cryptocompose.categories.presenter.CategoriesViewModel
 import com.msd117.cryptocompose.categories.ui.CategoriesView
-import com.msd117.cryptocompose.detail.presenter.CoinDetailViewModel
-import com.msd117.cryptocompose.detail.ui.CoinDetailView
-import com.msd117.cryptocompose.detail.ui.coinDetailViewModel
-import com.msd117.cryptocompose.latest.presenter.LatestCoinsViewModel
-import com.msd117.cryptocompose.latest.ui.LatestCoinsView
-import com.msd117.cryptocompose.main.presenter.MainViewModel
-import com.msd117.cryptocompose.main.ui.MainView
-import com.msd117.cryptocompose.theme.setUi
-import com.msd117.cryptocompose.theme.ui.shared.SharedElementRoot
-import com.msd117.cryptocompose.utils.BaseViewModel
-import com.msd117.cryptocompose.utils.NavigationConstants.CategoriesRoute
-import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRoute
-import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRouteIconArg
-import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRouteNameArg
-import com.msd117.cryptocompose.utils.NavigationConstants.CoinDetailsRouteSymbolArg
-import com.msd117.cryptocompose.utils.NavigationConstants.LatestCoinsRoute
-import com.msd117.cryptocompose.utils.NavigationConstants.MainRoute
-import com.msd117.cryptocompose.utils.NavigationEvent
-import com.msd117.cryptocompose.utils.State
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.android.components.ActivityComponent
 
 @ExperimentalComposeUiApi
@@ -50,6 +53,19 @@ class MainActivity : AppCompatActivity() {
     @InstallIn(ActivityComponent::class)
     interface ViewModelFactoryProvider {
         fun coinDetailViewModelFactory(): CoinDetailViewModel.Factory
+    }
+
+    @ExperimentalTransitionApi
+    @ExperimentalComposeUiApi
+    @ExperimentalMaterialApi
+    @Composable
+    fun coinDetailViewModel(symbol: String, icon: String, name: String): CoinDetailViewModel {
+        val factory = EntryPointAccessors.fromActivity(
+            LocalContext.current as Activity,
+            ViewModelFactoryProvider::class.java
+        ).coinDetailViewModelFactory()
+
+        return viewModel(factory = CoinDetailViewModel.provideFactory(factory, symbol, icon, name))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

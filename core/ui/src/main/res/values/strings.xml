@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Shared elements -->
+    <string name="shared_element_root_error">SharedElementRoot not found. SharedElement must be hosted in SharedElementRoot.</string>
+</resources>

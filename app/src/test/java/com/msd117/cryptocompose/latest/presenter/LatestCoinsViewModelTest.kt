@@ -4,10 +4,10 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import com.msd117.cryptocompose.TestModels.LatestCoinModels.latestCoin
 import com.msd117.cryptocompose.TestModels.LatestCoinModels.sortByOptions
-import com.msd117.cryptocompose.latest.presenter.LatestCoinsState.*
-import com.msd117.cryptocompose.latest.presenter.helper.FetchLatestModelsHelper
-import com.msd117.cryptocompose.latest.presenter.helper.GetLatestCoinSortByOptionsHelper
-import com.msd117.cryptocompose.latest.presenter.model.LatestCoin
+import com.msd.latest_coins_list.presenter.LatestCoinsState.*
+import com.msd.latest_coins_list.presenter.helper.FetchLatestModelsHelper
+import com.msd.latest_coins_list.presenter.helper.GetLatestCoinSortByOptionsHelper
+import com.msd.latest_coins_list.presenter.model.LatestCoin
 import com.msd117.cryptocompose.utils.ViewModelTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -22,11 +22,11 @@ import org.mockito.kotlin.whenever
 import java.io.IOException
 
 @ExperimentalCoroutinesApi
-class LatestCoinsViewModelTest : ViewModelTest<LatestCoinsViewModel>() {
+class LatestCoinsViewModelTest : ViewModelTest<com.msd.latest_coins_list.presenter.LatestCoinsViewModel>() {
 
-    private val fetchLatestModelsHelper: FetchLatestModelsHelper = mock()
-    private val getLatestCoinSortByOptionsHelper: GetLatestCoinSortByOptionsHelper = mock()
-    override val viewModel = LatestCoinsViewModel(
+    private val fetchLatestModelsHelper: com.msd.latest_coins_list.presenter.helper.FetchLatestModelsHelper = mock()
+    private val getLatestCoinSortByOptionsHelper: com.msd.latest_coins_list.presenter.helper.GetLatestCoinSortByOptionsHelper = mock()
+    override val viewModel = com.msd.latest_coins_list.presenter.LatestCoinsViewModel(
         scope,
         getLatestCoinSortByOptionsHelper,
         fetchLatestModelsHelper
@@ -38,15 +38,15 @@ class LatestCoinsViewModelTest : ViewModelTest<LatestCoinsViewModel>() {
             val pagingData = flowOf(PagingData.from(listOf(latestCoin)))
             whenever(fetchLatestModelsHelper(sortByOptions.first())).thenReturn(pagingData)
             val expectedStates = listOf(Uninitialized, Loading, Loaded(sortByOptions, pagingData))
-            val states = mutableListOf<LatestCoinsState>()
+            val states = mutableListOf<com.msd.latest_coins_list.presenter.LatestCoinsState>()
             launch { viewModel.getState().toList(states) }.apply {
 
                 viewModel.initialize()
 
                 verify(fetchLatestModelsHelper, only()).invoke(sortByOptions.first())
                 assert(expectedStates.take(2) == states.take(2))
-                val expectedLatestCoins = mutableListOf<PagingData<LatestCoin>>()
-                val latestCoins = mutableListOf<PagingData<LatestCoin>>()
+                val expectedLatestCoins = mutableListOf<PagingData<com.msd.latest_coins_list.presenter.model.LatestCoin>>()
+                val latestCoins = mutableListOf<PagingData<com.msd.latest_coins_list.presenter.model.LatestCoin>>()
                 launch {
                     (expectedStates[2] as Loaded).latestCoins.toList(
                         expectedLatestCoins
@@ -66,7 +66,7 @@ class LatestCoinsViewModelTest : ViewModelTest<LatestCoinsViewModel>() {
         runTest {
             whenever(fetchLatestModelsHelper(sortByOptions.first())).thenAnswer { throw IOException() }
             val expectedStates = listOf(Uninitialized, Loading, Error)
-            val states = mutableListOf<LatestCoinsState>()
+            val states = mutableListOf<com.msd.latest_coins_list.presenter.LatestCoinsState>()
             launch { viewModel.getState().toList(states) }.apply {
 
                 viewModel.initialize()
@@ -84,7 +84,7 @@ class LatestCoinsViewModelTest : ViewModelTest<LatestCoinsViewModel>() {
             whenever(fetchLatestModelsHelper(sortByOptions.first())).thenAnswer { throw IOException() }
             viewModel.initialize()
             val expectedStates = listOf(Error)
-            val states = mutableListOf<LatestCoinsState>()
+            val states = mutableListOf<com.msd.latest_coins_list.presenter.LatestCoinsState>()
             launch { viewModel.getState().toList(states) }.apply {
 
                 viewModel.initialize()

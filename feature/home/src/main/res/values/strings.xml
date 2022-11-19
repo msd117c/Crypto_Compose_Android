@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_item_latest_coins">Coins</string>
+    <string name="menu_item_categories">Categories</string>
+    <string name="no_connection_message">No connection</string>
+</resources>

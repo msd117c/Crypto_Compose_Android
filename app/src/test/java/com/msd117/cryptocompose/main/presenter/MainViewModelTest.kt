@@ -1,8 +1,10 @@
 package com.msd117.cryptocompose.main.presenter
 
-import com.msd117.cryptocompose.main.domain.IsConnectionAvailableUseCase
-import com.msd117.cryptocompose.main.presenter.MainState.Loaded
-import com.msd117.cryptocompose.main.presenter.MainState.Uninitialized
+import com.msd.home.presenter.MainState
+import com.msd.domain.network_capabilities.IsConnectionAvailableUseCase
+import com.msd.home.presenter.MainState.Loaded
+import com.msd.home.presenter.MainState.Uninitialized
+import com.msd.home.presenter.MainViewModel
 import com.msd117.cryptocompose.utils.ViewModelTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -18,7 +20,7 @@ import org.mockito.kotlin.whenever
 @ExperimentalCoroutinesApi
 class MainViewModelTest : ViewModelTest<MainViewModel>() {
 
-    private val isConnectionAvailableUseCase: IsConnectionAvailableUseCase = mock()
+    private val isConnectionAvailableUseCase: com.msd.domain.network_capabilities.IsConnectionAvailableUseCase = mock()
     override val viewModel = MainViewModel(scope, isConnectionAvailableUseCase)
 
     @Test

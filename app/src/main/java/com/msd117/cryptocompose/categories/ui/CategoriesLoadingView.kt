@@ -10,14 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.msd117.cryptocompose.theme.BaseView
-import com.msd117.cryptocompose.theme.Padding.paddingM
-import com.msd117.cryptocompose.theme.Padding.paddingS
-import com.msd117.cryptocompose.theme.Padding.paddingXS
-import com.msd117.cryptocompose.theme.Size
-import com.msd117.cryptocompose.theme.ui.loading.Height
-import com.msd117.cryptocompose.theme.ui.loading.LoadingText
-import com.msd117.cryptocompose.theme.zero
+import com.msd.core.ui.theme.BaseView
+import com.msd.core.ui.theme.Padding.paddingM
+import com.msd.core.ui.theme.Padding.paddingS
+import com.msd.core.ui.theme.Padding.paddingXS
+import com.msd.core.ui.theme.Size
+import com.msd.core.ui.theme.ui.loading.Height
+import com.msd.core.ui.theme.ui.loading.LoadingText
+import com.msd.core.ui.theme.zero
 
 private const val LOADING_ITEMS = 10
 
@@ -36,26 +36,26 @@ fun LoadingItemView() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = paddingM, vertical = paddingS)
-            .shadow(elevation = Size.sizeS)
+            .shadow(elevation = com.msd.core.ui.theme.Size.sizeS)
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = zero, vertical = paddingS)
+                .padding(horizontal = com.msd.core.ui.theme.zero, vertical = paddingS)
         ) {
             Row {
                 Column(modifier = Modifier.align(Alignment.CenterVertically)) {
-                    LoadingText(
+                    com.msd.core.ui.theme.ui.loading.LoadingText(
                         width = 70.dp,
-                        height = Height.Medium,
+                        height = com.msd.core.ui.theme.ui.loading.Height.Medium,
                         modifier = Modifier.padding(
                             horizontal = paddingM,
                             vertical = paddingXS
                         )
                     )
-                    LoadingText(
+                    com.msd.core.ui.theme.ui.loading.LoadingText(
                         width = 50.dp,
-                        height = Height.Medium,
+                        height = com.msd.core.ui.theme.ui.loading.Height.Medium,
                         modifier = Modifier.padding(
                             horizontal = paddingM,
                             vertical = paddingXS
@@ -64,16 +64,16 @@ fun LoadingItemView() {
                 }
             }
             Column(modifier = Modifier.align(Alignment.CenterEnd)) {
-                LoadingText(
+                com.msd.core.ui.theme.ui.loading.LoadingText(
                     width = 90.dp,
-                    height = Height.Medium,
+                    height = com.msd.core.ui.theme.ui.loading.Height.Medium,
                     modifier = Modifier
                         .padding(horizontal = paddingM, vertical = paddingXS)
                         .align(Alignment.End)
                 )
-                LoadingText(
+                com.msd.core.ui.theme.ui.loading.LoadingText(
                     width = 50.dp,
-                    height = Height.Medium,
+                    height = com.msd.core.ui.theme.ui.loading.Height.Medium,
                     modifier = Modifier
                         .padding(horizontal = paddingM, vertical = paddingXS)
                         .align(Alignment.End)
@@ -86,5 +86,5 @@ fun LoadingItemView() {
 @Preview
 @Composable
 fun CategoriesLoadingPreview() {
-    BaseView { CategoriesLoadingView() }
+    com.msd.core.ui.theme.BaseView { CategoriesLoadingView() }
 }

@@ -2,7 +2,7 @@ package com.msd117.cryptocompose.categories.presenter
 
 import androidx.paging.cachedIn
 import com.msd117.cryptocompose.categories.presenter.helper.FetchCategoriesHelper
-import com.msd117.cryptocompose.utils.BaseViewModel
+import com.msd.core.presentation.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow

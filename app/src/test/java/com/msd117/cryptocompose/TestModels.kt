@@ -1,14 +1,14 @@
 package com.msd117.cryptocompose
 
-import com.msd117.cryptocompose.latest.presenter.LatestCoinsState
-import com.msd117.cryptocompose.latest.presenter.helper.SortByOption
+import com.msd.latest_coins_list.presenter.LatestCoinsState
+import com.msd.latest_coins_list.presenter.helper.SortByOption
 import com.msd117.cryptocompose.latest.presenter.model.Growth
-import com.msd117.cryptocompose.latest.presenter.model.LatestCoin
+import com.msd.latest_coins_list.presenter.model.LatestCoin
 
 class TestModels {
 
     object LatestCoinModels {
-        val latestCoin = LatestCoin(
+        val latestCoin = com.msd.latest_coins_list.presenter.model.LatestCoin(
             id = 0,
             name = "Name",
             symbol = "Symbol",
@@ -31,12 +31,12 @@ class TestModels {
             usd = null
         )
 
-        val sortByOptions = SortByOption.values().map { sortByOption ->
+        val sortByOptions = com.msd.latest_coins_list.presenter.helper.SortByOption.values().map { sortByOption ->
             with(sortByOption) {
-                LatestCoinsState.Loaded.SortBy(
+                com.msd.latest_coins_list.presenter.LatestCoinsState.Loaded.SortBy(
                     id,
                     label = label,
-                    selected = sortByOption == SortByOption.MARKET_CAP
+                    selected = sortByOption == com.msd.latest_coins_list.presenter.helper.SortByOption.MARKET_CAP
                 )
             }
         }

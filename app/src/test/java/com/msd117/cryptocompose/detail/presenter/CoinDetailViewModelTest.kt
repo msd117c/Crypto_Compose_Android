@@ -1,7 +1,9 @@
 package com.msd117.cryptocompose.detail.presenter
 
-import com.msd117.cryptocompose.detail.presenter.helper.FetchCoinDetailHelper
-import com.msd117.cryptocompose.detail.presenter.model.CoinDetail
+import com.msd.latest_coins.detail.presenter.CoinDetailState
+import com.msd.latest_coins.detail.presenter.CoinDetailViewModel
+import com.msd.latest_coins.detail.presenter.helper.FetchCoinDetailHelper
+import com.msd.latest_coins.detail.presenter.model.CoinDetail
 import com.msd117.cryptocompose.utils.ViewModelTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toCollection

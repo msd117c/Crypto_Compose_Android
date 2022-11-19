@@ -17,12 +17,12 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.msd117.cryptocompose.categories.presenter.model.Category
-import com.msd117.cryptocompose.theme.BaseView
-import com.msd117.cryptocompose.theme.Padding.paddingM
-import com.msd117.cryptocompose.theme.Padding.paddingS
-import com.msd117.cryptocompose.theme.Size.sizeS
-import com.msd117.cryptocompose.theme.ui.widget.BodyText
-import com.msd117.cryptocompose.theme.ui.widget.SmallBodyText
+import com.msd.core.ui.theme.BaseView
+import com.msd.core.ui.theme.Padding.paddingM
+import com.msd.core.ui.theme.Padding.paddingS
+import com.msd.core.ui.theme.Size.sizeS
+import com.msd.core.ui.theme.ui.widget.BodyText
+import com.msd.core.ui.theme.ui.widget.SmallBodyText
 import kotlinx.coroutines.flow.Flow
 
 @Composable
@@ -63,9 +63,9 @@ fun CategoryItemView(category: Category) {
         ) {
             Box {
                 Column(modifier = Modifier.padding(horizontal = paddingM, vertical = paddingS)) {
-                    BodyText(text = name)
-                    SmallBodyText(text = "Number of tokens: $numTokens")
-                    SmallBodyText(text = "Volume: $volume")
+                    com.msd.core.ui.theme.ui.widget.BodyText(text = name)
+                    com.msd.core.ui.theme.ui.widget.SmallBodyText(text = "Number of tokens: $numTokens")
+                    com.msd.core.ui.theme.ui.widget.SmallBodyText(text = "Volume: $volume")
                 }
             }
         }
@@ -75,7 +75,7 @@ fun CategoryItemView(category: Category) {
 @Preview
 @Composable
 fun CategoriesLoadedPreview() {
-    BaseView {
+    com.msd.core.ui.theme.BaseView {
         CategoryItemView(
             Category(
                 id = "",

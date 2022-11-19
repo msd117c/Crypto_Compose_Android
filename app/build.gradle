@@ -57,6 +57,22 @@ android {
 
 dependencies {
 
+    implementation project(":core:navigation")
+    implementation project(":core:presentation")
+    implementation project(":core:ui")
+    implementation project(":core:network")
+    implementation project(":core:network_capabilities")
+
+    implementation project(":feature:home")
+    implementation project(":feature:latest_coins")
+
+    implementation project(":data:latest_coins")
+    implementation project(":data:coin_details")
+
+    implementation project(":domain:latest_coins_list")
+    implementation project(":domain:coin_details")
+    implementation project(":domain:network_capabilities")
+
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.0'
@@ -76,8 +92,6 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:2.6.0-alpha03"
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
     implementation 'com.valentinilk.shimmer:compose-shimmer:1.0.2'
-
-    implementation "com.github.skydoves:landscapist-glide:1.4.3"
 
     implementation "com.google.dagger:hilt-android:2.44"
     kapt "com.google.dagger:hilt-android-compiler:2.44"
