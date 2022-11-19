@@ -76,7 +76,7 @@ fun CoinDetailView(viewModel: CoinDetailViewModel) {
 private fun CoinDetailTopBarTitleView(iconProvider: () -> String, nameProvider: () -> String) {
     Row {
         UrlImage(
-            url = iconProvider,
+            urlProvider = iconProvider,
             modifier = Modifier
                 .requiredSize(smallIconSize)
                 .align(Alignment.CenterVertically)

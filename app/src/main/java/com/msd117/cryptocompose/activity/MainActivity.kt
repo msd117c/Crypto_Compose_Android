@@ -17,6 +17,8 @@ import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.msd.categories.presenter.CategoriesViewModel
+import com.msd.categories.ui.CategoriesView
 import com.msd.core.navigation.NavigationConstants.CategoriesRoute
 import com.msd.core.navigation.NavigationConstants.CoinDetailsRoute
 import com.msd.core.navigation.NavigationConstants.CoinDetailsRouteIconArg
@@ -35,8 +37,6 @@ import com.msd.latest_coins.detail.presenter.CoinDetailViewModel
 import com.msd.latest_coins.detail.ui.CoinDetailView
 import com.msd.latest_coins.list.presenter.LatestCoinsViewModel
 import com.msd.latest_coins.list.ui.LatestCoinsView
-import com.msd117.cryptocompose.categories.presenter.CategoriesViewModel
-import com.msd117.cryptocompose.categories.ui.CategoriesView
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint

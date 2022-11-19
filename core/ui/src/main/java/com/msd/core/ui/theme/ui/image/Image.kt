@@ -14,9 +14,9 @@ import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-fun UrlImage(url: () -> String, modifier: Modifier = Modifier) {
+fun UrlImage(urlProvider: () -> String, modifier: Modifier = Modifier) {
     GlideImage(
-        imageModel = url,
+        imageModel = urlProvider(),
         modifier = modifier,
         contentScale = ContentScale.Crop,
         shimmerParams = ShimmerParams(
