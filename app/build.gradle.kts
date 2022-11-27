@@ -28,22 +28,33 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
 
         kotlin {
             kotlinOptions {
-                freeCompilerArgs += "-Xjvm-default=compatibility"
+                freeCompilerArgs.plus("-Xjvm-default=compatibility")
+                freeCompilerArgs.plus(
+                    listOf(
+                        "-P",
+                        "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=" +
+                                project.buildDir.absolutePath + "/compose_compiler"
+                    )
+                )
             }
         }
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 
     buildFeatures {
@@ -81,6 +92,7 @@ dependencies {
     implementation(Dependencies.appCompat)
 
     implementation(Dependencies.composeUi)
+    implementation(Dependencies.composeRuntime)
     implementation(Dependencies.composeMaterial)
     implementation(Dependencies.composeActivity)
     implementation(Dependencies.composeNavigation)

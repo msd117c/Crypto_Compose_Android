@@ -1,6 +1,5 @@
 package com.msd.latest_coins.list.ui
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -31,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.LoadState
 import androidx.paging.PagingData
-import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.msd.core.ui.theme.BaseView
 import com.msd.core.ui.theme.Padding.paddingM
@@ -174,8 +172,7 @@ private fun LatestCoinListView(
     latestCoinsProvider: () -> Flow<PagingData<LatestCoin>>,
     onClick: (String, String, String) -> Unit
 ) {
-    val latestCoinItems: LazyPagingItems<LatestCoin> =
-        latestCoinsProvider().collectAsLazyPagingItems()
+    val latestCoinPagingItems = latestCoinsProvider().collectAsLazyPagingItems()
     val listState = rememberLazyListState()
 
     LazyColumn(
@@ -183,22 +180,18 @@ private fun LatestCoinListView(
         state = listState,
         contentPadding = PaddingValues(top = topBarHeight)
     ) {
-        with(latestCoinItems) {
+        with(latestCoinPagingItems) {
             items(
                 count = itemCount,
                 key = { index -> get(index)?.id ?: 0 }
             ) { index ->
-                get(index)?.let { item ->
-                    LatestCoinItemView(latestCoin = item, onClick = onClick)
+                get(index)?.let { latestCoin ->
+                    LatestCoinItemView(latestCoin = latestCoin, onClick = onClick)
                 }
             }
             when {
                 loadState.refresh is LoadState.Loading -> loadingItemsView()
                 loadState.append is LoadState.Loading -> item { LoadingItemView() }
-                loadState.append is LoadState.Error -> {
-                    //You can use modifier to show error message
-                    Log.d("LOADERR", "ERROR")
-                }
             }
         }
     }

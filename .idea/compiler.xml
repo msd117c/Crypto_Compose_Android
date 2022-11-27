@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="11" />
+    <bytecodeTargetLevel target="1.7">
+      <module name="Crypto_Compose.app" target="11" />
+      <module name="Crypto_Compose.core.navigation" target="11" />
+      <module name="Crypto_Compose.core.navigation.main" target="11" />
+      <module name="Crypto_Compose.core.navigation.test" target="11" />
+      <module name="Crypto_Compose.core.network" target="11" />
+      <module name="Crypto_Compose.core.network.main" target="11" />
+      <module name="Crypto_Compose.core.network.test" target="11" />
+      <module name="Crypto_Compose.core.network_capabilities" target="11" />
+      <module name="Crypto_Compose.core.presentation" target="11" />
+      <module name="Crypto_Compose.core.ui" target="11" />
+      <module name="Crypto_Compose.data.categories" target="11" />
+      <module name="Crypto_Compose.data.categories.main" target="11" />
+      <module name="Crypto_Compose.data.categories.test" target="11" />
+      <module name="Crypto_Compose.data.coin_details" target="11" />
+      <module name="Crypto_Compose.data.coin_details.main" target="11" />
+      <module name="Crypto_Compose.data.coin_details.test" target="11" />
+      <module name="Crypto_Compose.data.latest_coins" target="11" />
+      <module name="Crypto_Compose.data.latest_coins.main" target="11" />
+      <module name="Crypto_Compose.data.latest_coins.test" target="11" />
+      <module name="Crypto_Compose.domain.coin_details" target="11" />
+      <module name="Crypto_Compose.domain.coin_details.main" target="11" />
+      <module name="Crypto_Compose.domain.coin_details.test" target="11" />
+      <module name="Crypto_Compose.domain.latest_coins_list" target="11" />
+      <module name="Crypto_Compose.domain.latest_coins_list.main" target="11" />
+      <module name="Crypto_Compose.domain.latest_coins_list.test" target="11" />
+      <module name="Crypto_Compose.domain.network_capabilities" target="11" />
+      <module name="Crypto_Compose.domain.network_capabilities.main" target="11" />
+      <module name="Crypto_Compose.domain.network_capabilities.test" target="11" />
+      <module name="Crypto_Compose.feature.categories" target="11" />
+      <module name="Crypto_Compose.feature.home" target="11" />
+      <module name="Crypto_Compose.feature.latest_coins" target="11" />
+      <module name="CryptoComposeApp.buildSrc" target="11" />
+      <module name="CryptoComposeApp.buildSrc.main" target="11" />
+      <module name="CryptoComposeApp.buildSrc.test" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -20,6 +20,7 @@ import com.msd.core.ui.theme.Size.smallLoadingIconSize
 import com.msd.core.ui.theme.ui.loading.Height.Medium
 import com.msd.core.ui.theme.ui.loading.LoadingCircle
 import com.msd.core.ui.theme.ui.loading.LoadingText
+import com.msd.core.ui.theme.zero
 
 private const val LOADING_ITEMS = 10
 
@@ -48,7 +49,7 @@ fun LoadingItemView() {
                         .padding(
                             start = paddingL,
                             top = paddingM,
-                            end = com.msd.core.ui.theme.zero,
+                            end = zero,
                             bottom = paddingM
                         )
                         .align(Alignment.CenterVertically)

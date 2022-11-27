@@ -6,6 +6,7 @@ object Dependencies {
     val viewModelLifecycleKtx by lazy { "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.viewModelLifecycleKtx}" }
     val coroutinesCore by lazy { "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}" }
 
+    val composeRuntime by lazy { "androidx.compose.runtime:runtime:1.4.0-alpha02" }
     val composeUi by lazy { "androidx.compose.ui:ui:${Versions.compose}" }
     val composeMaterial by lazy { "androidx.compose.material:material:${Versions.compose}" }
     val composeTooling by lazy { "androidx.compose.ui:ui-tooling:${Versions.compose}" }

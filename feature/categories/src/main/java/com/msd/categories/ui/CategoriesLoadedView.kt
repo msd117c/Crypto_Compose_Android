@@ -14,7 +14,6 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.LoadState
 import androidx.paging.PagingData
-import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.msd.categories.presenter.model.Category
 import com.msd.core.ui.theme.BaseView
@@ -27,7 +26,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun CategoriesLoadedView(categories: Flow<PagingData<Category>>) {
-    val categoryItems: LazyPagingItems<Category> = categories.collectAsLazyPagingItems()
+    val categoryItems = categories.collectAsLazyPagingItems()
     val listState = rememberLazyListState()
 
     LazyColumn(
