@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.msd.core.presentation"
+    namespace = "com.msd.core.unit_test"
     compileSdk = Configuration.compileSdkVersion
 
     defaultConfig {
@@ -34,14 +34,12 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:presentation"))
 
-    implementation(project(":core:navigation"))
+    implementation(Dependencies.viewModelLifecycleKtx)
+    api(Dependencies.jUnit)
+    api(Dependencies.mockitoKotlin)
+    api(Dependencies.coroutinesTest)
 
-    implementation(Dependencies.coreKtx)
-    implementation(Dependencies.appCompat)
-
-    api(Dependencies.viewModelLifecycleKtx)
-
-    testImplementation(Dependencies.jUnit)
-    testImplementation(Dependencies.coroutinesTest)
+    testImplementation("org.mockito:mockito-inline:4.0.0")
 }

@@ -2,25 +2,25 @@ package com.msd.latest_coins.detail.presenter
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.msd.latest_coins.detail.presenter.helper.FetchCoinDetailHelper
-import com.msd.core.presentation.BaseViewModel
+import androidx.lifecycle.viewModelScope
 import com.msd.core.navigation.NavigationConstants.CoinDetailsRouteIconArg
 import com.msd.core.navigation.NavigationConstants.CoinDetailsRouteNameArg
 import com.msd.core.navigation.NavigationConstants.CoinDetailsRouteSymbolArg
+import com.msd.core.presentation.BaseViewModel
+import com.msd.latest_coins.detail.presenter.helper.FetchCoinDetailHelper
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class CoinDetailViewModel @AssistedInject constructor(
-    coroutineScope: CoroutineScope?,
     private val fetchCoinDetailHelper: FetchCoinDetailHelper,
     @Assisted(CoinDetailsRouteSymbolArg) symbol: String,
     @Assisted(CoinDetailsRouteIconArg) icon: String,
     @Assisted(CoinDetailsRouteNameArg) name: String
-) : BaseViewModel<CoinDetailState>(coroutineScope) {
+) : BaseViewModel<CoinDetailState>() {
 
     override val state: MutableStateFlow<CoinDetailState> = MutableStateFlow(initialState)
 
@@ -31,7 +31,7 @@ class CoinDetailViewModel @AssistedInject constructor(
     override fun initialize() {
         if (state.value !is CoinDetailState.Uninitialized) return
 
-        scope.launch {
+        viewModelScope.launch {
             state.value = CoinDetailState.Loading(state.value.coinData)
             try {
                 val coinDetail = fetchCoinDetailHelper(state.value.coinData.symbol)

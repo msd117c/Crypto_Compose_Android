@@ -1,17 +1,13 @@
 package com.msd.core.presentation
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.msd.core.navigation.NavigationEvent
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<S : State>(
-    coroutineScope: CoroutineScope?
-) : ViewModel() {
-
-    protected val scope = getViewModelScope(coroutineScope)
+abstract class BaseViewModel<S : State> : ViewModel() {
 
     protected abstract val state: MutableStateFlow<S>
     fun getState(): Flow<S> = state
@@ -19,15 +15,15 @@ abstract class BaseViewModel<S : State>(
     fun getNavigationEvent(): Flow<NavigationEvent> = navigationEvent
 
     fun navigate(route: NavigationEvent.Route) {
-        scope.launch { navigationEvent.emit(route) }
+        viewModelScope.launch { navigationEvent.emit(route) }
     }
 
     fun popBackStack() {
-        scope.launch { navigationEvent.emit(NavigationEvent.PopBackStack) }
+        viewModelScope.launch { navigationEvent.emit(NavigationEvent.PopBackStack) }
     }
 
     fun cleanNavigation() {
-        scope.launch { navigationEvent.emit(NavigationEvent.Idle) }
+        viewModelScope.launch { navigationEvent.emit(NavigationEvent.Idle) }
     }
 
     abstract fun initialize()

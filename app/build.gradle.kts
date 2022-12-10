@@ -103,14 +103,4 @@ dependencies {
     implementation(Dependencies.hiltNavigation)
     implementation("com.google.android.material:material:1.7.0")
     implementation(Dependencies.retrofit)
-
-    testImplementation(Dependencies.mockitoKotlin)
-    testImplementation(Dependencies.coroutinesTest)
-
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2")
-
-    androidTestImplementation(Dependencies.espressoCore)
-    androidTestImplementation(Dependencies.espressoJunitExt)
 }

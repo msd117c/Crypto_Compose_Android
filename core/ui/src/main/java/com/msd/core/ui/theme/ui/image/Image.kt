@@ -31,18 +31,22 @@ fun UrlImage(urlProvider: () -> String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun IconImage(idProvider: () -> Int, colorFilter: ColorFilter? = null) {
+fun IconImage(
+    idProvider: () -> Int,
+    contentDescription: String?,
+    colorFilter: ColorFilter? = null
+) {
     Image(
         imageVector = ImageVector.vectorResource(id = idProvider()),
-        contentDescription = null,
+        contentDescription = contentDescription,
         colorFilter = colorFilter
     )
 }
 
 @Composable
 fun BackIconImage() {
-    Image(
-        imageVector = ImageVector.vectorResource(id = R.drawable.ic_arrow_back),
+    IconImage(
+        idProvider = { R.drawable.ic_arrow_back },
         contentDescription = null,
         colorFilter = ColorFilter.tint(Color.Black)
     )

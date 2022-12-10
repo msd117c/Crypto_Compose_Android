@@ -2,6 +2,7 @@ package com.msd.core.ui.theme.ui.loading
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -51,7 +52,10 @@ fun LoadingCircle(size: Dp, modifier: Modifier = Modifier) {
 @Preview
 fun LoadingBoxPreview() {
     BaseView {
-        LoadingBox(width = 70.dp, height = 70.dp, modifier = Modifier.padding(all = paddingM))
-        LoadingBox(size = 70.dp, modifier = Modifier.padding(all = paddingM))
+        Column {
+            LoadingBox(width = 90.dp, height = 60.dp, modifier = Modifier.padding(all = paddingM))
+            LoadingBox(size = 70.dp, modifier = Modifier.padding(all = paddingM))
+            LoadingCircle(size = 70.dp, modifier = Modifier.padding(all = paddingM))
+        }
     }
 }

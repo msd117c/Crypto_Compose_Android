@@ -53,16 +53,9 @@ dependencies {
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.appCompat)
 
-    implementation(Dependencies.composeUi)
-    implementation(Dependencies.composeFoundation)
-    implementation(Dependencies.composeMaterial)
-    implementation(Dependencies.composeTooling)
-
     implementation(Dependencies.hilt)
     kapt(Dependencies.hiltAndroidCompiler)
     kapt(Dependencies.hiltCompiler)
 
-    testImplementation(Dependencies.jUnit)
-    androidTestImplementation(Dependencies.espressoCore)
-    androidTestImplementation(Dependencies.espressoJunitExt)
+    testImplementation(project(":core:unit_test"))
 }

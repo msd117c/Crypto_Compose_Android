@@ -20,7 +20,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -50,17 +53,11 @@ dependencies {
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.appCompat)
 
-    implementation(Dependencies.composeUi)
-    implementation(Dependencies.composeFoundation)
-    implementation(Dependencies.composeMaterial)
-    implementation(Dependencies.composeTooling)
     implementation(Dependencies.composePaging)
 
     implementation(Dependencies.hilt)
     kapt(Dependencies.hiltAndroidCompiler)
     kapt(Dependencies.hiltCompiler)
 
-    testImplementation(Dependencies.jUnit)
-    androidTestImplementation(Dependencies.espressoCore)
-    androidTestImplementation(Dependencies.espressoJunitExt)
+    testImplementation(project(":core:unit_test"))
 }

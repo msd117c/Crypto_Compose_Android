@@ -12,6 +12,9 @@
       <module name="Crypto_Compose.core.network_capabilities" target="11" />
       <module name="Crypto_Compose.core.presentation" target="11" />
       <module name="Crypto_Compose.core.ui" target="11" />
+      <module name="Crypto_Compose.core.unit_test" target="11" />
+      <module name="Crypto_Compose.core.unit_test.main" target="11" />
+      <module name="Crypto_Compose.core.unit_test.test" target="11" />
       <module name="Crypto_Compose.data.categories" target="11" />
       <module name="Crypto_Compose.data.categories.main" target="11" />
       <module name="Crypto_Compose.data.categories.test" target="11" />

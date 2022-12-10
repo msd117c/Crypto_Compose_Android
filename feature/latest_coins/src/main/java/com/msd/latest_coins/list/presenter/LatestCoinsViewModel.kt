@@ -1,21 +1,20 @@
 package com.msd.latest_coins.list.presenter
 
+import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.msd.core.presentation.BaseViewModel
 import com.msd.latest_coins.list.presenter.helper.FetchLatestModelsHelper
 import com.msd.latest_coins.list.presenter.helper.GetLatestCoinSortByOptionsHelper
-import com.msd.core.presentation.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LatestCoinsViewModel @Inject constructor(
-    coroutineScope: CoroutineScope?,
     private val getLatestCoinSortByOptionsHelper: GetLatestCoinSortByOptionsHelper,
     private val fetchLatestModelsHelper: FetchLatestModelsHelper
-) : BaseViewModel<LatestCoinsState>(coroutineScope) {
+) : BaseViewModel<LatestCoinsState>() {
 
     override val state: MutableStateFlow<LatestCoinsState> = MutableStateFlow(initialState)
 
@@ -50,11 +49,11 @@ class LatestCoinsViewModel @Inject constructor(
         loaded: LatestCoinsState.Loaded? = null,
         sortByOptions: List<LatestCoinsState.Loaded.SortBy>
     ) {
-        scope.launch {
+        viewModelScope.launch {
             state.value = LatestCoinsState.Loading
             try {
                 val sortBy = sortByOptions.first { it.selected }
-                val latestCoins = fetchLatestModelsHelper(sortBy).cachedIn(scope)
+                val latestCoins = fetchLatestModelsHelper(sortBy).cachedIn(viewModelScope)
                 state.value = loaded?.copy(
                     sortByOptions = sortByOptions,
                     latestCoins = latestCoins

@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/core/network_capabilities" />
             <option value="$PROJECT_DIR$/core/presentation" />
             <option value="$PROJECT_DIR$/core/ui" />
+            <option value="$PROJECT_DIR$/core/unit_test" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/data/categories" />
             <option value="$PROJECT_DIR$/data/coin_details" />

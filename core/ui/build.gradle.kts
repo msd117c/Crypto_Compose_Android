@@ -45,17 +45,15 @@ dependencies {
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.appCompat)
 
-    implementation(Dependencies.composeUi)
-    implementation(Dependencies.composeTooling)
-    implementation(Dependencies.composeFoundation)
-    implementation(Dependencies.composeMaterial)
+    api(Dependencies.composeUi)
+    api(Dependencies.composeTooling)
+    api(Dependencies.composeFoundation)
+    api(Dependencies.composeMaterial)
+
     implementation(Dependencies.composeMaterialIconsCore)
     implementation(Dependencies.composeMaterialIconsExtended)
     implementation(Dependencies.composeActivity)
 
     implementation(Dependencies.composeShimmer)
     implementation(Dependencies.landscapistGlide)
-
-    androidTestImplementation(Dependencies.espressoJunitExt)
-    androidTestImplementation(Dependencies.espressoCore)
 }

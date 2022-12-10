@@ -1,9 +1,9 @@
 package com.msd.home.presenter
 
+import androidx.lifecycle.viewModelScope
 import com.msd.core.presentation.BaseViewModel
 import com.msd.domain.network_capabilities.IsConnectionAvailableUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -11,9 +11,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    coroutineScope: CoroutineScope?,
     private val isConnectionAvailableUseCase: IsConnectionAvailableUseCase
-) : BaseViewModel<MainState>(coroutineScope) {
+) : BaseViewModel<MainState>() {
 
     override val state: MutableStateFlow<MainState> = MutableStateFlow(initialState)
 
@@ -22,6 +21,6 @@ class MainViewModel @Inject constructor(
 
         isConnectionAvailableUseCase().onEach { isConnected ->
             state.value = MainState.Loaded(isConnected = isConnected)
-        }.launchIn(scope)
+        }.launchIn(viewModelScope)
     }
 }

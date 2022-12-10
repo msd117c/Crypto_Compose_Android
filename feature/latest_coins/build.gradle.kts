@@ -47,23 +47,18 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:presentation"))
     implementation(project(":core:navigation"))
+
     implementation(project(":domain:latest_coins_list"))
     implementation(project(":domain:coin_details"))
 
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.appCompat)
 
-    implementation(Dependencies.composeUi)
-    implementation(Dependencies.composeFoundation)
-    implementation(Dependencies.composeMaterial)
-    implementation(Dependencies.composeTooling)
     implementation(Dependencies.composePaging)
 
     implementation(Dependencies.hilt)
     kapt(Dependencies.hiltAndroidCompiler)
     kapt(Dependencies.hiltCompiler)
 
-    testImplementation(Dependencies.jUnit)
-    androidTestImplementation(Dependencies.espressoCore)
-    androidTestImplementation(Dependencies.espressoJunitExt)
+    testImplementation(project(":core:unit_test"))
 }
