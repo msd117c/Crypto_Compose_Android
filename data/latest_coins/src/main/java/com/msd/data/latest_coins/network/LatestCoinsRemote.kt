@@ -1,4 +1,4 @@
-package com.msd.latest_coins.network
+package com.msd.data.latest_coins.network
 
 import retrofit2.Retrofit
 import javax.inject.Inject

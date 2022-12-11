@@ -1,7 +1,7 @@
-package com.msd.latest_coins
+package com.msd.data.latest_coins
 
-import com.msd.latest_coins.mapper.toDomain
-import com.msd.latest_coins.network.LatestCoinsRemote
+import com.msd.data.latest_coins.mapper.LatestDomainMapper.toDomain
+import com.msd.data.latest_coins.network.LatestCoinsRemote
 import com.msd.domain.latest_coins_list.ILatestCoinsRepository
 import javax.inject.Inject
 

@@ -1,6 +1,6 @@
-package com.msd.latest_coins.network
+package com.msd.data.latest_coins.network
 
-import com.msd.latest_coins.model.LatestCoinsResponse
+import com.msd.data.latest_coins.model.LatestCoinsResponse
 import com.msd.network.ApiConstants.LATEST_COINS_ENDPOINT
 import com.msd.network.ApiConstants.LATEST_COINS_SORT_PARAMETER
 import com.msd.network.ApiConstants.QUERY_LIMIT_PARAMETER

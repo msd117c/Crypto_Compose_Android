@@ -16,4 +16,6 @@ dependencies {
 
     implementation(Dependencies.retrofit)
     implementation(Dependencies.moshi)
+
+    testImplementation(project(":core:unit_test"))
 }
