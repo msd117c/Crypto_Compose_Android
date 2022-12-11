@@ -1,8 +1,8 @@
 package com.msd.latest_coins.detail.presenter
 
+import com.msd.latest_coins.common.TestDataBuilder.buildCoinDetail
 import com.msd.latest_coins.detail.presenter.CoinDetailState.*
 import com.msd.latest_coins.detail.presenter.helper.FetchCoinDetailHelper
-import com.msd.latest_coins.detail.presenter.model.CoinDetail
 import com.msd.unit_test.ViewModelTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Test
@@ -15,9 +15,9 @@ import org.mockito.kotlin.whenever
 class CoinDetailViewModelTest : ViewModelTest<CoinDetailState, CoinDetailViewModel>() {
 
     private val fetchCoinDetailHelper: FetchCoinDetailHelper = mock()
-    private val symbol = "BTC"
+    private val symbol = "Symbol"
     private val icon = "icon"
-    private val name = "Bitcoin"
+    private val name = "Name"
 
     override val viewModel = CoinDetailViewModel(
         fetchCoinDetailHelper,
@@ -26,15 +26,7 @@ class CoinDetailViewModelTest : ViewModelTest<CoinDetailState, CoinDetailViewMod
         name
     )
 
-    private val coinDetail = CoinDetail(
-        name = "Bitcoin",
-        symbol = "BTC",
-        description = "description",
-        dateAdded = "",
-        tagNames = listOf("tagNames"),
-        technicalButtons = emptyList(),
-        urlButtons = emptyList()
-    )
+    private val coinDetail = buildCoinDetail()
     private val coinData = CoinData(symbol, icon, name)
 
     @Test

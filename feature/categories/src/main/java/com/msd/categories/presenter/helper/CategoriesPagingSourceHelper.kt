@@ -3,7 +3,7 @@ package com.msd.categories.presenter.helper
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.msd.categories.FetchCategoriesUseCase
-import com.msd.categories.presenter.mapper.toPresentation
+import com.msd.categories.presenter.mapper.CategoryMapper.toPresentation
 import com.msd.categories.presenter.model.Category
 
 class CategoriesPagingSourceHelper(

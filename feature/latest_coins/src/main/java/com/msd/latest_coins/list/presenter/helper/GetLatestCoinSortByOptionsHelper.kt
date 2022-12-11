@@ -49,7 +49,7 @@ enum class SortByOption(val id: String, @StringRes val label: Int) {
     NUM_MARKET_PAIRS(id = NUM_MARKET_PAIRS_ID, label = R.string.sort_by_num_market_pairs),
     VOLUME_24H(id = VOLUME_24H_ID, label = R.string.sort_by_volume_24h),
     PERCENT_CHANGE_1H(id = PERCENT_CHANGE_1H_ID, label = R.string.sort_by_percent_change_1h),
-    PERCENT_CHANGE_24H(id = PERCENT_CHANGE_24H_ID, label = R.string.sort_by_volume_24h),
+    PERCENT_CHANGE_24H(id = PERCENT_CHANGE_24H_ID, label = R.string.sort_by_percent_change_24h),
     PERCENT_CHANGE_7D(id = PERCENT_CHANGE_7D_ID, label = R.string.sort_by_percent_change_7d),
     MARKET_CAP_BY_TOTAL_SUPPLY_STRICT(
         id = MARKET_CAP_BY_TOTAL_SUPPLY_STRICT_ID,
