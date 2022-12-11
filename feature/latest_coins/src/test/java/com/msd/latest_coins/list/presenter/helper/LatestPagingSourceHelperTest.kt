@@ -5,7 +5,7 @@ import androidx.paging.PagingSource.LoadResult
 import com.msd.latest_coins.common.TestDataBuilder.buildLatestCoin
 import com.msd.latest_coins.common.TestDataBuilder.buildLatestCoinDomain
 import com.msd.latest_coins.list.presenter.model.LatestCoin
-import com.msd.latest_coins_list.FetchLatestCoinsUseCase
+import com.msd.domain.latest_coins_list.FetchLatestCoinsUseCase
 import com.msd.unit_test.CoroutineTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

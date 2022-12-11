@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.msd.latest_coins.list.presenter.LatestCoinsState.Loaded
 import com.msd.latest_coins.list.presenter.model.LatestCoin
-import com.msd.latest_coins_list.FetchLatestCoinsUseCase
+import com.msd.domain.latest_coins_list.FetchLatestCoinsUseCase
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

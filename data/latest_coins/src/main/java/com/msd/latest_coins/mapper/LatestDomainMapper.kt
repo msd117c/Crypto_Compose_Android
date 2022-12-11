@@ -1,8 +1,8 @@
 package com.msd.latest_coins.mapper
 
 import com.msd.latest_coins.model.CoinData
-import com.msd.latest_coins_list.model.GrowthDomain
-import com.msd.latest_coins_list.model.LatestCoinDomain
+import com.msd.domain.latest_coins_list.model.GrowthDomain
+import com.msd.domain.latest_coins_list.model.LatestCoinDomain
 import com.msd.network.ApiConstants.ICON_API_URL
 import com.msd.network.ApiConstants.ICON_API_URL_NAME
 import java.math.BigDecimal

@@ -1,6 +1,6 @@
-package com.msd.categories
+package com.msd.domain.categories
 
-import com.msd.categories.model.CategoryDomain
+import com.msd.domain.categories.model.CategoryDomain
 import javax.inject.Inject
 
 class FetchCategoriesUseCase @Inject constructor(

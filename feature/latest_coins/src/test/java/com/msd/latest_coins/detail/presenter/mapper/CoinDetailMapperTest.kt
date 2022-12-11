@@ -1,6 +1,6 @@
 package com.msd.latest_coins.detail.presenter.mapper
 
-import com.msd.coin_details.model.CoinDetailDomain
+import com.msd.domain.coin_details.model.CoinDetailDomain
 import com.msd.latest_coins.common.TestDataBuilder.buildCoinDetail
 import com.msd.latest_coins.common.TestDataBuilder.buildCoinDetailDomain
 import com.msd.latest_coins.common.TestDataBuilder.buildTechnicalButtons

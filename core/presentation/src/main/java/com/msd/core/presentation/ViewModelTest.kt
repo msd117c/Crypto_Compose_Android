@@ -1,7 +1,6 @@
-package com.msd.unit_test
+package com.msd.core.presentation
 
-import com.msd.core.presentation.BaseViewModel
-import com.msd.core.presentation.State
+import com.msd.unit_test.CoroutineTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

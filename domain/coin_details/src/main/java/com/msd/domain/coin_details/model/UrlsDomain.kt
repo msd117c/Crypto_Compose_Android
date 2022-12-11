@@ -1,4 +1,4 @@
-package com.msd.coin_details.model
+package com.msd.domain.coin_details.model
 
 data class UrlsDomain(
     val website: String,

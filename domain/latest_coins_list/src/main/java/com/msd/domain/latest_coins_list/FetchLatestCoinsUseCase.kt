@@ -1,6 +1,6 @@
-package com.msd.latest_coins_list
+package com.msd.domain.latest_coins_list
 
-import com.msd.latest_coins_list.model.LatestCoinDomain
+import com.msd.domain.latest_coins_list.model.LatestCoinDomain
 import javax.inject.Inject
 
 class FetchLatestCoinsUseCase @Inject constructor(

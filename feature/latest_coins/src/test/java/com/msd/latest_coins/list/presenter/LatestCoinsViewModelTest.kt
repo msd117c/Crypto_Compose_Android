@@ -6,7 +6,7 @@ import com.msd.latest_coins.common.TestDataBuilder.buildSortByOption
 import com.msd.latest_coins.list.presenter.LatestCoinsState.*
 import com.msd.latest_coins.list.presenter.helper.FetchLatestModelsHelper
 import com.msd.latest_coins.list.presenter.helper.GetLatestCoinSortByOptionsHelper
-import com.msd.unit_test.ViewModelTest
+import com.msd.core.presentation.ViewModelTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Test

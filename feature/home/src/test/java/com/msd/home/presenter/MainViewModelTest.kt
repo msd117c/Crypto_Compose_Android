@@ -3,7 +3,7 @@ package com.msd.home.presenter
 import com.msd.domain.network_capabilities.IsConnectionAvailableUseCase
 import com.msd.home.presenter.MainState.Loaded
 import com.msd.home.presenter.MainState.Uninitialized
-import com.msd.unit_test.ViewModelTest
+import com.msd.core.presentation.ViewModelTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Test

@@ -1,6 +1,6 @@
 package com.msd.data.categories.mapper
 
-import com.msd.categories.model.CategoryDomain
+import com.msd.domain.categories.model.CategoryDomain
 import com.msd.data.categories.model.CategoryData
 
 fun List<CategoryData>.toDomain(): List<CategoryDomain> {

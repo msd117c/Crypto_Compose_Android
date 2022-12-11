@@ -3,7 +3,7 @@ package com.msd.latest_coins.list.presenter.helper
 import androidx.paging.PagingData
 import com.msd.latest_coins.common.TestDataBuilder.buildSortByOption
 import com.msd.latest_coins.list.presenter.model.LatestCoin
-import com.msd.latest_coins_list.FetchLatestCoinsUseCase
+import com.msd.domain.latest_coins_list.FetchLatestCoinsUseCase
 import com.msd.unit_test.CoroutineTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList

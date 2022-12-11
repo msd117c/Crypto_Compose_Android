@@ -36,12 +36,10 @@ android {
 dependencies {
 
     implementation(project(":core:navigation"))
+    implementation(project(":core:unit_test"))
 
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.appCompat)
 
     api(Dependencies.viewModelLifecycleKtx)
-
-    testImplementation(Dependencies.jUnit)
-    testImplementation(Dependencies.coroutinesTest)
 }

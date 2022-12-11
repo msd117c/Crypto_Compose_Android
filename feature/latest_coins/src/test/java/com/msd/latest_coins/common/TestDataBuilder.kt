@@ -2,14 +2,14 @@ package com.msd.latest_coins.common
 
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.Color
-import com.msd.coin_details.model.CoinDetailDomain
-import com.msd.coin_details.model.UrlsDomain
+import com.msd.domain.coin_details.model.CoinDetailDomain
+import com.msd.domain.coin_details.model.UrlsDomain
 import com.msd.latest_coins.R
 import com.msd.latest_coins.detail.presenter.model.CoinDetail
 import com.msd.latest_coins.list.presenter.LatestCoinsState
 import com.msd.latest_coins.list.presenter.model.LatestCoin
-import com.msd.latest_coins_list.model.GrowthDomain
-import com.msd.latest_coins_list.model.LatestCoinDomain
+import com.msd.domain.latest_coins_list.model.GrowthDomain
+import com.msd.domain.latest_coins_list.model.LatestCoinDomain
 
 object TestDataBuilder {
 

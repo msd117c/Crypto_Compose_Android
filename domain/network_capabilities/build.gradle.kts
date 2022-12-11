@@ -11,4 +11,7 @@ java {
 dependencies {
     implementation(Dependencies.inject)
     implementation(Dependencies.coroutinesCore)
+
+    testImplementation(Dependencies.jUnit)
+    testImplementation(Dependencies.mockitoKotlin)
 }

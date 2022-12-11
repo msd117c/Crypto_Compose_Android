@@ -3,7 +3,7 @@ package com.msd.latest_coins.detail.presenter
 import com.msd.latest_coins.common.TestDataBuilder.buildCoinDetail
 import com.msd.latest_coins.detail.presenter.CoinDetailState.*
 import com.msd.latest_coins.detail.presenter.helper.FetchCoinDetailHelper
-import com.msd.unit_test.ViewModelTest
+import com.msd.core.presentation.ViewModelTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Test
 import org.mockito.kotlin.mock

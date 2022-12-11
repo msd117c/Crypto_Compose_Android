@@ -1,9 +1,9 @@
 package com.msd.coin_details.mapper
 
 import com.msd.coin_details.model.CoinDetail
-import com.msd.coin_details.model.CoinDetailDomain
+import com.msd.domain.coin_details.model.CoinDetailDomain
 import com.msd.coin_details.model.Urls
-import com.msd.coin_details.model.UrlsDomain
+import com.msd.domain.coin_details.model.UrlsDomain
 
 fun CoinDetail.toDomain(): CoinDetailDomain {
     return CoinDetailDomain(

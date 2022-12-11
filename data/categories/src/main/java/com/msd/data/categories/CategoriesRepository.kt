@@ -1,7 +1,7 @@
 package com.msd.data.categories
 
-import com.msd.categories.ICategoriesRepository
-import com.msd.categories.model.CategoryDomain
+import com.msd.domain.categories.ICategoriesRepository
+import com.msd.domain.categories.model.CategoryDomain
 import com.msd.data.categories.mapper.toDomain
 import com.msd.data.categories.network.CategoriesRemote
 import javax.inject.Inject

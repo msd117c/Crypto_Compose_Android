@@ -1,4 +1,4 @@
-package com.msd.coin_details
+package com.msd.domain.coin_details
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

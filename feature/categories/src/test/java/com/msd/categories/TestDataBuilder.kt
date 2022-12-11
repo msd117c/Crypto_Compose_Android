@@ -1,6 +1,6 @@
 package com.msd.categories
 
-import com.msd.categories.model.CategoryDomain
+import com.msd.domain.categories.model.CategoryDomain
 import com.msd.categories.presenter.model.Category
 
 object TestDataBuilder {

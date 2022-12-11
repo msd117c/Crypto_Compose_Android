@@ -1,7 +1,7 @@
 package com.msd.categories.presenter.helper
 
 import androidx.paging.PagingData
-import com.msd.categories.FetchCategoriesUseCase
+import com.msd.domain.categories.FetchCategoriesUseCase
 import com.msd.categories.presenter.model.Category
 import com.msd.unit_test.CoroutineTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi

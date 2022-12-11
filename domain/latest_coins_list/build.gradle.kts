@@ -10,4 +10,6 @@ java {
 
 dependencies {
     implementation(Dependencies.inject)
+
+    testImplementation(project(":core:unit_test"))
 }

@@ -4,11 +4,14 @@ import androidx.paging.PagingData
 import com.msd.categories.TestDataBuilder.buildCategory
 import com.msd.categories.presenter.CategoriesState.*
 import com.msd.categories.presenter.helper.FetchCategoriesHelper
-import com.msd.unit_test.ViewModelTest
+import com.msd.core.presentation.ViewModelTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Test
-import org.mockito.kotlin.*
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.only
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
 class CategoriesViewModelTest : ViewModelTest<CategoriesState, CategoriesViewModel>() {

@@ -1,4 +1,4 @@
-package com.msd.categories.model
+package com.msd.domain.categories.model
 
 data class CategoryDomain(
     val id: String,

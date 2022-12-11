@@ -2,8 +2,8 @@ package com.msd.latest_coins.detail.presenter.mapper
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.msd.coin_details.model.CoinDetailDomain
-import com.msd.coin_details.model.UrlsDomain
+import com.msd.domain.coin_details.model.CoinDetailDomain
+import com.msd.domain.coin_details.model.UrlsDomain
 import com.msd.latest_coins.R
 import com.msd.latest_coins.detail.presenter.model.CoinDetail
 import java.text.SimpleDateFormat

@@ -1,4 +1,4 @@
-package com.msd.latest_coins_list.model
+package com.msd.domain.latest_coins_list.model
 
 data class LatestCoinDomain(
     val id: Int,

@@ -1,7 +1,7 @@
 package com.msd.categories.presenter.helper
 
 import androidx.paging.PagingSource
-import com.msd.categories.FetchCategoriesUseCase
+import com.msd.domain.categories.FetchCategoriesUseCase
 import com.msd.categories.TestDataBuilder.buildCategory
 import com.msd.categories.TestDataBuilder.buildCategoryDomain
 import com.msd.categories.presenter.model.Category

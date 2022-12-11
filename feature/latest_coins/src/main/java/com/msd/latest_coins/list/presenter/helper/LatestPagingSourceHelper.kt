@@ -4,7 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.msd.latest_coins.list.presenter.mapper.LatestCoinMapper.toPresentation
 import com.msd.latest_coins.list.presenter.model.LatestCoin
-import com.msd.latest_coins_list.FetchLatestCoinsUseCase
+import com.msd.domain.latest_coins_list.FetchLatestCoinsUseCase
 
 class LatestPagingSourceHelper(
     private val fetchLatestCoinsUseCase: FetchLatestCoinsUseCase,

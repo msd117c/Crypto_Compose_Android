@@ -5,8 +5,8 @@ import com.msd.latest_coins.common.TestDataBuilder.buildLatestCoin
 import com.msd.latest_coins.common.TestDataBuilder.buildLatestCoinDomain
 import com.msd.latest_coins.list.presenter.mapper.LatestCoinMapper.toPresentation
 import com.msd.latest_coins.list.presenter.model.LatestCoin
-import com.msd.latest_coins_list.model.GrowthDomain
-import com.msd.latest_coins_list.model.LatestCoinDomain
+import com.msd.domain.latest_coins_list.model.GrowthDomain
+import com.msd.domain.latest_coins_list.model.LatestCoinDomain
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
