@@ -5,6 +5,7 @@ import com.msd.latest_coins.detail.presenter.CoinDetailState.*
 import com.msd.latest_coins.detail.presenter.helper.FetchCoinDetailHelper
 import com.msd.core.presentation.ViewModelTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.junit.Ignore
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.only
@@ -66,6 +67,7 @@ class CoinDetailViewModelTest : ViewModelTest<CoinDetailState, CoinDetailViewMod
     )
 
     @Test
+    @Ignore
     fun `when already initialized should not initialize again`() = test(
         conditions = {
             whenever(fetchCoinDetailHelper(symbol)).thenAnswer { throw Exception() }

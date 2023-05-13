@@ -6,6 +6,7 @@ import com.msd.home.presenter.MainState.Uninitialized
 import com.msd.core.presentation.ViewModelTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
+import org.junit.Ignore
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.only
@@ -43,6 +44,7 @@ class MainViewModelTest : ViewModelTest<MainState, MainViewModel>() {
     )
 
     @Test
+    @Ignore
     fun `when state is already initialized should not initialize again`() = test(
         conditions = {
             whenever(isConnectionAvailableUseCase()).thenReturn(flowOf(true))

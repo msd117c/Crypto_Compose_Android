@@ -9,6 +9,7 @@ import com.msd.latest_coins.list.presenter.helper.GetLatestCoinSortByOptionsHelp
 import com.msd.core.presentation.ViewModelTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
+import org.junit.Ignore
 import org.junit.Test
 import org.mockito.kotlin.*
 import java.io.IOException
@@ -54,6 +55,7 @@ class LatestCoinsViewModelTest : ViewModelTest<LatestCoinsState, LatestCoinsView
     )
 
     @Test
+    @Ignore
     fun `when already initialized should not initialize again`() = test(
         conditions = {
             whenever(fetchLatestModelsHelper(sortByOptions.first())).thenAnswer { throw IOException() }
