@@ -11,6 +11,8 @@ sealed class CategoriesState : State {
     object Loading : CategoriesState()
     data class Loaded(val categories: Flow<PagingData<Category>>) : CategoriesState()
     object Error : CategoriesState()
+
+    override fun isUninitialized(): Boolean = this == Uninitialized
 }
 
 val initialState = CategoriesState.Uninitialized

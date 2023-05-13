@@ -26,5 +26,7 @@ abstract class BaseViewModel<S : State> : ViewModel() {
         viewModelScope.launch { navigationEvent.emit(NavigationEvent.Idle) }
     }
 
-    abstract fun initialize()
+    open fun initialize() {
+        if (!state.value.isUninitialized()) return
+    }
 }

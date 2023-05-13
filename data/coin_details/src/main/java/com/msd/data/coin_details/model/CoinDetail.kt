@@ -1,4 +1,4 @@
-package com.msd.coin_details.model
+package com.msd.data.coin_details.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

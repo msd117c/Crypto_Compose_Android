@@ -17,7 +17,7 @@ class CategoriesViewModel @Inject constructor(
     override val state: MutableStateFlow<CategoriesState> = MutableStateFlow(initialState)
 
     override fun initialize() {
-        if (state.value !is CategoriesState.Uninitialized) return
+        super.initialize()
 
         viewModelScope.launch {
             state.value = CategoriesState.Loading

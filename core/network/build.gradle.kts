@@ -13,9 +13,9 @@ dependencies {
     implementation(Dependencies.okHttp)
     implementation(Dependencies.okHttpLoggingInterceptor)
 
-    implementation(Dependencies.retrofit)
+    api(Dependencies.retrofit)
     implementation(Dependencies.retrofitMoshiConverter)
 
-    implementation(Dependencies.moshi)
+    api(Dependencies.moshi)
     kapt(Dependencies.moshiCodeGen)
 }

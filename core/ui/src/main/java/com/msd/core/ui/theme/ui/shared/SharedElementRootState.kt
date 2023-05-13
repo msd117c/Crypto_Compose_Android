@@ -64,7 +64,7 @@ class SharedElementRootState {
     }
 
     private fun LayoutCoordinates.buildElementProps(): SharedElementState.SharedElementSateProps {
-        return com.msd.core.ui.theme.ui.shared.SharedElementState.SharedElementSateProps(
+        return SharedElementState.SharedElementSateProps(
             position = boundsInRoot().topLeft,
             size = calculateElementSize(boundsInRoot())
         )

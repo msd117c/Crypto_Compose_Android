@@ -13,5 +13,5 @@ dependencies {
     api(Dependencies.mockitoKotlin)
     api(Dependencies.coroutinesTest)
 
-    testImplementation("org.mockito:mockito-inline:4.0.0")
+    testImplementation(Dependencies.mockitoInline)
 }

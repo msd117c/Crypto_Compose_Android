@@ -19,6 +19,8 @@ sealed class MainState : State {
             CATEGORIES(R.string.menu_item_categories, CategoriesRoute),
         }
     }
+
+    override fun isUninitialized(): Boolean = this == Uninitialized
 }
 
 val initialState = MainState.Uninitialized

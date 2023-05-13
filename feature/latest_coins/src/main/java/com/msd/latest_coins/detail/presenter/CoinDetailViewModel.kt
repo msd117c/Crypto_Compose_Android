@@ -29,7 +29,7 @@ class CoinDetailViewModel @AssistedInject constructor(
     }
 
     override fun initialize() {
-        if (state.value !is CoinDetailState.Uninitialized) return
+        super.initialize()
 
         viewModelScope.launch {
             state.value = CoinDetailState.Loading(state.value.coinData)

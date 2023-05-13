@@ -4,11 +4,10 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("dagger.hilt.android.plugin")
-    id("de.mannodermaus.android-junit5")
     id("kotlin-kapt")
 }
 
-val apiKey: String = gradleLocalProperties(rootDir).getProperty("apiKey")
+val apiKey: String = project.property("apiKey") as String
 
 android {
     compileSdk = Configuration.compileSdkVersion
@@ -91,16 +90,11 @@ dependencies {
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.appCompat)
 
-    implementation(Dependencies.composeUi)
-    implementation(Dependencies.composeRuntime)
-    implementation(Dependencies.composeMaterial)
-    implementation(Dependencies.composeActivity)
     implementation(Dependencies.composeNavigation)
 
     implementation(Dependencies.hilt)
     kapt(Dependencies.hiltAndroidCompiler)
     kapt(Dependencies.hiltCompiler)
     implementation(Dependencies.hiltNavigation)
-    implementation("com.google.android.material:material:1.7.0")
-    implementation(Dependencies.retrofit)
+    implementation(Dependencies.material)
 }

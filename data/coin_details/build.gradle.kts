@@ -15,8 +15,8 @@ dependencies {
 
     implementation(Dependencies.inject)
 
-    implementation(Dependencies.retrofit)
-    implementation(Dependencies.moshi)
     implementation(Dependencies.json)
     kapt(Dependencies.moshiCodeGen)
+
+    testImplementation(project(":core:unit_test"))
 }

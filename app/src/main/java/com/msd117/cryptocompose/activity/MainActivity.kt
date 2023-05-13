@@ -79,57 +79,73 @@ class MainActivity : AppCompatActivity() {
                     navController = navController,
                     startDestination = MainRoute
                 ) {
-                    composable(
-                        this,
-                        MainRoute,
-                        emptyList(),
-                        navController,
-                        { hiltViewModel<MainViewModel>() },
-                        { viewModel -> MainView(viewModel = viewModel) }
-                    )
-                    composable(
-                        this,
-                        LatestCoinsRoute,
-                        emptyList(),
-                        navController,
-                        { hiltViewModel<LatestCoinsViewModel>() },
-                        { viewModel ->
-                            LatestCoinsView(viewModel = viewModel)
-                        }
-                    )
-                    composable(
-                        this,
-                        CoinDetailsRoute,
-                        listOf(
-                            navArgument(CoinDetailsRouteSymbolArg) { type = NavType.StringType },
-                            navArgument(CoinDetailsRouteIconArg) { type = NavType.StringType },
-                            navArgument(CoinDetailsRouteNameArg) { type = NavType.StringType }
-                        ),
-                        navController,
-                        {
-                            with(navController.currentBackStackEntry?.arguments) {
-                                val symbol = this?.getString(CoinDetailsRouteSymbolArg).orEmpty()
-                                val icon = this?.getString(CoinDetailsRouteIconArg).orEmpty()
-                                val name = this?.getString(CoinDetailsRouteNameArg).orEmpty()
-                                coinDetailViewModel(symbol, icon, name)
-                            }
-                        },
-                        { viewModel -> CoinDetailView(viewModel = viewModel) }
-                    )
-                    composable(
-                        this,
-                        CategoriesRoute,
-                        emptyList(),
-                        navController,
-                        { hiltViewModel<CategoriesViewModel>() },
-                        { viewModel -> CategoriesView(viewModel = viewModel) }
-                    )
+                    mainView(builder = this, navController)
+                    latestCoinsView(builder = this, navController)
+                    coinDetailView(builder = this, navController)
+                    categoriesView(builder = this, navController)
                 }
             }
         }
     }
 
-    fun <S : State, V : BaseViewModel<S>> composable(
+    private fun mainView(builder: NavGraphBuilder, navController: NavHostController) {
+        composable(
+            builder,
+            MainRoute,
+            emptyList(),
+            navController,
+            { hiltViewModel<MainViewModel>() },
+            { viewModel -> MainView(viewModel = viewModel) }
+        )
+    }
+
+    private fun latestCoinsView(builder: NavGraphBuilder, navController: NavHostController) {
+        composable(
+            builder,
+            LatestCoinsRoute,
+            emptyList(),
+            navController,
+            { hiltViewModel<LatestCoinsViewModel>() },
+            { viewModel ->
+                LatestCoinsView(viewModel = viewModel)
+            }
+        )
+    }
+
+    private fun coinDetailView(builder: NavGraphBuilder, navController: NavHostController) {
+        composable(
+            builder,
+            CoinDetailsRoute,
+            listOf(
+                navArgument(CoinDetailsRouteSymbolArg) { type = NavType.StringType },
+                navArgument(CoinDetailsRouteIconArg) { type = NavType.StringType },
+                navArgument(CoinDetailsRouteNameArg) { type = NavType.StringType }
+            ),
+            navController,
+            {
+                with(navController.currentBackStackEntry?.arguments) {
+                    val symbol = this?.getString(CoinDetailsRouteSymbolArg).orEmpty()
+                    val icon = this?.getString(CoinDetailsRouteIconArg).orEmpty()
+                    val name = this?.getString(CoinDetailsRouteNameArg).orEmpty()
+                    coinDetailViewModel(symbol, icon, name)
+                }
+            },
+            { viewModel -> CoinDetailView(viewModel = viewModel) }
+        )
+    }
+
+    private fun categoriesView(builder: NavGraphBuilder, navController: NavHostController) {
+        composable(
+            builder,
+            CategoriesRoute,
+            emptyList(),
+            navController,
+            { hiltViewModel<CategoriesViewModel>() },
+            { viewModel -> CategoriesView(viewModel = viewModel) }
+        )
+    }
+
+    private fun <S : State, V : BaseViewModel<S>> composable(
         builder: NavGraphBuilder,
         route: String,
         arguments: List<NamedNavArgument>,

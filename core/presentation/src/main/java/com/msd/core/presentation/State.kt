@@ -1,3 +1,6 @@
 package com.msd.core.presentation
 
-interface State
+interface State {
+
+    fun isUninitialized(): Boolean
+}

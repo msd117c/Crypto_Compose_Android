@@ -19,6 +19,8 @@ sealed class CoinDetailState(open val coinData: CoinData = EMPTY_COIN_DATA) : St
         override val coinData: CoinData,
         val coinDetail: CoinDetail
     ) : CoinDetailState(coinData)
+
+    override fun isUninitialized(): Boolean = this is Uninitialized
 }
 
 val initialState = CoinDetailState.Uninitialized(EMPTY_COIN_DATA)

@@ -23,6 +23,8 @@ sealed class LatestCoinsState : State {
     }
 
     object Error : LatestCoinsState()
+
+    override fun isUninitialized(): Boolean = this == Uninitialized
 }
 
 val initialState = LatestCoinsState.Uninitialized

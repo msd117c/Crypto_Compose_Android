@@ -19,7 +19,7 @@ class LatestCoinsViewModel @Inject constructor(
     override val state: MutableStateFlow<LatestCoinsState> = MutableStateFlow(initialState)
 
     override fun initialize() {
-        if (state.value !is LatestCoinsState.Uninitialized) return
+        super.initialize()
 
         val sortByOptions = getLatestCoinSortByOptionsHelper()
         fetchLatestCoins(sortByOptions = sortByOptions)

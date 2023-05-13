@@ -6,7 +6,9 @@ object Dependencies {
     val viewModelLifecycleKtx by lazy { "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.viewModelLifecycleKtx}" }
     val coroutinesCore by lazy { "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}" }
 
-    val composeRuntime by lazy { "androidx.compose.runtime:runtime:1.4.0-alpha02" }
+    val material by lazy { "com.google.android.material:material:${Versions.material}" }
+
+    val composeRuntime by lazy { "androidx.compose.runtime:runtime:${Versions.composeRuntime}" }
     val composeUi by lazy { "androidx.compose.ui:ui:${Versions.compose}" }
     val composeMaterial by lazy { "androidx.compose.material:material:${Versions.compose}" }
     val composeTooling by lazy { "androidx.compose.ui:ui-tooling:${Versions.compose}" }
@@ -36,11 +38,10 @@ object Dependencies {
     val json by lazy { "org.json:json:${Versions.json}" }
 
     val jUnit by lazy { "junit:junit:${Versions.jUnit}" }
-    val jUnitExt by lazy { "androidx.test.ext:junit:${Versions.jUnitExt}" }
     val mockitoKotlin by lazy { "org.mockito.kotlin:mockito-kotlin:${Versions.mockitoKotlin}" }
+    val mockitoInline by lazy { "org.mockito:mockito-inline:${Versions.mockitoKotlin}" }
     val coroutinesTest by lazy { "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}" }
 
     val espressoCore by lazy { "androidx.test.espresso:espresso-core:${Versions.espresso}" }
-    val espressoJUnit by lazy { "androidx.test.ext:junit:${Versions.espressoJUnit}" }
     val espressoJunitExt by lazy { "androidx.test.ext:junit:${Versions.espressoJUnit}" }
 }

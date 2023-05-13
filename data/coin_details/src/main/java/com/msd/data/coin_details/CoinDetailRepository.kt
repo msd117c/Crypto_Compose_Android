@@ -1,8 +1,8 @@
-package com.msd.coin_details
+package com.msd.data.coin_details
 
-import com.msd.coin_details.mapper.toDomain
+import com.msd.data.coin_details.mapper.CoinDetailDomainMapper.toDomain
 import com.msd.domain.coin_details.model.CoinDetailDomain
-import com.msd.coin_details.network.CoinDetailRemote
+import com.msd.data.coin_details.network.CoinDetailRemote
 import com.msd.domain.coin_details.ICoinDetailsRepository
 import javax.inject.Inject
 

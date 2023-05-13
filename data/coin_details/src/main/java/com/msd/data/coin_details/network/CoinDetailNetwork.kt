@@ -1,4 +1,4 @@
-package com.msd.coin_details.network
+package com.msd.data.coin_details.network
 
 import com.msd.network.ApiConstants
 import com.msd.network.ApiConstants.COIN_DETAIL_SYMBOL_PARAMETER
